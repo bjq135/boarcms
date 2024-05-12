@@ -4,7 +4,7 @@ export default {
   titleTemplate: 'BoarAPI',
   description: '一个使用 Node.js 和 MySQL 的 Web 开发框架',
   // base: '/boar', // base URL
-  outDir: '../public/docs/boar',
+  outDir: '../public/docs/boarapi',
   themeConfig: {
     // logo: '/logo.svg',
     // 顶部导航栏内容

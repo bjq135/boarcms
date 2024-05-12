@@ -7,7 +7,7 @@
     "test": "node ./tests/test.js",
     "dev": "nodemon ./api/main.js --ext js,json,html -i ./public",
     "docs": "vitepress dev docs --port 5000",
-    "docs:build": "vitepress build docs --base /docs/boar/",
+    "docs:build": "vitepress build docs --base /docs/boarapi/",
     "sass": "sass --watch ./home/assets/home/scss:./home/assets/home/css --no-source-map",
     "rollup": "rollup ./home/assets/home/js/index.js --file ./home/assets/home/js/bundle.js --format iife --watch",
     "sass:admin": "sass --watch ./admin/assets/admin/scss:./admin/assets/admin/css --no-source-map"

@@ -35,15 +35,15 @@ class ArticlesService {
       // 3.检查分类是否合法
       sql = 'SELECT id FROM tb_category WHERE FIND_IN_SET(id, ?)';
       [results] = await conn.execute(sql, [data.categories]);
-      let categoriesArr = categories.split(',');
+      let categoriesArr = data.categories.split(',');
       if (results.length == 0 || results.length != categoriesArr.length) {
         throw new Error(i18n.__('category_id_is_not_valid'));
       }
     
       // 4.批量添加文章分类关系
       sql = `INSERT INTO tb_article_to_category (article_id, category_id) VALUES (?,?)`;
-      for (let i = 0; i < categories.length; i++) {
-        [results] = await conn.execute(sql, [articleId, categories[i]]);
+      for (let i = 0; i < categoriesArr.length; i++) {
+        [results] = await conn.execute(sql, [articleId, categoriesArr[i]]);
       }
     
       // 5.处理 tags
