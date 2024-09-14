@@ -10,13 +10,13 @@ router.get('/v1', function(req, res, next){
   res.json({ version:'1.0.1' });
 });
 
-const articlesController = require('./controllers/articles.js');
-const categoriesController = require('./controllers/categories.js');
-const authController = require('./controllers/auth.js');
-const pagesController = require('./controllers/pages.js');
-const uploadController = require('./controllers/upload.js');
-const imagesController = require('./controllers/images.js');
-const tagsController = require('./controllers/tags.js');
+const articlesController = require('./api/controllers/articles.js');
+const categoriesController = require('./api/controllers/categories.js');
+const authController = require('./api/controllers/auth.js');
+const pagesController = require('./api/controllers/pages.js');
+const uploadController = require('./api/controllers/upload.js');
+const imagesController = require('./api/controllers/images.js');
+const tagsController = require('./api/controllers/tags.js');
 
 
 router.get(`/v1/articles`, articlesController.index);
@@ -58,8 +58,8 @@ router.post(`/v1/upload`, auth.check, multer().single('file'), uploadController.
 router.get(`/v1/images`, auth.check, imagesController.index);
 router.delete(`/v1/images/:id`, auth.check, imagesController.destroy);
 
-router.all('*', function (req, res){
-  res.status(400).json({error:'router 404'});
-});
+// router.all('*', function (req, res){
+//   res.status(400).json({error:'router 404'});
+// });
 
 module.exports = router;

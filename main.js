@@ -7,15 +7,8 @@ const express = require('express');
 const app = express();
 app.disable('x-powered-by');
 
-const dotenv = require('dotenv')
-dotenv.config();
-
 const cookieSession = require('cookie-session');
-app.use(cookieSession({
-  name: 'session',
-  keys: ['miao','wang'],
-  maxAge: 24 * 60 * 60 * 1000
-}));
+app.use(cookieSession({ name: 'session', keys: ['m','w'], maxAge:999999999 }));
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
@@ -39,22 +32,12 @@ app.use(express.static('public'));
 
 // 模板引擎
 app.set('view engine', 'ejs');
-app.set('views', [path.join(__dirname, '../admin/views'), path.join(__dirname, '../home/views')] );
+app.set('views', path.join(__dirname, './views') );
 app.engine('.html', require('ejs').__express);
 
 // i18n 国际化
 const i18n = require('./utils/i18n/index.js');
 i18n(app);
-
-// 子模块
-if ( config.modules.indexOf('home') != -1) {
-  const home = require('../home/index.js');
-  home(app);
-}
-if ( config.modules.indexOf('admin') != -1) {
-  const admin = require('../admin/index.js');
-  admin(app);
-}
 
 // 路由
 const router = require('./router');
@@ -66,5 +49,5 @@ app.use(error);
 
 const port = config.service.port;
 app.listen(port, () => {
-  console.log(`[boar] running on: http://127.0.0.1:${port}`);
+  console.log(`running on: http://127.0.0.1:${port}`);
 });

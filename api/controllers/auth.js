@@ -1,9 +1,9 @@
 const i18n = require('i18n');
 
-const config = require("../config.js");
+const config = require("../../config.js");
 const Validator = require('fov');
-const commonUtil = require('../utils/common.js');
-const dbUtil = require('../utils/db.js');
+const commonUtil = require('../../utils/common.js');
+const dbUtil = require('../../utils/db.js');
 
 const AuthService = require("../services/auth.js");
 const UsersService = require('../services/users.js');

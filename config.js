@@ -3,9 +3,6 @@
  */
 
 // 读取 .env 文件
-const dotenv = require('dotenv');
-dotenv.config({ path: './.env' });
-
 module.exports = {
   // 服务器配置
   service: {

@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 
 const i18n = require('i18n');
-const config = require("../config.js");
+const config = require("../../config.js");
 
 class MailService {
   // 发送验证码

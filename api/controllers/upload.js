@@ -5,10 +5,10 @@ const url = require("node:url");
 const i18n = require('i18n');
 const Jimp = require('jimp');
 
-const commonUtil = require('../utils/common.js');
-const dbUtil = require('../utils/db.js');
-const Dao = require('../utils/dao.js');
-const logger = require('../utils/logger.js');
+const commonUtil = require('../../utils/common.js');
+const dbUtil = require('../../utils/db.js');
+const Dao = require('../../utils/dao.js');
+const logger = require('../../utils/logger.js');
 
 async function upload(req, res) {
   var userId = req.userId;

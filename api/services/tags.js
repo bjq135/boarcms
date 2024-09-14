@@ -1,8 +1,8 @@
 /*
  * ALTER TABLE tb_tag ADD unique(`tag_title`);
  */
-const commonUtil = require('../utils/common.js');
-const dbUtil = require('../utils/db.js');
+const commonUtil = require('../../utils/common.js');
+const dbUtil = require('../../utils/db.js');
 
 module.exports = class TagsService {
   /**

@@ -5,10 +5,10 @@ const url = require("node:url");
 
 const i18n = require('i18n');
 
-const dbUtil = require("../utils/db.js");
-const commonUtil = require("../utils/common.js");
-const Dao = require('../utils/dao.js');
-const logger = require('../utils/logger.js');
+const dbUtil = require("../../utils/db.js");
+const commonUtil = require("../../utils/common.js");
+const Dao = require('../../utils/dao.js');
+const logger = require('../../utils/logger.js');
 
 
 async function index(req, res) {

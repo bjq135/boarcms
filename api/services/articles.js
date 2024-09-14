@@ -1,8 +1,8 @@
 const i18n = require('i18n');
 
-const commonUtil = require('../utils/common.js');
-const dbUtil = require('../utils/db.js');
-const Dao = require('../utils/dao.js');
+const commonUtil = require('../../utils/common.js');
+const dbUtil = require('../../utils/db.js');
+const Dao = require('../../utils/dao.js');
 
 
 class ArticlesService {

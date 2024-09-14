@@ -1,6 +1,6 @@
-const dbUtil = require('../utils/db.js');
-const commonUtil = require('../utils/common.js');
-const Dao = require('../utils/dao.js');
+const dbUtil = require('../../utils/db.js');
+const commonUtil = require('../../utils/common.js');
+const Dao = require('../../utils/dao.js');
 
 const TagsService = require('../services/tags.js');
 

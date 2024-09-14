@@ -1,8 +1,8 @@
 const i18n = require('i18n');
 const Validator = require('fov');
 
-const Dao = require('../utils/dao.js');
-const commonUtil = require('../utils/common.js');
+const Dao = require('../../utils/dao.js');
+const commonUtil = require('../../utils/common.js');
 
 const CategoriesService = require('../services/categories.js');
 

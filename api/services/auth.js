@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const config = require("../config.js");
+const config = require("../../config.js");
 
 
 class AuthService {
