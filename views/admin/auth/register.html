@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 </title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+</head>
+<body class="auth-page">
+    <div class="auth-widget">
+        <div class="auth-title">注册</div>
+
+        <div class="field field-text">
+            <input type="text" name="account" value="" placeholder="手机号或邮箱地址">
+        </div>
+        <div class="field field-text">
+            <input type="password" name="password" value="" placeholder="密码">
+            <button class="show-password"></button>
+        </div>
+        <div class="field field-text">
+            <input type="text" name="code" value="" placeholder="验证码">
+            <button class="send-code" type="button">发送验证码 <span style="display: none;">0</span></button>
+        </div>
+        <div class="field field-button">
+            <button class="ajax-submit register-button">提交</button>
+        </div>
+        <div class="field field-action">
+            <a class="bottom-link" href="/reset-password">重置密码</a>
+            <a class="bottom-link" href="/login">登录账户</a>
+        </div>
+        <div class="field field-links">
+            <a class="bottom-link" href="/">
+              <span class='iconfont'>&#xe703;</span>
+              返回首页
+            </a>
+        </div>
+    </div>
+
+    <script type="module" src="/assets/admin/js/toast.js"></script>
+    <script type="module">
+    import toast from '/assets/admin/js/toast.js';
+    window.addEventListener('load', function(){
+        showPasswordInit();
+        sendCodeInit();
+        registerInit();
+    });
+
+    function showPasswordInit(){
+        var showPasswordButton = document.querySelector('.show-password');
+        if(!showPasswordButton){ return; }
+        showPasswordButton.addEventListener('click', function(){
+            if( this.classList.contains('show') == false){
+                this.classList.add('show');
+                this.parentNode.querySelector('input').setAttribute('type', 'text');
+            } else {
+                this.classList.remove('show');
+                this.parentNode.querySelector('input').setAttribute('type', 'password');
+            }
+        });
+    }
+
+    async function sendCodeInit(){
+        var sendCodeButton = document.querySelector('.send-code');
+        var time = 60;
+        sendCodeButton.addEventListener('click', async function(){
+            var that = this;
+            this.querySelector('span').innerHTML = time;
+            this.querySelector('span').style.display = 'inline-block';
+            this.setAttribute('disabled', 'disabled');
+            var response = await fetch('/v1/auth/send-code', {
+                method:'POST',
+                body:JSON.stringify({
+                    account:document.querySelector('input[name="account"]').value,
+                    length:6,
+                    flag:'register'
+                }),
+                headers:new Headers({
+                    'Content-Type':'application/json'
+                })
+            });
+            if(response.status == 200){
+                toast.open({title:"验证码发送成功"});
+            } else {
+                var responseData = await response.json();
+                toast.open({title:responseData.error});
+            }
+            
+            var t = setInterval(function(){
+                if(time == 0){
+                    clearInterval(t);
+                    that.querySelector('span').style.display = 'none';
+                    that.removeAttribute('disabled');
+                    time = 60;
+                    return;
+                }
+                time--;
+                that.querySelector('span').innerHTML = time;
+            }, 1000);
+        });
+    }
+
+    async function registerInit(){
+        var registerButton = document.querySelector('.register-button');
+        if(registerButton == null){ return; }
+        registerButton.addEventListener('click', async function(){
+            this.setAttribute('disabled', 'disabled');
+            try {
+                var response = await fetch('/v1/auth/register', {
+                    method:'POST',
+                    body:JSON.stringify({
+                        account:document.querySelector('input[name="account"]').value,
+                        password:document.querySelector('input[name="password').value,
+                        code:document.querySelector('input[name="code').value
+                    }),
+                    headers:new Headers({'Content-Type':'application/json'})
+                });
+                var responseJson = await response.json();
+                if(response.status == '200'){
+                    alert("重置成功，需要跳转！");
+                } else {
+                    toast.open({title:responseJson.error ? responseJson.error : "服务器错误"});
+                }
+            } catch (error) {
+                toast.open({title:error.message});
+            } finally {
+                setTimeout(function(){
+                    registerButton.removeAttribute('disabled');
+                }, 1000);
+            }
+        });
+    }
+    </script>
+</body>
+</html>

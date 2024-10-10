@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <!-- <script src="nav.js"></script> -->
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="breadcrumb mt-15 mb-15">
+                <i class="iconfont">&#xe89a;</i>
+                <span>
+                    <a href="javascript:;">
+                        <span>首页</span>
+                    </a>
+                </span>
+                <span>
+                    <a href="javascript:;">
+                        <span>订单</span>
+                    </a>
+                </span>
+                <span class="active">订单详情</span>
+            </div>
+
+      
+            <form class="ajax-form" action="/v1/orders/<%- order.order_number %>" method="post">
+                <div class="form-row mt-30">
+                    <label for="input-name">订单号</label>
+                    <input type="text" class="form-control" name="title" value="<%- order.order_number %>" disabled>
+                </div>
+
+                <div class="form-row">
+                    <label for="input-description">描述</label>
+                    <textarea class="form-control" name="description" rows="3"><%- order.description %></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <label for="input-name">状态</label>
+                    <div class="form-check">
+                        <input type="radio" name="status" id="status0" value="0" <% if(order.status==0){ %>checked="checked" <% } %> >
+                        <label for="status0">未付款</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="status" id="status1" value="1" <% if(order.status==1){ %>checked="checked" <% } %> >
+                        <label for="status1">已付款</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="status" id="status2" value="2" <% if(order.status==2){ %>checked="checked" <% } %> >
+                        <label for="status2">已发货</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="status" id="status3" value="3" <% if(order.status==3){ %>checked="checked" <% } %> >
+                        <label for="status3">已签收</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="radio" name="status" id="status4" value="4" <% if(order.status==4){ %>checked="checked" <% } %> >
+                        <label for="status4">退货申请</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="status" id="status5" value="5" <% if(order.status==5){ %>checked="checked" <% } %> >
+                        <label for="status5">退货中</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="status" id="status6" value="6" <% if(order.status==6){ %>checked="checked" <% } %> >
+                        <label for="status6">已退货</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="status" id="status7" value="7" <% if(order.status==7){ %>checked="checked" <% } %> >
+                        <label for="status7">取消交易</label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <!-- <input type="hidden" name="id" value=""> -->
+                    <input type="hidden" name="_method" value="put">
+                    <button type="submit" class="btn btn-primary ajax-submit">提交</button>
+                    <a href="/mall/orders/<%- order.order_number%>" target="_blank" class="btn btn-default">预览</a>
+                </div>
+            </form>
+       
+        </div>
+    </div>
+    <link rel="stylesheet" href="/assets/plugins/quill/quill.snow.css">
+    <script src="/assets/plugins/quill/quill.min.js"></script>
+    <script src="/assets/admin/js/axios/axios.js"></script>
+    <script src="/assets/admin/js/editor.js"></script>
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

@@ -12,7 +12,7 @@ const logger = createLogger({
   transports: [
     // new winston.transports.Console({ json: true, colorize: true }),
     new winston.transports.File({
-      filename: path.join(__dirname, '../../logs/error.log')
+      filename: path.join(__dirname, '../logs/error.log')
     })
   ]
 });

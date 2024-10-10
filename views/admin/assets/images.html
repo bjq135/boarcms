@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片 - <%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">图片</div>
+            </div>
+            
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th width="20"><input type="checkbox" class="check-all"></th>
+                        <th width="50">ID</th>
+                        <th>图片</th>
+                        <th width="130">作者</th>
+                        <th width="160">时间</th>
+                        <th width="35">状态</th>
+                        <th width="80">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(list.length){ %>
+                        <% list.forEach(function(item){ %>
+                        <tr>
+                            <td width="20"><input type="checkbox" name="ids[]" value="<%- item.id%>"></td>
+                            <td><%- item.id%></td>
+                            <td>
+                                <% if(item.url){%>
+                                    <img src="<%- item.url %>" class="preview-image">
+                                <% } %>
+                            </td>
+                            <td>
+                                <img src="<%- item.user.avatar %>" class="avatar">
+                                <%- item.user.nickname%>
+                            </td>
+                            <td><%- item.created_at %></td>
+                            <td>
+                                <% if(item.status==1){ %>
+                                <span class="text-success">显示</span>
+                                <% }else{ %>
+                                <span class="text-danger">隐藏</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-danger delete-current-image" 
+                                    data-url="/v1/images/<%- item.id%>"
+                                    data-message='确定要删除吗？'>删除</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+
+            <div class="">
+                <%- pager %>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+    import utils from '/assets/admin/js/src/utils.js';
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+    
+    var deleteButtons = document.querySelectorAll('.delete-current-image');
+    if(deleteButtons){
+        deleteButtons.forEach(function(button, index){
+            button.addEventListener('click', async (e) => {
+                var cfm = confirm('确认要删除这个图片吗？');
+                if(!cfm){ return; }
+    
+                var url = e.target.dataset.url;
+                var response = await fetchWrapper(url, {
+                    method:'DELETE',
+                    headers:new Headers({ 'Content-Type':'application/json' })
+                });
+    
+                if(response.status == 204){
+                    new LightTip('删除成功', 1000, 'success');
+                    setTimeout(()=>{ location.href = location.href }, 1000);
+                }else{
+                    var responseJson = await response.json();
+                    new LightTip(responseJson.error, 2000, 'error');
+                }
+            });
+        });
+    }
+    </script>
+    
+    
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">新建分类</div>
+            </div>
+
+            <form class="ajax-form" action="/v1/categories" method="POST">
+                <div class="form-row">
+                    <label for="input-name">分类名称</label>
+                    <input type="text" class="form-control" name="title" value="">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">父级分类</label>
+                    <select class="form-control" name="parent_id">
+                        <option value="0">顶级分类</option>
+                        <%- options %>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label for="input-description">简介</label>
+                    <textarea class="form-control" name="description" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label>缩略图上传</label>
+                    <div class="thumbnail-uploader">
+                        <div class="button-group">
+                            <button type="button" class="upload-button btn btn-sm btn-primary">上传</button>
+                            <button type="button" class="delete-button btn btn-sm btn-danger">删除</button>
+                        </div>
+                        <div class="thumbnail-image">
+                        </div>
+                        <input type="hidden" name="thumbnail_id" value="">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">序号</label>
+                    <input type="text" class="form-control" name="list_order" value="99">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">状态</label>
+                    <div class="form-check">
+                        <input type="radio" name="is_show" id="is_show1" value="1" checked>
+                        <label for="is_show1">显示</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="is_show" id="is_show2" value="0">
+                        <label for="is_show2">隐藏</label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <button type="button" class="btn btn-primary ajax-submit">提交</button>
+                </div>
+            </form>
+      
+        </div>
+    </div>
+
+    <script type="module">
+    import utils from '/assets/admin/js/src/utils.js';
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+    
+
+    var button = document.querySelector('.ajax-submit');
+    if(button){
+        button.addEventListener('click', async function (e){
+            e.preventDefault();
+
+            let form = document.querySelector(".ajax-form");
+            let formData = new FormData(form);
+            let categories = formData.getAll('categories').toString();
+            formData.set("categories", categories);
+            let json = utils.formDataToJson(formData);
+            json.thumbnail_id = json.thumbnail_id || 0;
+            console.log('json ', json);
+            let payload = JSON.stringify(json);
+            let jsonHeaders = new Headers({'Content-Type': 'application/json'});
+            let url = form.action;
+            console.log('url ', url)
+
+            let response = await fetchWrapper(url, {
+                method: 'POST',
+                headers: jsonHeaders,
+                body: payload
+            });
+            if(response.status == 201){
+                let result = await response.json();
+                location.href = '/admin/categories/' + result.id + '/edit';
+            } else {
+                let responseJson = await response.json();
+                new LightTip(responseJson.error, 2000, 'error');
+            }
+        });
+    }
+    </script>
+
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

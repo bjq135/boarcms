@@ -57,7 +57,7 @@ function getManyCategory(parent_id, arr, nbsp, ids, name = 'tags[]') {
   for (let i = 0; i < childArr.length; i++) {
     options += '<label>';
     options += '<input type="checkbox" value="' + childArr[i].id + '"';
-    if (ids.indexOf(childArr[i].id.toString()) > -1) {
+    if (ids.indexOf(childArr[i].id) > -1) {
       options += ' checked="checked"';
     }
     // 如果 ids 是空数组，让第一个 option 选中
@@ -70,37 +70,6 @@ function getManyCategory(parent_id, arr, nbsp, ids, name = 'tags[]') {
   }
 
   return options;
-}
-
-/**
- * 获取菜单数组
- * @param  req 
- * @returns Array
- */
-const nav = require('../app/admin/config.nav.js');
-function getAdminNav(req) {
-  // const nav = require('../config/config.nav');
-  var navShow = [];
-
-  // 一级目录
-  for (var item of nav) {
-    item.isActive = false;
-    // 二级目录
-    var temp = [];
-    for (let i of item.children) {
-      i.isActive = false;
-
-      var path = req.path;
-      if (i.url == path || i.route == path) {
-        i.isActive = true;
-        item.isActive = true; // 设置父节点
-      }
-      temp.push(i);
-    }
-    item.children = temp;
-    navShow.push(item);
-  }
-  return navShow;
 }
 
 function getChildrenHTML(nav) {
@@ -158,7 +127,6 @@ function getAvatarUrl(url) {
 module.exports = {
   getOptions,
   getManyCategory,
-  getAdminNav,
   getChildrenHTML,
   getMenuHtml,
   getMenuHtmlPc,

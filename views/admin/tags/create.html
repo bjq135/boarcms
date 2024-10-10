@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新建标签 - <%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <!-- <script src="nav.js"></script> -->
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">新建标签</div>
+            </div>
+
+            <form class="ajax-form" action="/v1/tags" method="POST">
+                <div class="form-row">
+                    <label for="input-name">标签名称</label>
+                    <input type="text" class="form-control" name="title" value="">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">序号</label>
+                    <input type="text" class="form-control" name="list_order" value="99">
+                </div>
+
+                <div class="form-row">
+                    <button type="button" class="btn btn-primary ajax-submit">提交</button>
+                </div>
+            </form>
+      
+        </div>
+    </div>
+
+
+    <script type="module">
+    import utils from '/assets/admin/js/src/utils.js';
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    var button = document.querySelector('.ajax-submit');
+    if(button){
+        button.addEventListener('click', async function (e){
+            e.preventDefault();
+
+            let form = document.querySelector(".ajax-form");
+            let formData = new FormData(form);
+            let json = utils.formDataToJson(formData);
+            let payload = JSON.stringify(json);
+            let jsonHeaders = new Headers({'Content-Type': 'application/json'});
+            let url = form.action;
+
+            let response = await fetchWrapper(url, {
+                method: 'POST',
+                headers: jsonHeaders,
+                body: payload
+            });
+            if(response.status == 201){
+                let result = await response.json();
+                new LightTip("添加成功", 'success');
+                setTimeout(function(){
+                    location.href = '/admin/tags/' + result.id + '/edit';
+                }, 1000);
+            } else {
+                let responseJson = await response.json();
+                new LightTip(responseJson.error, 'error');
+            }
+        });
+    }
+    </script>
+
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

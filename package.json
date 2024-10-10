@@ -4,12 +4,13 @@
   "description": "README",
   "main": "main",
   "scripts": {
-    "dev": "node --watch --env-file .env main.js",
+    "dev": "node --watch --env-file .env --watch-path=./ main.js",
     "docs": "vitepress dev docs --port 5000",
     "docs:build": "vitepress build docs --base /docs/boarapi/",
     "sass": "sass --watch ./home/assets/home/scss:./home/assets/home/css --no-source-map",
     "rollup": "rollup ./home/assets/home/js/index.js --file ./home/assets/home/js/bundle.js --format iife --watch",
-    "sass:admin": "sass --watch ./admin/assets/admin/scss:./admin/assets/admin/css --no-source-map"
+    "admin:sass": "sass --watch ./public/assets/admin/scss:./public/assets/admin/css --no-source-map",
+    "admin:rollup": "rollup ./public/assets/admin/js/src/index.js --file ./public/assets/admin/js/index.js --format iife --watch"
   },
   "author": "",
   "license": "ISC",

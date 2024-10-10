@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <!-- <script src="nav.js"></script> -->
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">分类</div>
+            </div>
+            
+            <div class="table-actions">
+                <button class="btn btn-primary update-order" 
+                    type="submit" 
+                    data-action="/admin/articles-categories/update-order">排序</button>
+                <a class="btn btn-success" href="/admin/categories/create">添加分类</a>
+            </div>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="50">排序</th>
+                        <th width="50">ID</th>
+                        <th>名称</th>
+                        <th width="60">状态</th>
+                        <th width="160">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%- menus %>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <script type="module">
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    var deleteButtons = document.querySelectorAll('a[data-method="delete"]');
+    if(deleteButtons){
+        deleteButtons.forEach(function(button, index){
+            button.addEventListener('click', async (e) => {
+                var cfm = confirm(e.target.dataset.message);
+                if(!cfm){ return; }
+
+                var url = e.target.dataset.url;
+                var response = await fetchWrapper(url, {
+                    method:'DELETE',
+                    headers:new Headers({ 'Content-Type':'application/json' })
+                });
+
+                if(response.status == 204){
+                    new LightTip('删除成功', 'success');
+                    setTimeout(()=>{ location.href = location.href }, 1000);
+                }else{
+                    var responseJson = await response.json();
+                    new LightTip('删除失败：'+responseJson.error, 2000, 'error');
+                }
+            });
+        });
+    }
+
+    var updateOrder = document.querySelector('.update-order');
+    updateOrder.addEventListener('click', e=>{
+        new LightTip('这个功能还未完成');
+    });
+    </script>
+
+
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

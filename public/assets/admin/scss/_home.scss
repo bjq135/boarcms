@@ -1,0 +1,99 @@
+/**
+ * 首页模块
+ */
+.index-info-widget{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -30px;
+  box-sizing:border-box;
+  padding:3px;
+}
+
+.index-info-widget .info-item{
+  display: flex;
+  align-items:center;
+  justify-content: flex-start;
+  width: calc(50% - 30px);
+  height: 150px;
+  box-shadow: 0 0 5px var(--rt-shadow-color);
+  margin: 0 30px 30px 0;
+  color: var(--rt-text-color-grey);
+  background-color: var(--rt-bg-color-card);
+}
+
+.index-info-widget .info-item .desc{
+  display: flex;
+  flex-direction: column;
+}
+.index-info-widget .info-item .desc span:nth-child(1){
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+.index-info-widget .info-item .iconfont{
+  font-size: 50px;
+  margin: 0 20px 0 20px;
+}
+
+@media only screen and (min-width: 900px) {
+  .index-info-widget .info-item{
+    width: calc(25% - 30px);
+  }
+}
+
+
+.info-panel{
+  box-shadow: 0 0 3px var(--rt-shadow-color);
+  box-sizing:border-box;
+  padding: 15px;
+  color: var(--rt-text-color-grey);
+  background-color: var(--rt-bg-color-card);
+}
+
+.info-panel .title{
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.info-panel .info-item-widget{
+
+}
+
+.info-panel .info-item-widget .info-item{
+  padding: 8px 0;
+}
+
+.info-panel .info-item-widget .info-item span{
+  margin-right: 20px;
+}
+
+@media only screen and (min-width: 900px) {
+  
+}
+
+
+
+//
+// 统一按钮
+// ----------------------------------------------------------------------------
+.form-group{
+  .btn.ajax-submit{
+    margin-right: 10px;
+  }
+}
+
+
+//
+// 幻灯片缩略图
+// ----------------------------------------------------------------------------
+.slider-item{
+  margin-bottom: 30px;
+  .preview-img{
+    width: auto;
+    height: auto;
+    max-width: 80px;
+    max-height: 80px;
+  }
+  input{
+    margin-bottom: 3px;
+  }
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">新建文章</div>
+            </div>
+            
+
+            <form class="ajax-form" action="/v1/articles" method="post">
+            <!-- <form class="ajax-form" action="/admin/index/test" method="post"> -->
+                <div class="form-row">
+                    <label for="input-name">名称</label>
+                    <input type="text" class="form-control" name="title" value="">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">分类</label>
+                    <div class="checkbox-container">
+                        <%- categoriesHTML %>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="input-description">简介</label>
+                    <textarea class="form-control" name="description" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label>缩略图</label>
+                    <div class="thumbnail-uploader">
+                        <div class="button-group">
+                            <button type="button" class="upload-button btn btn-sm btn-primary">上传</button>
+                            <button type="button" class="delete-button btn btn-sm btn-danger">删除</button>
+                        </div>
+                        <div class="thumbnail-image"></div>
+                        <input type="hidden" name="thumbnail_id" value="">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="input-description">内容</label>
+                    <div class="editor-container">
+                        <textarea name="content" style="display:none;"></textarea>
+                        <div id="editor"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="input-description">标签</label>
+                    <div class="tags-checkbox-container">
+                        <% if(tags) {%>
+                           <% for (const tag of tags) { %>
+                               <label>
+                                   <input type="checkbox" name="tags" value="<%- tag.id %>" >
+                                   <%- tag.tag_title %>
+                               </label>
+                           <% } %>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">地址</label>
+                    <input type="text" class="form-control" name="url" value="">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">序号</label>
+                    <input type="text" class="form-control" name="list_order" value="99">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">点击数</label>
+                    <input type="text" class="form-control" name="hit_counter" value="1">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">创建时间</label>
+                    <input type="datetime-local" class="form-control" name="created_at" value="">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">状态</label>
+                    <div class="form-check">
+                        <input type="radio" name="is_show" id="is_show1" value="1">
+                        <label for="is_show1">显示</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="is_show" id="is_show2" value="0" checked="checked">
+                        <label for="is_show2">隐藏</label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <!-- <input type="hidden" name="id" value=""> -->
+                    <!-- <input type="hidden" name="_method" value="put"> -->
+                    <button type="submit" class="btn btn-primary ajax-submit"
+                        data-redirect-url="/admin/articles/:id/edit"
+                    >提交</button>
+                </div>
+            </form>
+        
+        </div>
+    </div>
+
+    <script type="module">
+    import utils from '/assets/admin/js/src/utils.js';
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    var button = document.querySelector('.ajax-submit');
+    if(button){
+        button.addEventListener('click', async function (e){
+            e.preventDefault();
+
+            let form = document.querySelector(".ajax-form");
+            let formData = new FormData(form);
+            let categories = formData.getAll('categories').toString();
+            let tags = formData.getAll('tags').toString();
+            formData.set("categories", categories);
+            formData.set("tags", tags);
+            formData.set('content', tinyMCE.activeEditor.getContent());
+            let json = utils.formDataToJson(formData);
+            json.thumbnail_id = parseInt(json.thumbnail_id);
+
+            let payload = JSON.stringify(json);
+            let jsonHeaders = new Headers({ 'Content-Type': 'application/json'});
+            
+            try{
+                let response = await fetchWrapper('/v1/articles', {
+                    method: 'POST',
+                    headers: jsonHeaders,
+                    body: payload
+                });
+                if(response.status == 201){
+                    let article = await response.json();
+                    new LightTip('添加成功', 2000,'success');
+                    setTimeout(()=>{
+                        location.href = '/admin/articles/' + article.id + '/edit';
+                    }, 2000);                    
+                } else {
+                    let responseJson = await response.json();
+                    let message = responseJson.error ? responseJson.error : '添加失败';
+                    new LightTip(responseJson.error, 2000, 'error');
+                }
+            }catch(e){
+                new LightTip(e.message, 'error');
+            }
+        });
+    }
+    </script>
+    
+
+    <%- include('../common/footer.html') %>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <!-- <script src="nav.js"></script> -->
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">标签</div>
+            </div>
+
+            <div class="table-actions">
+                <a class="btn btn-primary" href="/admin/tags/create">添加标签</a>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th width="20"><input type="checkbox" class="check-all"></th>
+                        <th width="50">ID</th>
+                        <th>名称</th>
+                        <th width="110">排序</th>
+                        <th width="110">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(tags.length){ %>
+                        <% tags.forEach(function(t){ %>
+                        <tr>
+                            <td><input type="checkbox" name="ids[]" value="<%- t.id%>"></td>
+                            <td><%- t.id%></td>
+                            <td>
+                                <a href="/tags/<%- t.tag_title%>" target="_blank"><%- t.tag_title%></a>
+                            </td>
+                            <td><%- t.list_order %></td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="/admin/tags/<%- t.id%>/edit">编辑</a>
+                                <a class="btn btn-sm btn-danger delete-button" 
+                                    data-url="/v1/tags/<%- t.id%>"
+                                    data-message='确定要删除"<%- t.tag_title%>"吗？'>删除</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } %>
+
+                </tbody>
+            </table>
+
+            <%- pager %>
+
+        </div>
+    </div>
+    
+    <script type="module">
+    import utils from '/assets/admin/js/src/utils.js';
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+    
+    var deleteButtons = document.querySelectorAll('.delete-button');
+    if(deleteButtons){
+        deleteButtons.forEach(function(button, index){
+            button.addEventListener('click', async (e) => {
+                var cfm = confirm(e.target.dataset.message);
+                if(!cfm){ return; }
+    
+                var url = e.target.dataset.url;
+                var response = await fetchWrapper(url, {
+                    method:'DELETE',
+                    headers:new Headers({ 'Content-Type':'application/json' })
+                });
+    
+                if(response.status == 204){
+                    new LightTip('删除成功', 'success');
+                    setTimeout(()=>{ location.href = location.href }, 1000);
+                }else{
+                    var responseJson = await response.json();
+                    new LightTip(responseJson.error, 'error');
+                }
+            });
+        });
+    }
+    </script>
+    
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

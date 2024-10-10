@@ -8,13 +8,17 @@ const app = express();
 app.disable('x-powered-by');
 
 const cookieSession = require('cookie-session');
-app.use(cookieSession({ name: 'session', keys: ['m','w'], maxAge:999999999 }));
+app.use(cookieSession({
+  name: 'boar-session',
+  keys: ['boar'],
+  maxAge:172800000,
+  httpOnly:false,
+  sameSite:'lax',
+  secure:false
+}));
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
-
-const cors = require('cors');
-app.use(cors());
 
 const methodOverride = require('method-override');
 app.use(methodOverride('X-HTTP-Method-Override'));
@@ -38,9 +42,13 @@ app.engine('.html', require('ejs').__express);
 // i18n 国际化
 const i18n = require('./utils/i18n/index.js');
 i18n(app);
-
+ 
 // 路由
-const router = require('./router');
+const homeRouter = require('./home/router');
+app.use(homeRouter);
+const adminRouter = require('./admin/router');
+app.use(adminRouter);
+const router = require('./api/router');
 app.use(router);
 
 // 错误处理

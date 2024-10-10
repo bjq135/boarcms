@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <!-- <script src="nav.js"></script> -->
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+
+    <%- include('./common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('./common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">系统首页</div>
+            </div>
+            
+            <div class="index-info-widget">
+                <div class="info-item">
+                    <i class="iconfont">&#xe8bc;</i>
+                    <div class="desc">
+                        <span><%- articleCounter %></span>
+                        <span>文章数量</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="iconfont">&#xe75d;</i>
+                    <div class="desc">
+                        <span><%- categoryCounter %></span>
+                        <span>分类数量</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="iconfont">&#xe6fb;</i>
+                    <div class="desc">
+                        <span><%- pageCounter %></span>
+                        <span>页面数量</span>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="iconfont">&#xe8a5;</i>
+                    <div class="desc">
+                        <span><%- userCounter ? userCounter : '' %></span>
+                        <span>用户数量</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="title">最新访问</div>
+                <p>访问总量：<%- unloadCounter %> 今日访问量：<%- typeof todayUnloadCounter !== undefined ? todayUnloadCounter : '' %></p>
+                <div class="info-item-widget">
+                    <% if(unload.length){ %>
+                        <% unload.forEach(function(item){ %>
+                            <div class="info-item">
+                                <span><%- item.ip %></span>
+                                <span><%- item.created_at %></span>
+                                <span><%- item.url %></span>
+                            </div>
+                        <% }) %>
+                    <% } %>
+                </div>
+            </div>      
+        </div>
+    </div>
+
+    <%- include('./common/footer.html') %>
+</body>
+</html>
+
+

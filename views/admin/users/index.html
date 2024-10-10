@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <!-- <script src="nav.js"></script> -->
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">用户</div>
+            </div>
+            
+
+            <form class="form-search" method="get">
+                <select class="form-control" name="status">
+                    <option value="all" <% if( status=='all'){ %> selected=selected <%}%> >全部状态</option>
+                    <option value="0"   <% if( status=='0'){ %> selected=selected <%}%> >禁用</option>
+                    <option value="1"   <% if( status=='1'){ %> selected=selected <%}%> >正常</option>
+                    <option value="2"   <% if( status=='2'){ %> selected=selected <%}%> >未激活</option>
+                </select>
+
+                <input type="text" class="form-control" name="keyword" id="keyword" placeholder="请输入关键词..." value="<%- keyword %>">
+
+                <button type="submit" class="btn btn-default">搜索</button>
+                <!-- <button type="button" class="btn btn-default" onclick="document.forms[0].reset();">搜索</button> -->
+                <a href="/admin/users" class="btn btn-default">重置</a>
+            </form>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th width="20"><input type="checkbox" class="check-all"></th>
+                        <th width="50">ID</th>
+                        <th>昵称</th>
+                        <th width="110">手机号</th>
+                        <th width="110">邮箱</th>
+                        <th width="130">签名</th>
+                        <th width="160">注册时间</th>
+                        <th width="80">状态</th>
+                        <th width="110">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(users.length){ %>
+                        <% users.forEach(function(user){ %>
+                        <tr>
+                            <td><input type="checkbox" name="ids[]" value="<%- user.id%>"></td>
+                            <td><%- user.id%></td>
+                            <td>
+                                <% if(user.avatar){%>
+                                    <img src="<%- user.avatar %>" class="avatar img-preview">
+                                <% }else{ %>
+                                    <img src="/assets/admin/images/no-thumbnail.png" class="avatar img-preview">
+                                <% } %>
+                                <%- user.nickname%>
+                            </td>
+                            <td><%- user.mobile %></td>
+                            <td><%- user.email %></td>
+                            <td><span title="<%- user.signature %>"><%- // user.signature.substr(0,20) %></span></td>
+                            <td><%- user.created_at %></td>
+                            <td>
+                                <% if(user.status=='0'){ %>
+                                    <span class="text-danger">禁用</span>
+                                <% }else if(user.status=='1'){ %>
+                                    <span class="text-danger">正常</span>
+                                <% }else if(user.status=='2'){ %>
+                                    <span class="text-danger">已激活</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="/admin/users/<%- user.id%>/edit">编辑</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } %>
+
+                </tbody>
+            </table>
+
+            <%- pager %>
+
+        </div>
+    </div>
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

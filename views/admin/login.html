@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+</head>
+<body class="auth-page">
+    <div class="auth-widget">
+        <div class="auth-title">登录</div>
+
+        <div class="field field-text">
+            <input type="text" name="account" value="" placeholder="手机号或邮箱地址">
+        </div>
+        <div class="field field-text">
+            <input type="password" name="password" value="" placeholder="密码">
+            <button class="show-password"></button>
+        </div>
+        <div class="field field-button">
+            <button type="button" class="ajax-submit login-button">提交</button>
+        </div>
+        <div class="field field-action">
+            <a class="bottom-link" href="/reset-password">重置密码</a>
+            <a class="bottom-link" href="/register">注册账户</a>
+        </div>
+        <div class="field field-links">
+            <a class="bottom-link" href="/">
+              <span class='iconfont'>&#xe703;</span>
+              返回首页
+            </a>
+        </div>
+    </div>
+
+    <script type="module">
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    window.addEventListener('load', function(){
+        showPasswordInit();
+        buttonEventInit();
+    });
+
+    function showPasswordInit(){
+        var showPasswordButton = document.querySelector('.show-password');
+        if(!showPasswordButton){ return; }
+        showPasswordButton.addEventListener('click', function(){
+            if( this.classList.contains('show') == false){
+                this.classList.add('show');
+                this.parentNode.querySelector('input').setAttribute('type', 'text');
+            } else {
+                this.classList.remove('show');
+                this.parentNode.querySelector('input').setAttribute('type', 'password');
+            }
+        });
+    }
+
+    function buttonEventInit(){
+        var loginButton = document.querySelector('.login-button');
+        if(loginButton == null){ return; }
+        loginButton.addEventListener('click', async function(){
+            var payload = JSON.stringify({
+                account:document.querySelector('input[name="account"]').value,
+                password:document.querySelector('input[name="password"]').value
+            });
+            var jsonHeaders = new Headers({
+                'Content-Type':'application/json'
+            });
+            var response = await fetchWrapper('http://127.0.0.1:3000/v1/auth/login?ss=test', {
+                method:'POST',
+                body:payload,
+                headers:jsonHeaders
+            });
+            // console.log('response ', response)
+            var responseJson = await response.json();
+            if(response.status == 200){
+                console.log('json1: ',  responseJson);
+                location.href = '/admin/index'
+            }else{
+                new LightTip(responseJson.error, 'error');
+            }
+            // console.log(response);
+        });
+    }
+
+    </script>
+
+</body>
+</html>

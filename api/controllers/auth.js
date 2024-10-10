@@ -1,4 +1,5 @@
 const i18n = require('i18n');
+const Tokens = require('csrf');
 
 const config = require("../../config.js");
 const Validator = require('fov');
@@ -62,6 +63,10 @@ async function login(req, res, next){
 
   // 生成 session，在前后端不分离项目中使用
   req.session.userId = userInfo.id;
+
+  const tokens = new Tokens();
+  var secret = tokens.secretSync()
+  res.cookie('_csrf', secret, { maxAge: 60 * 1000 });
 
   let data = { token, user: userInfo };
   res.status(200).send(data);

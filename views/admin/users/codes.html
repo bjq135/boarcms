@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <!-- <script src="nav.js"></script> -->
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">   
+            <div class="app-header">
+                <div class="title">验证码</div>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th width="50">ID</th>
+                        <th>验证码</th>
+                        <th width="110">账户</th>
+                        <th width="110">是否用过</th>
+                        <th width="130">IP地址</th>
+                        <th width="140">标志</th>
+                        <th width="180">创建时间</th>
+                        <th width="180">过期时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(list.length){ %>
+                        <% list.forEach(function(item){ %>
+                        <tr>
+                            <td><%- item.id %></td>
+                            <td><%- item.code %></td>
+                            <td><%- item.account %></td>
+                            <td><%- item.is_used %></td>
+                            <td><%- item.ip %></td>
+                            <td><%- item.flag %></td>
+                            <td><%- item.created_at %></td>
+                            <td><%- item.expired_at %></td>
+                        </tr>
+                        <% }) %>
+                    <% } %>
+
+                </tbody>
+            </table>
+
+            <%- pager %>
+
+        </div>
+    </div>
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

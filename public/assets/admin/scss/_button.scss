@@ -1,0 +1,98 @@
+//
+// Buttons
+// --------------------------------------------------
+
+// Base styles
+// --------------------------------------------------
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  padding: 0px 12px;
+  margin: 0px;
+  height: 34px;
+  line-height: 32px;
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+  border: 1px solid #d9d9d9;
+  border-radius: var(--rt-border-radius);
+  box-sizing: border-box;
+  // &:not(.btn-default):not(.btn-danger):focus{
+  //   color: var(--rt-color-primary);
+  //   border-color: var(--rt-color-primary);
+  // }
+}
+
+
+.btn:focus,
+.btn.focus,
+.btn:active:focus,
+.btn:active.focus,
+.btn.active:focus,
+.btn.active.focus {
+  outline: 0;
+  outline-width: 0px;
+  filter: brightness(1.1);
+}
+
+
+// 按钮颜色
+// --------------------------------------------------
+.btn-default {
+  color: var(--rt-text-color);
+  background-color: var(--rt-bg-color-card);
+  border-color: var(--rt-border-color);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: var(--rt-color-primary);
+  border-color: var(--rt-color-primary);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+}
+
+.btn-success {
+  color: #fff;
+  background-color: var(--rt-color-success);
+  border-color: var(--rt-color-success);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+}
+
+.btn-warning {
+  color: #fff;
+  background-color: var(--rt-color-warning);
+  border-color: var(--rt-color-warning);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+}
+
+.btn-danger{
+  color: #fff;
+  background-color: var(--rt-color-error);
+  border-color: var(--rt-color-error);
+  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+}
+
+// primary | ghost | dashed | link | text | default
+
+
+// 按钮大小
+// --------------------------------------------------
+.btn-sm{
+  height: 22px;
+  line-height: 18px;
+  font-size: 10px;
+}
+.btn-big{
+  font-size: 14px;
+  padding: 8px 25px;
+}
+
+

@@ -1,0 +1,61 @@
+//
+/* 编辑器里 pre 标签 */
+
+/*
+.ql-syntax{
+  font-size: 12px!important;
+  background-color: #ebe9e9!important;
+  color: #333!important;
+}
+
+.editor-container {
+  width: 100%;
+  position: relative;
+}
+#editor{
+  width: 100%;
+  height: 500px;
+  // position: relative;
+}
+div[data-mode="link"]{
+  left: calc(50% - 150px)!important;
+}
+.ql-editor{
+  & > *{
+    margin: 10px 0px 0px 0px !important;
+    &:nth-child(1){
+      margin-top: 0px!important;
+    }
+  }
+  h1,h2,h3,h4,h5,h6{
+    margin-top: 20px!important;
+    margin-bottom: 10px!important;
+  }
+  p{
+    &:nth-child(1){
+      margin-top: 0px!important;
+    }
+    margin: 10px 0px 0px 0px !important;
+  }
+}
+
+*/
+
+
+// #editor_ifr{
+//   background-color: green;
+// }
+
+
+#editor_ifr:focus-visible{
+  outline: none;
+}
+
+
+
+
+
+
+
+
+

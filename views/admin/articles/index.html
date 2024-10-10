@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">文章</div>
+            </div>
+
+            <form class="form-search" method="get">
+                <select class="form-control" name="bulk_action_option" id="bulk_action_option">
+                    <option value="action_0">批量操作</option>
+                    <option value="action_1">显示</option>
+                    <option value="action_2">隐藏</option>
+                </select>
+                <button class="btn btn-default bulk_action_button" type="button">应用</button>
+                
+                <select class="form-control" name="category_id" id="category_id">
+                    <option value="0">全部分类</option>
+                    <%- options %>
+                </select>
+
+                <select class="form-control" name="is_show" id="is_show">
+                    <option value="2" <% if(is_show=='2'){ %> selected=selected <%}%> >全部状态</option>
+                    <option value="1" <% if(is_show=='1'){ %> selected=selected <%}%> >显示</option>
+                    <option value="0" <% if(is_show=='0'){ %> selected=selected <%}%> >隐藏</option>
+                </select>
+
+                <input type="text" class="form-control" name="keyword" id="keyword" placeholder="请输入关键词..." value="<%- keyword %>">
+
+                <button type="submit" class="btn btn-default">搜索</button>
+                <a href="/admin/articles" class="btn btn-default">重置</a>
+            </form>
+
+            <div class="table-actions">
+                <a class="btn btn-default" href="/admin/articles/create">添加文章</a>
+            </div><!-- ./table-actions -->
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th width="20"><input type="checkbox" class="check-all"></th>
+                        <th width="50">ID</th>
+                        <th>名称</th>
+                        <th width="130">作者</th>
+                        <th width="200">分类</th>
+                        <th width="110">时间</th>
+                        <th width="35">状态</th>
+                        <th width="110">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(list.length){ %>
+                        <% list.forEach(function(item){ %>
+                        <tr>
+                            <td width="20"><input type="checkbox" name="ids" value="<%- item.id%>"></td>
+                            <td><%- item.id%></td>
+                            <td>
+                                <% if(item.thumbnail){%>
+                                    <img src="<%- item.thumbnail %>" class="img-preview">
+                                <% } else {%>
+                                    <!-- <img src="/assets/common/images/no-thumbnail.png" class="img-preview"> -->
+                                <% } %>
+                                <a href="/articles/<%- item.id%>" target="_blank"><%- item.title%></a>
+                            </td>
+                            <td>
+                                <img src="<%- item.user.avatar %>" class="avatar">
+                                <%- item.user.nickname%>
+                            </td>
+                            <td>
+                                <% item.categories.forEach(c =>{ %>
+                                    <%- c.title %>
+                                <% }) %>
+                            </td>
+                            <td><%- item.created_at %></td>
+                            <td>
+                                <% if(item.is_show){ %>
+                                <span class="text-success">显示</span>
+                                <% }else{ %>
+                                <span class="text-danger">隐藏</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="/admin/articles/<%- item.id%>/edit">编辑</a>
+                                <a class="btn btn-sm btn-danger delete-current-article" 
+                                    data-url="/v1/articles/<%- item.id%>"
+                                    data-message='确定要删除吗？'>删除</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } %>
+                </tbody>
+            </table>
+
+            <div class="">
+                <%- pager %>
+            </div>
+        </div>
+    </div>
+    <%- include('../common/footer.html') %>
+
+
+    <script type="module">
+    /* 删除操作 */
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    var deleteButtons = document.querySelectorAll('.delete-current-article');
+    if(deleteButtons){
+        deleteButtons.forEach(function(button, index){
+            button.addEventListener('click', async (e) => {
+                var cfm = confirm('确认要删除这个文章吗？');
+                if(!cfm){ return; }
+
+                var url = e.target.dataset.url;
+                try{
+                    var response = await fetchWrapper(url, {
+                        method:'DELETE',
+                        headers:new Headers({ 'Content-Type':'application/json' })
+                    });
+                    
+                    if(response.status == 204){
+                        new LightTip('删除成功', 2000, 'success');
+                        setTimeout(()=>{ location.href = location.href }, 1000);
+                    }else{
+                        var responseJson = await response.json();
+                        new LightTip(responseJson.error, 2000, 'error');
+                    }
+                }catch(error){
+                    new LightTip(error.message, 2000, 'error');
+                }
+                
+            });
+        });
+    }
+    </script>
+        
+
+    <script type="module">
+    /* 批量操作 */
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    var bulkActionButton = document.querySelector('.bulk_action_button');
+    bulkActionButton.addEventListener('click', function(){
+        let bulkOptionValue = document.querySelector('#bulk_action_option').value;
+        let action = 'is_show=false';
+        if(bulkOptionValue == 'action_0'){
+            return;
+        } else if(bulkOptionValue == 'action_1') {
+            action = 'is_show=true';
+        } else if(bulkOptionValue == 'action_2') {
+            action = 'is_show=false';
+        } else {
+            action = 'is_show=false';
+        }
+        
+        let ids = [];
+        let idsCheckboxes = document.querySelectorAll('input[name="ids"]');
+        for (let k in idsCheckboxes) {
+            if(idsCheckboxes[k].checked){
+                ids.push(idsCheckboxes[k].value);
+            }
+        }
+        
+        if(ids.length == 0 ){
+            new LightTip('请选中文章！', 2000, 'error');
+            return;
+        }
+        
+        const data = { ids: ids.toString(),  action };
+        console.log(data);
+        
+        fetchWrapper('/v1/articles/bulk-action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept':'application/json' },
+          body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+          new LightTip('批量修改成功！', 1000, 'error');
+          setTimeout(() => location.href = location.href, 1000);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert(error);
+        });
+    });
+    </script>
+</body>
+</html>
+
+

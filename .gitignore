@@ -95,6 +95,7 @@ bin/test.js
 
 public/uploads
 public/docs
+public/3d
 
 docs/.vitepress/dist
 docs/.vitepress/cache
@@ -105,5 +106,12 @@ tests/*
 
 !logs/.gitkeep
 
-home
-admin
+/home
+# /admin
+
+/public/assets/home
+# /public/assets/admin
+
+/views/home
+
+

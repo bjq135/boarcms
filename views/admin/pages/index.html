@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <!-- <script src="nav.js"></script> -->
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">页面</div>
+            </div>
+
+            <a class="btn btn-default" href="/admin/pages/create">添加页面</a>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th width="20"><input type="checkbox" class="check-all"></th>
+                        <th width="50">ID</th>
+                        <th>名称</th>
+                        <th width="110">状态</th>
+                        <th width="110">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(pages.length){ %>
+                        <% pages.forEach(function(t){ %>
+                        <tr>
+                            <td><input type="checkbox" name="ids[]" value="<%- t.id%>"></td>
+                            <td><%- t.id%></td>
+                            <td><%- t.title%></td>
+                            <td>
+                                <% if(t.is_show){ %>
+                                    <span class="text-success">显示</span>
+                                <% } else {%>
+                                    <span class="text-danger">隐藏</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="/admin/pages/<%- t.id%>/edit">编辑</a>
+                                <a class="btn btn-sm btn-default" href="/pages/<%- t.id%>" target="_blank">查看</a>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    <% } %>
+
+                </tbody>
+            </table>
+
+            <%- pager %>
+
+        </div>
+    </div>
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

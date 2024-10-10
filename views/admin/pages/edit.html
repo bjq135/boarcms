@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <style type="text/css">
+    .tox .tox-edit-area::before {
+      border: 0px solid #fff !important;
+    }
+    </style>
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">编辑页面</div>
+            </div>
+            
+            <form class="ajax-form" action="/v1/pages/<%- id %>" method="post">
+                <div class="form-row">
+                    <label for="input-name">标题</label>
+                    <input type="text" class="form-control" name="title" value="<%- title %>">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-description">简介</label>
+                    <textarea class="form-control" name="description" rows="3"><%- description %></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label>缩略图上传</label>
+                    <div class="thumbnail-uploader">
+                        <div class="button-group">
+                            <button type="button" class="upload-button btn btn-sm btn-primary">上传</button>
+                            <button type="button" class="delete-button btn btn-sm btn-danger">删除</button>
+                        </div>
+                        <div class="thumbnail-image"></div>
+                        <input type="hidden" name="thumbnail_id" value="<%- thumbnail_id %>">
+                    </div>
+                </div>
+
+
+
+                <div class="form-row">
+                    <label for="input-description">内容</label>
+                    <div class="editor-container">
+                        <!-- <textarea name="content" style="display:none;"></textarea>
+                        <div id="editor"><%- content %></div> -->
+
+                        <textarea name="content" id="editor"><%- content %></textarea>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <label for="template">模板</label>
+                    <input type="text" class="form-control" name="template" value="<%- template %>">
+                </div>
+
+                <div class="form-row">
+                    <label for="route_url">别名</label>
+                    <input type="text" class="form-control" name="route_url" value="<%- route_url %>">
+                </div>
+
+                <div class="form-row">
+                    <label for="input-name">状态</label>
+                    <div class="form-check">
+                        <input type="radio" name="is_show" id="is_show1" value="1"
+                            <% if(is_show==1){ %>checked="checked" <% } %>
+                            >
+                        <label for="is_show1">显示</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="is_show" id="is_show2" value="0"
+                            <% if(is_show==0){ %>checked="checked" <% } %>
+                            >
+                        <label for="is_show2">隐藏</label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <input type="hidden" name="id" value="<%- id %>">
+                    <!-- <input type="hidden" name="_method" value="put"> -->
+                    <button type="button"class="btn btn-primary btn-create">提交</button>
+                    <button type="button" class="btn btn-danger btn-delete">删除</button>
+                    <a class="btn btn-default" target="_blank" href="/pages/<%- id %>">查看</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script type="module">
+    import utils from '/assets/admin/js/src/utils.js';
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    var button = document.querySelector('.btn-create');
+    if(button){
+        button.addEventListener('click', async function (e){
+            e.preventDefault();
+
+            let form = document.querySelector(".ajax-form");
+            let formData = new FormData(form);
+            formData.set('content', tinyMCE.activeEditor.getContent());
+            let json = utils.formDataToJson(formData);
+
+            try {
+                let payload = JSON.stringify(json);
+                let jsonHeaders = new Headers({ 'Content-Type': 'application/json' });
+                let url = form.action;
+                let response = await fetchWrapper(url, {
+                    method: 'PUT',
+                    headers: jsonHeaders,
+                    body: payload
+                });
+
+                if(response.status == 200){
+                    new LightTip('修改成功','success');
+                    // toast.open({title:'修改成功'});
+                } else {
+                    let responseJson = await response.json();
+                    new LightTip(responseJson.error, 'error');
+                }
+            } catch(e) {
+                new LightTip(e.message, 'error');
+            }
+        });
+    }
+
+
+    document.querySelector(".btn-delete").addEventListener('click', async function(e){
+        let msg = "确定要删除吗？";
+        if(confirm(msg) == false){
+            return;
+        }
+
+        let pageId = document.querySelector('input[name="id"]').value;
+        let url = "/v1/pages/" + pageId;
+        var payload = { id: pageId};
+
+        const response = await fetchWrapper(url, {
+            method: 'DELETE',
+            headers: {"Content-type": "application/json; charset=UTF-8"},
+        });
+
+        if(response.status == 204){
+            new LightTip('删除成功', 1000,'success');
+            setTimeout(()=>{
+                location.href = '/admin/pages';
+            }, 1000);
+        }else{
+            let responseJson = await response.json();
+            new LightTip(responseJson.error, 'error');
+        }
+    });
+    </script>
+    
+    <%- include('../common/footer.html') %>
+</body>
+</html>

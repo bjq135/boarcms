@@ -1,0 +1,38 @@
+<div class="header-action">
+    
+</div>
+
+<%
+var navShow = admin.getAdminNav(req);
+%>
+
+<ul class="nav-list">
+    <% for(item of navShow){ %>
+        <% if(!item.isShow) continue; %>
+        <li <%- item.isActive ? 'class="active"' : ''%>>
+            <a href="<%- item.url ? item.url : 'javascript:;'%>">
+                <span class="arr-right"></span>
+                <i class="iconfont"><%-item.icon%></i>
+                <span><%-item.title%></span>
+                <% if(item.children.length){ %><i class="iconfont arrow">&#xe8a4;</i> <% } %>
+            </a>
+            <% if(item.children.length){ %>
+                <ul class="children-list">
+                    <% for(i of item.children){ %>
+                        <% if(!i.isShow) continue; %>
+                        <li <%- i.isActive ? 'class="active"' : ''%>>
+                            <a href="<%-i.url%>">
+                                <i class="iconfont"><%-i.icon%></i><span><%-i.title%></span>
+                            </a>
+                        </li>
+                    <% } %>
+                </ul>
+            <% } %>
+        </li>
+    <% } %>
+
+</ul>
+
+
+
+

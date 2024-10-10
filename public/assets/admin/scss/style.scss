@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+@import "_normalize.scss";
+@import "_variables.scss";
+@import "_login.scss";
+@import "_iconfont.scss";
+@import "_button.scss";
+@import "_pagination.scss";
+@import "_form.scss";
+@import "_table.scss";
+@import "_upload.scss";
+@import "_tab.scss";
+@import "_preview.scss";
+@import "_text.scss";
+@import "_editor.scss";
+@import "_toast.scss";
+@import "_dashboard.scss";
+@import "_home.scss";
+@import "_side-menu.scss";
+@import "_header.scss";
+
+
+html,
+body {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Microsoft YaHei UI", "Microsoft YaHei", Helvetica, Arial, Verdana, sans-serif;
+  font-size: 13px;
+  background-color: var(--rt-bg-color);
+  min-height: 100vh;
+}
+
+a{
+  text-decoration: none;
+  color: var(--rt-text-color);
+}
+
+
+@import '../lib/ui/animate.css';
+@import '../lib/ui/light-tip.css';
+
+

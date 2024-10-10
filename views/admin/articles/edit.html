@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">编辑文章</div>
+            </div>
+            
+            <form class="ajax-form" action="/v1/articles/<%- article.id %>" method="post">
+                <div class="form-row">
+                    <label>名称</label>
+                    <input type="text" class="form-control" name="title" value="<%- article.title %>">
+                </div>
+
+                <div class="form-row">
+                    <label>分类</label>
+                    <div class="checkbox-container">
+                        <%- categoriesHTML %>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label>简介</label>
+                    <textarea class="form-control" name="description" rows="3"><%- article.description %></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label>缩略图</label>
+                    <div class="thumbnail-uploader">
+                        <div class="button-group">
+                            <button type="button" class="upload-button btn btn-sm btn-primary">上传</button>
+                            <button type="button" class="delete-button btn btn-sm btn-danger">删除</button>
+                        </div>
+                        <div class="thumbnail-image">
+                            <% if(article.thumbnail_image) {%>
+                                <img src="<%- article.thumbnail_image %>">
+                            <% } %>
+                        </div>
+                        <input type="hidden" name="thumbnail_id" value="<%- article.thumbnail_id %>">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label>内容</label>
+                    <div class="editor-container">
+                        <textarea name="content" style="display:none;"></textarea>
+                        <div id="editor"><%- article.content %></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label>更多</label>
+                    <textarea class="form-control" name="more" rows="3"><%- article.more %></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <label>标签</label>
+                    <div class="tags-checkbox-container">
+                        <% if(tags) {%>
+                            <% for (const tag of tags) { %>
+                                <label>
+                                    <input type="checkbox" name="tags" 
+                                    value="<%- tag.id %>" <%- tag.active ? 'checked' : '' %> >
+                                    <%- tag.tag_title %>
+                                </label>
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <label>地址</label>
+                    <input type="text" class="form-control" name="url" value="<%- article.url %>">
+                </div>
+
+                <div class="form-row">
+                    <label>序号</label>
+                    <input type="text" class="form-control" name="list_order" value="<%- article.list_order %>">
+                </div>
+
+                <div class="form-row">
+                    <label>点击数</label>
+                    <input type="text" class="form-control" name="hit_counter" value="<%- article.hit_counter %>">
+                </div>
+
+                <% if(meta) {%>
+                    <% for (const key in meta) { %>
+                        <div class="form-row">
+                            <label>meta: <%- meta[key].meta_name %></label>
+                            <input type="text" class="form-control" name="meta[<%- meta[key].meta_key %>]" value="<%- meta[key].meta_value %>">
+                        </div>
+                    <% } %>
+                <% } %>
+
+                <div class="form-row">
+                    <label>创建时间</label>
+                    <input type="datetime-local" class="form-control" name="created_at" value="<%- article.created_at %>">
+                </div>
+            
+                <div class="form-row">
+                    <label>状态</label>
+                    <div class="form-check">
+                        <input type="radio" name="is_show" id="is_show1" value="1"
+                            <% if(article.is_show==1){ %>checked="checked" <% } %>
+                            >
+                        <label for="is_show1">显示</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="is_show" id="is_show2" value="0"
+                            <% if(article.is_show==0){ %>checked="checked" <% } %>
+                            >
+                        <label for="is_show2">隐藏</label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <input type="hidden" name="_method" value="put">
+                    <button type="submit" class="btn btn-primary ajax-submit">提交</button>
+                    <a href="/articles/<%- article.id%>" class="btn btn-default">预览</a>
+                    <a href="javascript:;" class="btn btn-danger delete-article-button" data-id="<%- article.id%>">删除</a>
+                </div>
+            </form>
+        
+        </div>
+    </div>
+
+
+    <script type="module">
+    import utils from '/assets/admin/js/src/utils.js';
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    var button = document.querySelector('.ajax-submit');
+    if(button){
+        button.addEventListener('click', async function (e){
+            e.preventDefault();
+
+            let form = document.querySelector(".ajax-form");
+            let formData = new FormData(form);
+            let categories = formData.getAll('categories').toString();
+            let tags = formData.getAll('tags').toString();
+            formData.set("categories", categories);
+            formData.set("tags", tags);
+            formData.set('content', tinyMCE.activeEditor.getContent());
+            let json = utils.formDataToJson(formData);
+            json.thumbnail_id = parseInt(json.thumbnail_id);
+
+            let payload = JSON.stringify(json);
+            let jsonHeaders = new Headers({ 'Content-Type': 'application/json' });
+            let url = form.action;
+            
+            try{
+                let res = await fetchWrapper(url, {
+                    method: 'PUT',
+                    headers: jsonHeaders,
+                    body: payload
+                });
+                let responseJson = await res.json();
+                if(res.status == 200){
+                    new LightTip('修改成功', 'success');
+                } else {
+                    new LightTip(responseJson.error, 'error');
+                }
+            }catch(e){
+                new LightTip(e.message, 'error');
+            }
+        });
+    }
+    </script>
+    
+    <script type="module">
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    document.querySelector('.delete-article-button')?.addEventListener('click', async (e) => {
+        var cfm = confirm('确认要删除这个文章吗？');
+        if(!cfm){ return; }
+
+        var jsonHeaders = new Headers({ 'Content-Type':'application/json' });
+
+        var postId = e.target.dataset.id;
+        var url = '/v1/articles/' + postId;
+        var payload = JSON.stringify({});
+
+        var res = await fetchWrapper(url, {
+            method:'DELETE',
+            body:payload,
+            headers:jsonHeaders
+        });
+
+        if(res.status == 204){
+            new LightTip('删除成功', 'success');
+            setTimeout(()=>{ location.href = '/admin/articles' }, 1000);
+        }else{
+            var responseJson = await res.json();
+            new LightTip(responseJson.error, 'error');
+        }
+    });
+    </script>
+
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

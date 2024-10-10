@@ -355,6 +355,60 @@ function formatAmount(num) {
   return result;
 }
 
+/**
+ * 获取浏览器类型
+ * @param  {string} ua navigator.userAgent
+ * @return {string} 浏览器名称
+ */
+function getBrowserType(ua) {
+  var isOpera = ua.indexOf('Opera') > -1
+  if (isOpera) { return 'Opera' }
+  var isIE = (ua.indexOf('compatible') > -1) && (ua.indexOf('MSIE') > -1) && !isOpera
+  var isIE11 = (ua.indexOf('Trident') > -1) && (ua.indexOf("rv:11.0") > -1)
+  if (isIE11) { return 'IE11'
+  } else if (isIE) {
+    var re = new RegExp('MSIE (\\d+\\.\\d+);')
+    re.test(ua)
+    var ver = parseFloat(RegExp["$1"])
+    if (ver == 7) { return 'IE7'
+    } else if (ver == 8) { return 'IE8'
+    } else if (ver == 9) { return 'IE9'
+    } else if (ver == 10) { return 'IE10'
+    } else { return "IE" }
+  }
+  var isEdge = ua.indexOf("Edge") > -1
+  if (isEdge) { return 'Edge' }
+  var isFirefox = ua.indexOf("Firefox") > -1
+  if (isFirefox) { return 'Firefox' }
+  var isSafari = (ua.indexOf("Safari") > -1) && (ua.indexOf("Chrome") == -1)
+  if (isSafari) { return "Safari" }
+  var isChrome = (ua.indexOf("Chrome") > -1) && (ua.indexOf("Safari") > -1) && (ua.indexOf("Edge") == -1)
+  if (isChrome) { return 'Chrome' }
+  var isUC= ua.indexOf("UBrowser") > -1
+  if (isUC) { return 'UC' }
+  var isQQ= ua.indexOf("QQBrowser") > -1
+  if (isUC) { return 'QQ' }
+  return ''
+}
+
+
+function makeMenu(arr){
+  let menus = '';
+  if(arr.length){
+    menus += '<ul class="article-list">';
+    for(var i in arr){
+      menus += `<li class="article-item ${arr[i].children ? ' has-child' : ''}">`;
+      menus += `<a href="${arr[i].url ? arr[i].url : 'javascript:;'}" target="_blank">${arr[i].title}</a>`
+      if(arr[i].children){
+        menus += makeMenu(arr[i].children);
+      }
+      menus += '</li>';
+    }
+    menus += '</ul>';
+  }
+  return menus;
+}
+
 
 module.exports = {
   isMobile,
@@ -378,5 +432,7 @@ module.exports = {
   getParents,
   getChildrenTree,
   createFakeNickname,
-  formatAmount
+  formatAmount,
+  getBrowserType,
+  makeMenu
 };

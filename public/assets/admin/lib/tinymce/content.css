@@ -1,0 +1,12 @@
+pre{
+  padding: 5px;
+  background-color: grey;
+}
+
+.tox .tox-edit-area::before {
+  border: 0px solid #fff;
+}
+
+#tinymce img{
+  max-width:100%;
+}

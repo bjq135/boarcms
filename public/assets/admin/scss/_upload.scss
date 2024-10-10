@@ -1,0 +1,98 @@
+//
+// 缩略图上传
+// --------------------------------------------------
+.thumbnail-uploader {
+  margin-bottom: 10px;
+  .thumbnail-image {
+    margin-top: 8px;
+    img{
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+  }
+}
+
+
+//
+// 多图片上传
+// --------------------------------------------------
+.image-list-container {
+  display: flex;
+  align-items: flex-start;
+
+  &>div {
+    padding-top: 10px;
+  }
+
+  label {
+    margin-top: 3px;
+  }
+
+  .image-item {
+    clear: both;
+    margin: 0px 0px 10px 0px;
+    float: left;
+    display: flex;
+    align-items: center;
+
+    input {
+      width: 260px;
+      float: left;
+      margin-right: 5px;
+    }
+
+    img {
+      width: 34px;
+      height: 34px;
+      float: left;
+      display: block;
+      object-fit: cover;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+
+    .btn {
+      margin-right: 5px;
+    }
+  }
+
+  .image-btn-add {
+    clear: both;
+    float: left;
+
+    i {
+      font-size: 12px;
+    }
+  }
+}
+
+//
+// 文件上传 OSS。 要加上进度条
+// --------------------------------------------------
+.file-upload-container {
+  display: flex;
+  align-items: flex-start;
+
+  &>div {
+    padding-top: 10px;
+
+    input {
+      margin-top: 10px;
+    }
+  }
+
+  label {
+    margin-top: 3px;
+  }
+
+  i {
+    font-size: 12px;
+  }
+
+  #preview-link {
+    color: #7ba3fa;
+    display: block;
+    margin-top: 3px;
+  }
+}
