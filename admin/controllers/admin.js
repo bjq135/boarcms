@@ -40,9 +40,4 @@ async function index(req, res) {
 }
 
 
-async function test(req, res){
-  console.log('req.body ', req.body);
-  res.send(req.body);
-}
-
-module.exports = { index, test };
+module.exports = { index };

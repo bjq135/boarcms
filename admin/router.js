@@ -27,7 +27,6 @@ router.get(`/admin/users/logs`, auth.check, usersController.logs);
 // 后台首页
 const adminController = require('./controllers/admin.js');
 router.get(`/admin/index`, auth.check, adminController.index);
-// router.post(`/admin/index/test`, adminController.test);
 
 // 文章
 const articlesController = require('./controllers/articles.js');

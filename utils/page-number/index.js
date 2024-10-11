@@ -90,14 +90,14 @@ function nextMore() {
 //req:req参数，page:当前页，total:总条数，page_size:每页显示多少条， bothNum 两边分页量
 module.exports = function (req, page, total, page_size = 10, bothNum = 4) {
   if (total <= page_size) { return ""; } //如果，总条数小于每页显示数，不显示分页
-  var temp = [];
-  delete (req.query.page); // console.log(req);
-  for (var key in req.query) {
-    temp.push(key + '=' + req.query[key]);
-  }
-  temp = temp.join('&');
+  
   arg.url = req.originalUrl.split('?')[0];
-  if (temp.length) {
+
+  var searchObj = new URLSearchParams(req.originalUrl.split('?')[1]);
+  searchObj.delete('page');
+
+  let temp = searchObj.toString();
+  if (temp) {
     arg.url += '?' + temp + '&';
   } else {
     arg.url += '?';
