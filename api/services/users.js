@@ -147,7 +147,7 @@ module.exports = class UsersService {
 
     var [users] = await dbUtil.query(sql, replacements);
     users.forEach(function (item, index, array) {
-      users[index]['avatar'] = item['avatar'] ? '/uploads/avatars/' + item['avatar'] : "";
+      // users[index]['avatar'] = item['avatar'] ? '/uploads/avatars/' + item['avatar'] : "";
       users[index]['created_at'] = commonUtil.formatDateTime(new Date(item.created_at).getTime())
     });
     return users;

@@ -29,16 +29,10 @@ module.exports = async function (req, res, next) {
   req.app.locals.homeMenuHtmlStringPC = htmlUtil.getMenuHtmlPc(configHome.nav);
   req.app.locals.tags = await tagsService.getTags();
   
-  // 用户信息
   let articleCounter = await articlesService.getAllArticleCounter();
   let docsCounter = docsService.getDocsCounter();
   
-  let sql = `SELECT count(*) AS count FROM tb_article_to_category AS ac
-              LEFT JOIN tb_article AS a ON ac.article_id=a.id
-              WHERE ac.category_id=50 AND a.is_show=1`;
-  let [rows] = await dbUtil.execute(sql);
-  let projectCounter = rows[0]['count'];
-  req.app.locals.count = {articleCounter, docsCounter, projectCounter};
+  req.app.locals.count = {articleCounter, docsCounter};
 
   // 模版 
   req.app.locals.htmlUtil = htmlUtil;

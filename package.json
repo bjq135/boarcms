@@ -8,7 +8,7 @@
     "docs": "vitepress dev docs --port 5000",
     "docs:build": "vitepress build docs --base /docs/boarapi/",
     "sass": "sass --watch ./public/assets/home/scss:./public/assets/home/css --no-source-map",
-    "rollup": "rollup ./home/assets/home/js/index.js --file ./home/assets/home/js/bundle.js --format iife --watch",
+    "rollup": "rollup ./public/assets/home/js/index.js --file ./public/assets/home/js/bundle.js --format iife --watch",
     "admin:sass": "sass --watch ./public/assets/admin/scss:./public/assets/admin/css --no-source-map",
     "admin:rollup": "rollup ./public/assets/admin/js/src/index.js --file ./public/assets/admin/js/index.js --format iife --watch"
   },

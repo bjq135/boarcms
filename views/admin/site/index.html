@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%-siteOption.title%></title>
+    <link rel="stylesheet" href="/assets/admin/css/style.css">
+    <!-- <script src="nav.js"></script> -->
+</head>
+
+<body class="<%- darkMode ? 'dark-mode' : ''%>">
+    
+    <%- include('../common/header.html') %>
+
+    <div class="main-container">
+        <div class="side-menu">
+            <%- include('../common/sider.html') %>
+        </div>
+
+        <div class="content-widget">
+            <div class="app-header">
+                <div class="title">站点设置</div>
+            </div>
+
+            <form class="form-search" method="post" action="/admin/site">
+                <table class="form-table" role="presentation">
+                    <tbody>
+                        <tr>
+                            <th scope="row"><label for="_home_options[sliders_is_show]">显示幻灯片模块</label></th>
+                            <td>
+                                <label>
+                                    <input name="_home_options[sliders_is_show]" type="radio" value="1" checked="checked">
+                                    显示
+                                </label>
+                                <label>
+                                    <input name="_home_options[sliders_is_show]" type="radio" value="0">
+                                    隐藏
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="_home_options[sliders_height]">幻灯片高度</label></th>
+                            <td><input type="text" name="_home_options[sliders_height]" id="_home_options[sliders_height]" value="350px" class="regular-text" placeholder="幻灯片高度"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="slider_img_0">幻灯片</label></th>
+                            <td>
+                                <div class="slider-list">
+                                                                <div class="number-item">
+                                          <img class="my-img-preview" src="http://test.vtheme.cn:8082/wp-content/uploads/2024/02/20240215072622281.jpeg" style="display:block;">
+                                          <input type="text" name="_home_options[sliders][0][pic-url]" value="http://test.vtheme.cn:8082/wp-content/uploads/2024/02/20240215072622281.jpeg" class="pic-input" placeholder="图片地址">
+                                          <input type="text" name="_home_options[sliders][0][title]" value="" class="" placeholder="标题">
+                                          <input type="text" name="_home_options[sliders][0][description]" value="" class="" placeholder="描述">
+                                          <input type="text" name="_home_options[sliders][0][url]" value="" class="" placeholder="链接地址">
+                                          <div class="action">
+                                              <a href="javascript:;" class="upload-slider-button">上传</a>
+                                              <a href="javascript:;" class="delete-slider-button">删除</a>
+                                          </div>
+                                      </div>
+                                                                <div class="number-item">
+                                          <img class="my-img-preview" src="http://test.vtheme.cn:8082/wp-content/uploads/2023/11/20231121091947681.jpeg" style="display:block;">
+                                          <input type="text" name="_home_options[sliders][1][pic-url]" value="http://test.vtheme.cn:8082/wp-content/uploads/2023/11/20231121091947681.jpeg" class="pic-input" placeholder="图片地址">
+                                          <input type="text" name="_home_options[sliders][1][title]" value="" class="" placeholder="标题">
+                                          <input type="text" name="_home_options[sliders][1][description]" value="" class="" placeholder="描述">
+                                          <input type="text" name="_home_options[sliders][1][url]" value="" class="" placeholder="链接地址">
+                                          <div class="action">
+                                              <a href="javascript:;" class="upload-slider-button">上传</a>
+                                              <a href="javascript:;" class="delete-slider-button">删除</a>
+                                          </div>
+                                      </div>
+                                                          </div>
+                                <button type="button" class="add-slider-button" data-id="slider-item-template">增加幻灯片</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit">提交</button>
+            </form>
+            
+            <a class="btn btn-default" href="/admin/pages/create">添加页面</a>
+        </div>
+    </div>
+    <%- include('../common/footer.html') %>
+</body>
+</html>
+
+

@@ -117,7 +117,10 @@ module.exports = class UsersService {
    * @returns {array} 用户列表 
    */
   async getUsers(page = 1, perPage = 10, status = 'all', keyword) {
-    var sql = "SELECT * FROM tb_user WHERE id>0";
+    var sql = `SELECT 
+                id, nickname, mobile,email,signature,avatar,created_at,
+                (SELECT file_path FROM tb_asset AS a WHERE a.id=avatar) AS avatar_url
+                FROM tb_user WHERE id>0`;
 
     // 关键词
     if (keyword) {
@@ -147,7 +150,7 @@ module.exports = class UsersService {
 
     var [users] = await dbUtil.query(sql, replacements);
     users.forEach(function (item, index, array) {
-      users[index]['avatar'] = item['avatar'] ? '/uploads/avatars/' + item['avatar'] : "";
+      users[index]['avatar_url'] = item['avatar'] ? '/uploads/avatars/' + item['avatar_url'] : "";
       users[index]['created_at'] = commonUtil.formatDateTime(new Date(item.created_at).getTime())
     });
     return users;

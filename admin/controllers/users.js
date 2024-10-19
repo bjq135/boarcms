@@ -16,20 +16,23 @@ async function index(req, res) {
   const usersService = new UsersService();
   const users = await usersService.getUsers(page, perPage, status, keyword);
   const count = await usersService.getUsersCount(status, keyword);
-  // return ctx.body = users;
 
   const pager = pagination(req, page, count, perPage);
   const data = { keyword, users, pager, status };
+  console.table( users)
   res.render('admin/users/index.html', data);
 }
+
 
 async function show(req, res) {
   return ctx.body = "show";
 }
 
+
 async function edit(req, res) {
   return ctx.body = "edit";
 }
+
 
 /**
  * 日志页

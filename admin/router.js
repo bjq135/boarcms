@@ -13,7 +13,7 @@ const admin = require('../middlewares/admin.js');
 router.use(admin);
 
 const {csrf} = require('../middlewares/csrf.js');
-router.use(csrf);
+// router.use(csrf);
 
 router.get('/login', async (req, res)=>{ res.render('admin/login.html');});
 router.get('/login-out', async (req, res)=>{ req.session.userId = undefined; res.redirect('/');});
@@ -55,6 +55,11 @@ router.get(`/admin/tags/:id/edit`, auth.check, tagsController.edit);
 // 资源
 const assetsController = require('./controllers/assets.js');
 router.get(`/admin/images`, auth.check, assetsController.index);
+
+// 站点设置
+const siteController = require('./controllers/site.js');
+router.get(`/admin/site`, auth.check, siteController.index);
+router.post(`/admin/site`, auth.check, siteController.update);
 
 
 module.exports = router;

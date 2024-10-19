@@ -7,6 +7,13 @@ const nav = [
       children: []
     },
     {
+      title: "站点设置",
+      url: "/admin/site",
+      isShow: true,
+      icon: "&#xe7f5;",
+      children: []
+    },
+    {
       title: "文章",
       url: "javascript:;",
       isShow: true,
