@@ -7,13 +7,13 @@ form{
   margin-bottom: 15px;
   clear: both;
   // overflow: hidden;
-  color: var(--rt-text-color);
+  color: var(--vt-text-color);
   display: flex;
 }
 
 .form-row label {
   font-size: 14px;
-  width: 70px;
+  width: 130px;
   box-sizing: border-box;
   padding:6px 10px 0 0;
   flex-shrink: 0;
@@ -28,16 +28,16 @@ form{
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857;
-  color: var(--rt-text-color);
-  background-color: var(--rt-bg-color-card);
+  color: var(--vt-text-color);
+  background-color: var(--vt-bg-color-card);
   background-image: none;
-  border: 1px solid var(--rt-border-color);
+  border: 1px solid var(--vt-border-color);
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .help-block {
   font-size: 13px;
-  color: var(--rt-text-color);
+  color: var(--vt-text-color);
   padding: 0;
   margin: 5px 0;
 }
@@ -61,10 +61,10 @@ input:disabled{
   height: 150px;
   width: 100%;
   overflow-y: scroll;
-  background-color: var(--rt-bg-color-card);
+  background-color: var(--vt-bg-color-card);
   padding: 0px 0px;
   border-radius: 8px;
-  border:1px solid var(--rt-border-color);
+  border:1px solid var(--vt-border-color);
   box-sizing: border-box;
   // display: flex;
   // flex-wrap: wrap;
@@ -90,7 +90,7 @@ input:disabled{
 }
 
 .editor-container{
-  background-color: var(--rt-bg-color-card);
+  background-color: var(--vt-bg-color-card);
 }
 
 /** tags 多选分类框 */
@@ -104,7 +104,7 @@ input:disabled{
   font-size:12px;
   cursor: pointer;
 }
-.tags-checkbox-container label:hover{ color:var(--rt-color-primary); }
+.tags-checkbox-container label:hover{ color:var(--vt-color-primary); }
 .tags-checkbox-container label input[type='checkbox']{
   position:relative;
   top:2px;

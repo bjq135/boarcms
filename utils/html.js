@@ -106,6 +106,42 @@ function getMenuHtmlPc(n) {
   return html;
 }
 
+
+/**
+ * 生成菜单
+ * @param  {integer} parentId 父ID
+ * @param  {Array}   arr      所有数组
+ * @param  {String}  classStr ul类名
+ * @return {String}           菜单字符串
+ */
+function getMenu(parentId, arr, classStr="menu"){
+  classStr = parentId==0 ? classStr : 'child-menu';
+
+  let html = `<ul class='${classStr}'>`;
+  for (var i = 0; i < arr.length; i++) {
+    if(arr[i].parent_id != parentId) continue;
+    let item = arr[i];
+    let children = arr.filter((element) => { return element.parent_id == item.id });
+    let hasChildren = children.length > 0 ? true : false;
+
+    html += `<li ${hasChildren ? 'class=\"menu-item-has-children\"' : ''}>`;
+    html += `   <a href='${item.url}'>
+                  ${item.title}
+                  ${hasChildren ? '<i class=\"iconfont arrow\">&#xe8a4;</i>' : ''}
+                </a>`;
+
+    if (hasChildren) {
+      html += getMenu(item.id, arr, '');
+    }
+
+    html += `</li>`;
+  }
+  html += `</ul>`;
+
+  return html;
+}
+
+
 //获取图片地址
 function getImageUrl(url) {
   if (url) {
@@ -114,6 +150,7 @@ function getImageUrl(url) {
     return config.imagePath + "/assets/admin/images/no-thumbnail.png";
   }
 }
+
 
 // 获取头像地址
 function getAvatarUrl(url) {
@@ -124,6 +161,7 @@ function getAvatarUrl(url) {
   }
 }
 
+
 module.exports = {
   getOptions,
   getManyCategory,
@@ -131,5 +169,6 @@ module.exports = {
   getMenuHtml,
   getMenuHtmlPc,
   getImageUrl,
-  getAvatarUrl
+  getAvatarUrl,
+  getMenu
 }

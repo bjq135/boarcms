@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%-siteOption.title%></title>
+    <title><%- title %></title>
     <link rel="stylesheet" href="/assets/admin/css/style.css">
     <!-- <script src="nav.js"></script> -->
 </head>
@@ -23,66 +23,83 @@
                 <div class="title">站点设置</div>
             </div>
 
-            <form class="form-search" method="post" action="/admin/site">
-                <table class="form-table" role="presentation">
-                    <tbody>
-                        <tr>
-                            <th scope="row"><label for="_home_options[sliders_is_show]">显示幻灯片模块</label></th>
-                            <td>
-                                <label>
-                                    <input name="_home_options[sliders_is_show]" type="radio" value="1" checked="checked">
-                                    显示
-                                </label>
-                                <label>
-                                    <input name="_home_options[sliders_is_show]" type="radio" value="0">
-                                    隐藏
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="_home_options[sliders_height]">幻灯片高度</label></th>
-                            <td><input type="text" name="_home_options[sliders_height]" id="_home_options[sliders_height]" value="350px" class="regular-text" placeholder="幻灯片高度"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="slider_img_0">幻灯片</label></th>
-                            <td>
-                                <div class="slider-list">
-                                                                <div class="number-item">
-                                          <img class="my-img-preview" src="http://test.vtheme.cn:8082/wp-content/uploads/2024/02/20240215072622281.jpeg" style="display:block;">
-                                          <input type="text" name="_home_options[sliders][0][pic-url]" value="http://test.vtheme.cn:8082/wp-content/uploads/2024/02/20240215072622281.jpeg" class="pic-input" placeholder="图片地址">
-                                          <input type="text" name="_home_options[sliders][0][title]" value="" class="" placeholder="标题">
-                                          <input type="text" name="_home_options[sliders][0][description]" value="" class="" placeholder="描述">
-                                          <input type="text" name="_home_options[sliders][0][url]" value="" class="" placeholder="链接地址">
-                                          <div class="action">
-                                              <a href="javascript:;" class="upload-slider-button">上传</a>
-                                              <a href="javascript:;" class="delete-slider-button">删除</a>
-                                          </div>
-                                      </div>
-                                                                <div class="number-item">
-                                          <img class="my-img-preview" src="http://test.vtheme.cn:8082/wp-content/uploads/2023/11/20231121091947681.jpeg" style="display:block;">
-                                          <input type="text" name="_home_options[sliders][1][pic-url]" value="http://test.vtheme.cn:8082/wp-content/uploads/2023/11/20231121091947681.jpeg" class="pic-input" placeholder="图片地址">
-                                          <input type="text" name="_home_options[sliders][1][title]" value="" class="" placeholder="标题">
-                                          <input type="text" name="_home_options[sliders][1][description]" value="" class="" placeholder="描述">
-                                          <input type="text" name="_home_options[sliders][1][url]" value="" class="" placeholder="链接地址">
-                                          <div class="action">
-                                              <a href="javascript:;" class="upload-slider-button">上传</a>
-                                              <a href="javascript:;" class="delete-slider-button">删除</a>
-                                          </div>
-                                      </div>
-                                                          </div>
-                                <button type="button" class="add-slider-button" data-id="slider-item-template">增加幻灯片</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button type="submit">提交</button>
+            <form class="ajax-form" action="/v1/common/option" method="post">
+                <div class="form-row">
+                    <label>站点 Logo</label>
+                    <input type="text" class="form-control" name="site_logo" 
+                        value="<%= typeof site_logo === 'undefined' ? '' : site_logo %>">
+                </div>
+                <div class="form-row">
+                    <label>站点标题</label>
+                    <input type="text" class="form-control" name="site_title" 
+                        value="<%= typeof site_title === 'undefined' ? '' : site_title %>">
+                </div>
+                <div class="form-row">
+                    <label>站点关键词</label>
+                    <input type="text" class="form-control" name="site_keyword" 
+                        value="<%= typeof site_keyword === 'undefined' ? '' : site_keyword %>">
+                </div>
+                <div class="form-row">
+                    <label>站点描述</label>
+                    <textarea class="form-control" name="site_description" rows="3"><%= typeof site_description === 'undefined' ? '' : site_description %></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label>底部版权</label>
+                    <textarea class="form-control" name="copyright" rows="3"><%= typeof copyright === 'undefined' ? '' : copyright %></textarea>
+                </div>
+
+                <div class="form-row">
+                    <input type="hidden" name="_method" value="put">
+                    <button type="submit" class="btn btn-primary ajax-submit">提交</button>
+                </div>
             </form>
-            
-            <a class="btn btn-default" href="/admin/pages/create">添加页面</a>
         </div>
     </div>
+
     <%- include('../common/footer.html') %>
+
+    <script type="module">
+    import utils from '/assets/admin/js/src/utils.js';
+    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
+
+    var button = document.querySelector('.ajax-submit');
+    button?.addEventListener('click', async function (e){
+        e.preventDefault();
+
+        let form = document.querySelector(".ajax-form");
+        let formData = new FormData(form);
+        formData.set('content', "测试");
+
+        let json = utils.formDataToJson(formData);
+        
+        let data = {};
+        data.option_name = 'site_option';
+        data.option_value = JSON.stringify(json);
+
+        let jsonHeaders = new Headers({ 'Content-Type': 'application/json' });
+        let url = form.action;
+        
+        try{
+            let res = await fetchWrapper(url, {
+                method: 'POST',
+                headers: jsonHeaders,
+                body: JSON.stringify(data)
+            });
+            let responseJson = await res.json();
+            console.log('responseJson ', responseJson);
+            if(res.status == 200){
+                new LightTip('修改成功', 'success');
+            } else {
+                new LightTip(responseJson.error, 'error');
+            }
+        }catch(e){
+            new LightTip(e.message, 'error');
+        }
+    });
+    
+    </script>
 </body>
 </html>
-
 

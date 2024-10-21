@@ -44,7 +44,6 @@ async function store(req, res) {
     title: { type: 'string', min: 1, max: 50 },
     parent_id: { type: 'integer', required: false},
     description: { type: 'string', required: false},
-    thumbnail_id: { type: 'integer', required: false},
     list_order: { type: 'integer', required: false },
     is_show: { type: 'integer', required: false }
   };
@@ -77,7 +76,6 @@ async function update(req, res) {
     title: { type: 'string', min: 1, max: 50 },
     parent_id: { type: 'integer', required: false},
     description: { type: 'string', required: false},
-    thumbnail_id: { type: 'integer', required: false},
     list_order: { type: 'integer', required: false },
     is_show: { type: 'integer', required: false }
   };

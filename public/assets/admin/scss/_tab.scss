@@ -26,11 +26,11 @@
       padding: 10px 15px;
       background-color: #f8f8f8;
       border: 1px solid #ddd;
-      border-radius: var(--rt-border-radius) 0 0;
+      border-radius: var(--vt-border-radius) 0 0;
     }
   }
   li.active a {
-    color: var(--rt-color-primary);
+    color: var(--vt-color-primary);
     cursor: default;
     background-color: #fff;
     border-bottom-color: transparent;

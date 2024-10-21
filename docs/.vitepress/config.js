@@ -18,7 +18,7 @@ export default {
       { text: '文章接口', link: '/api/articles' },
       { text: '分类接口', link: '/api/categories' },
       { text: '页面接口', link: '/api/pages' },
-      // { text: '通用', link: '/api/common' },
+      { text: '通用接口', link: '/api/common' },
       { text: '上传接口', link: '/api/upload' },
       { text: '图片接口', link: '/api/images' },
       { text: '用户接口', link: '/api/user' },

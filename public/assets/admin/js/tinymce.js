@@ -1,13 +1,13 @@
 import toast from '/assets/admin/js/src/toast.js';
 import { getCookie } from '/assets/admin/js/src/cookie.js';
-
+import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 // console.log('cookie ', getCookie)
 
 const example_image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
   var formData = new FormData();
   formData.append('file', blobInfo.blob(), blobInfo.filename());
 
-  fetch('/v1/upload?original=true',{
+  fetchWrapper('/v1/upload?original=true',{
     method: 'POST',
     // headers: {"Content-type": "multipart/form-data; charset=UTF-8"},
     body: formData

@@ -26,12 +26,6 @@ module.exports = {
     allowRegister: process.env.ALLOW_REGISTER,
     allowSendCode: process.env.ALLOW_SEND_CODE
   },
-  siteOption: {
-    title: process.env.SITE_TITLE,
-    keywords: process.env.SITE_KEYWORDS,
-    description: process.env.SITE_DESCRIPTION,
-    siteVersion: process.env.VERSION ? process.env.VERSION : '1.0.0' 
-  },
   language: process.env.LANGUAGE,
   jwt: { secret: 'shared-secret' },
   code: {

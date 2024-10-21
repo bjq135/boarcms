@@ -3,7 +3,7 @@
   width: 100%;
   margin: 0px auto;
   display: block;
-  background-color: var(--rt-bg-color);
+  background-color: var(--vt-bg-color);
 }
 
 .side-menu{
@@ -16,19 +16,19 @@
   width: 260px;
   height: 100vh;
   z-index: 9;
-  border-right:1px solid var(--rt-border-color);
-  background-color: var(--rt-bg-color-card);
+  border-right:1px solid var(--vt-border-color);
+  background-color: var(--vt-bg-color-card);
 }
 
 .content-widget {
   box-sizing:border-box;
   width: calc(100% - 16px);
-  background-color:var(--rt-bg-color-card);
+  background-color:var(--vt-bg-color-card);
   margin: 10px auto 8px auto;
   padding:10px;
   position: relative;
   overflow: hidden;
-  border-radius:var(--rt-border-radius);
+  border-radius:var(--vt-border-radius);
 }
 .content-widget .app-header{
   margin-bottom: 15px;
@@ -36,7 +36,7 @@
 .content-widget .app-header .title{
   font-size: 22px;
   font-weight: 400;
-  color:var(--rt-text-color);
+  color:var(--vt-text-color);
 }
 
 
@@ -59,7 +59,7 @@
   .content-widget{
     box-sizing: border-box;
     padding: 20px;
-    margin: 75px 20px 20px 280px;
+    margin: 70px 20px 20px 280px;
   }
   .form-row{
     max-width: 900px;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%-siteOption.title%></title>
+    <title><%- title %></title>
     <link rel="stylesheet" href="/assets/admin/css/style.css">
 </head>
 
@@ -115,6 +115,8 @@
             let form = document.querySelector(".ajax-form");
             let formData = new FormData(form);
             let json = utils.formDataToJson(formData);
+            json.thumbnail_id = parseInt(json.thumbnail_id);
+            console.log('json', json)
 
             try {
                 let payload = JSON.stringify(json);

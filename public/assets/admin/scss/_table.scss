@@ -4,8 +4,8 @@
   max-width: 100%;
   margin-top: 10px;
   margin-bottom: 3px;
-  color: var(--rt-text-color);
-  background-color: var(--rt-bg-color-card);
+  color: var(--vt-text-color);
+  background-color: var(--vt-bg-color-card);
   td,
   th {
     position: static;
@@ -23,18 +23,18 @@
         padding: 8px;
         line-height: 24px;
         vertical-align: top;
-        border: 1px solid var(--rt-border-color);
+        border: 1px solid var(--vt-border-color);
         margin-top: -1px solid;
       }
       &:hover {
-        background-color: var(--rt-bg-color-hover);
+        background-color: var(--vt-bg-color-hover);
       }
     }
   }
   > thead > tr > th {
     vertical-align: bottom;
-    border-top: 1px solid var(--rt-border-color) !important;
-    border-bottom: 2px solid var(--rt-border-color);
+    border-top: 1px solid var(--vt-border-color) !important;
+    border-bottom: 2px solid var(--vt-border-color);
   }
   > thead:first-child {
     > tr:first-child {
@@ -57,7 +57,7 @@ td .avatar{
   margin-bottom:-8px;
   margin-right: 3px;
   transition: all linear 0.1s;
-  border: 1px solid var(--rt-border-color);
+  border: 1px solid var(--vt-border-color);
 }
 td img:hover{ transform: scale(1.1); }
 

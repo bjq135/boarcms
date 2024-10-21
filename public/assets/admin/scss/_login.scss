@@ -5,9 +5,9 @@
   max-width: 300px;
   margin: 100px auto 0px auto;
   padding: 20px;
-  border-radius: var(--rt-border-radius);
-  background-color: var(--rt-bg-color-card);
-  box-shadow: 0 0 20px var(--rt-shadow-color);
+  border-radius: var(--vt-border-radius);
+  background-color: var(--vt-bg-color-card);
+  box-shadow: 0 0 20px var(--vt-shadow-color);
 
   .auth-title {
     text-align: center;
@@ -21,7 +21,7 @@
     margin-bottom: 20px;
     position: relative;
     font-size: 14px;
-    color: var(--rt-text-color);
+    color: var(--vt-text-color);
   }
 
   .field-text {
@@ -29,8 +29,8 @@
       width: 100%;
       height: 35px;
       box-sizing: border-box;
-      border: 1px solid var(--rt-border-color);
-      border-radius: var(--rt-border-radius);
+      border: 1px solid var(--vt-border-color);
+      border-radius: var(--vt-border-radius);
       text-indent: 6px;
     }
 
@@ -43,7 +43,7 @@
       border: 0px;
       background-color: transparent;
       padding: 0;
-      color:var(--rt-text-color-grey);
+      color:var(--vt-text-color-grey);
 
       &::after {
         content: '\e752';
@@ -77,9 +77,9 @@
       width: 100%;
       height: 35px;
       border: 1px solid transparent;
-      background-color: var(--rt-color-primary);
-      border-radius: var(--rt-border-radius);
-      color: var(--rt-text-color-inverse);
+      background-color: var(--vt-color-primary);
+      border-radius: var(--vt-border-radius);
+      color: var(--vt-text-color-inverse);
     }
   }
 

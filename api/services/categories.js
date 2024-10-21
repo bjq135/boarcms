@@ -111,6 +111,8 @@ class CategoriesService {
       throw new Error(i18n.__('parent category must not be subcategory'));
     }
 
+    console.log('category', category)
+
     const result = await categoriesDao.update(category);
     return result;
   }

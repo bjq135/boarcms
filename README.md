@@ -1,9 +1,9 @@
-Boar
+BoarCMS
 =======
 
 ## 简介
 
-Boar 是一个基于 Node、Express、MySQL 开发的 CMS。
+BoarCMS（野猪内容管理系统） 是一个基于 Node.js、Express、MySQL 开发的 CMS。
 
 ## 特性
 

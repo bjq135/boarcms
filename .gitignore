@@ -106,12 +106,12 @@ tests/*
 
 !logs/.gitkeep
 
-/home
+# /home
 # /admin
 
-/public/assets/home
+# /public/assets/home
 # /public/assets/admin
 
-/views/home
+# /views/home
 
 

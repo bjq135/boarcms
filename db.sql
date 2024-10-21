@@ -1,12 +1,3 @@
-CREATE TABLE `tb_ai` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `prompt` varchar(255) DEFAULT NULL,
-  `answer` text,
-  `created_at` datetime DEFAULT NULL,
-  `ip` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE `tb_article` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
@@ -153,16 +144,6 @@ CREATE TABLE `tb_tag` (
   UNIQUE KEY `tag_title` (`tag_title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `tb_unload` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `start` varchar(50) DEFAULT NULL,
-  `end` varchar(50) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `ip` varchar(50) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 CREATE TABLE `tb_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -199,5 +180,11 @@ CREATE TABLE `tb_user_meta` (
   KEY `meta_key` (`meta_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
+CREATE TABLE `tb_option` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `option_name` varchar(80) DEFAULT NULL,
+  `option_value` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `option_name` (`option_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 

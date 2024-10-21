@@ -22,17 +22,17 @@ async function index(req, res) {
   [rows] = await dbUtil.query(sql);
   data.userCounter = rows[0].count;
 
-  sql = `SELECT * FROM tb_unload ORDER BY id DESC LIMIT 15 `;
-  [rows] = await dbUtil.query(sql);
-  data.unload = res;
+  // sql = `SELECT * FROM tb_unload ORDER BY id DESC LIMIT 15 `;
+  // [rows] = await dbUtil.query(sql);
+  // data.unload = res;
 
-  sql = `SELECT count(id) AS counter FROM tb_unload`;
-  [rows] = await dbUtil.query(sql);
-  data.unloadCounter = rows[0].counter;
+  // sql = `SELECT count(id) AS counter FROM tb_unload`;
+  // [rows] = await dbUtil.query(sql);
+  // data.unloadCounter = rows[0].counter;
 
-  sql = `SELECT count(id) AS counter FROM tb_unload WHERE DATE(created_at)=CURDATE()`;
-  [rows] = await dbUtil.query(sql);
-  data.todayUnloadCounter = rows[0].counter;
+  // sql = `SELECT count(id) AS counter FROM tb_unload WHERE DATE(created_at)=CURDATE()`;
+  // [rows] = await dbUtil.query(sql);
+  // data.todayUnloadCounter = rows[0].counter;
 
   res.render('admin/index.html', data);
   // res.send('ssss');

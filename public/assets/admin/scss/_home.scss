@@ -15,10 +15,10 @@
   justify-content: flex-start;
   width: calc(50% - 30px);
   height: 150px;
-  box-shadow: 0 0 5px var(--rt-shadow-color);
+  box-shadow: 0 0 5px var(--vt-shadow-color);
   margin: 0 30px 30px 0;
-  color: var(--rt-text-color-grey);
-  background-color: var(--rt-bg-color-card);
+  color: var(--vt-text-color-grey);
+  background-color: var(--vt-bg-color-card);
 }
 
 .index-info-widget .info-item .desc{
@@ -42,11 +42,11 @@
 
 
 .info-panel{
-  box-shadow: 0 0 3px var(--rt-shadow-color);
+  box-shadow: 0 0 3px var(--vt-shadow-color);
   box-sizing:border-box;
   padding: 15px;
-  color: var(--rt-text-color-grey);
-  background-color: var(--rt-bg-color-card);
+  color: var(--vt-text-color-grey);
+  background-color: var(--vt-bg-color-card);
 }
 
 .info-panel .title{

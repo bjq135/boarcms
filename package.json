@@ -1,6 +1,6 @@
 {
   "name": "boar",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "README",
   "main": "main",
   "scripts": {
@@ -8,9 +8,9 @@
     "docs": "vitepress dev docs --port 5000",
     "docs:build": "vitepress build docs --base /docs/boarapi/",
     "sass": "sass --watch ./public/assets/home/scss:./public/assets/home/css --no-source-map",
-    "rollup": "rollup ./public/assets/home/js/index.js --file ./public/assets/home/js/bundle.js --format iife --watch",
-    "admin:sass": "sass --watch ./public/assets/admin/scss:./public/assets/admin/css --no-source-map",
-    "admin:rollup": "rollup ./public/assets/admin/js/src/index.js --file ./public/assets/admin/js/index.js --format iife --watch"
+    "rollup": "rollup ./public/assets/home/js/src/index.js --file ./public/assets/home/js/index.js --format iife --watch",
+    "sass:admin": "sass --watch ./public/assets/admin/scss:./public/assets/admin/css --no-source-map",
+    "rollup:admin": "rollup ./public/assets/admin/js/src/index.js --file ./public/assets/admin/js/index.js --format iife --watch"
   },
   "author": "",
   "license": "ISC",
