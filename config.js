@@ -1,6 +1,7 @@
 /**
  * 系统配置文件
  */
+require('dotenv').config();
 
 // 读取 .env 文件
 module.exports = {
@@ -39,6 +40,5 @@ module.exports = {
     nickname: process.env.SMTP_NICKNAME,
     username: process.env.SMTP_USERNAME,
     password: process.env.SMTP_PASSWORD
-  },
-  modules: process.env.MODULES.split(',')
+  }
 };

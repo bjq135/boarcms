@@ -4,6 +4,7 @@
   "description": "README",
   "main": "main",
   "scripts": {
+    "serve": "pm2 start --env-file .env main.js",
     "dev": "node --watch --env-file .env --watch-path=./ main.js",
     "docs": "vitepress dev docs --port 5000",
     "docs:build": "vitepress build docs --base /docs/boarapi/",
@@ -19,6 +20,7 @@
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
     "express": "^5.0.0",
     "express-winston": "^4.2.0",

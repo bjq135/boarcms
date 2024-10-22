@@ -52,12 +52,12 @@ async function show(req, res) {
     pagination: pager
   };
 
-  const optionDao = new Dao('tb_option');
-  result = await optionDao.findOne({where:{'option_name':'category_template_'+category.id}});
-  if (result && result['option_value'] == 'images') {
-    res.render("home/categories-images.html", data);
-    return;
-  }
+  // const optionDao = new Dao('tb_option');
+  // result = await optionDao.findOne({where:{'option_name':'category_template_'+category.id}});
+  // if (result && result['option_value'] == 'images') {
+  //   res.render("home/categories-images.html", data);
+  //   return;
+  // }
 
   let loginUserId = req.app.locals.loginUserId ? req.app.locals.loginUserId : 0;
   data.site = await siteService.getSite(loginUserId);
