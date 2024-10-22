@@ -1,3 +1,7 @@
+/**
+ * 站点公共信息，模板渲染用
+ */
+
 const dbUtil = require('../../utils/db.js');
 const htmlUtil = require('../../utils/html.js');
 

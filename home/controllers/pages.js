@@ -9,14 +9,16 @@ const ArticlesService = require('../services/articles.js');
 const siteService = require('../services/site.js');
 
 async function show(req, res){
-  let data = {};
+  const data = {};
+  data.site = await siteService.getSite(req.app.locals.loginUserId);
+
   let pageId = req.query.id ? req.query.id : req.params.id;
 
   let sql = `SELECT * FROM tb_page WHERE is_show=1 AND (id=? OR route_url=?)`;
   let [rows] = await dbUtil.execute(sql, [pageId, pageId]);
   if (rows.length == 0) {
     res.status(404);
-    res.render("home/404.html");
+    res.render("home/404.html", data);
     return;
   }
 
@@ -35,9 +37,6 @@ async function show(req, res){
   if (page['template']) {
     template = 'home/' + page['template'];
   }
-
-  let loginUserId = req.app.locals.loginUserId ? req.app.locals.loginUserId : 0;
-  data.site = await siteService.getSite(loginUserId);
 
   res.render(template, data);
 }

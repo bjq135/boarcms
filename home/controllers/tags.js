@@ -8,12 +8,15 @@ const CategoriesService = require('../services/categories.js');
 const siteService = require('../services/site.js');
 
 async function index(req, res) {
+  const data = {};
+  data.site = await siteService.getSite(req.app.locals.loginUserId);
+
   var tag_title = req.params.tag_title;
   const tagsService = new TagsService();
   var tag = await tagsService.getTagByTitle(tag_title);
   if (!tag) {
     res.status(404);
-    res.render('home/404.html');
+    res.render('home/404.html', data);
     return;
   }
 
@@ -39,15 +42,10 @@ async function index(req, res) {
   var articlesCounter = await articlesService.getArticlesCounterByTagId(tag.id, 1);
   var pager = pageNumber(req, page, articlesCounter, perPage);
 
-  var data = {
-    tag,
-    articles,
-    pagination: pager
-  };
+  data.tag = tag;
+  data.articles = articles;
+  data.pagination = pager;
 
-  let loginUserId = req.app.locals.loginUserId ? req.app.locals.loginUserId : 0;
-  data.site = await siteService.getSite(loginUserId);
-  
   res.render("home/tags.html", data);
 }
 

@@ -9,6 +9,9 @@ const CategoriesService = require('../services/categories.js');
 const siteService = require('../services/site.js');
 
 async function show(req, res) {
+  const data = {};
+  data.site = await siteService.getSite(req.app.locals.loginUserId);
+
   let categoryId = req.params.id ? parseInt(req.params.id) : 0;
   let page = req.query.page ? parseInt(req.query.page) : 1; // 页码
   let perPage = 18; // 每页条数
@@ -20,7 +23,7 @@ async function show(req, res) {
   var category = await categoriesService.getCategoryById(categoryId);
   if (category == null || category.is_show == 0) {
     res.status(404);
-    res.render("home/404.html");
+    res.render("home/404.html", data);
     return;
   }
 
@@ -33,7 +36,7 @@ async function show(req, res) {
   var articles = await articlesService.getArticles(currentCategoryIds, page, perPage, isShow);
   if (!articles.length) {
     res.status(404);
-    res.render('home/404.html');
+    res.render('home/404.html', data);
     return;
   }
 
@@ -45,12 +48,10 @@ async function show(req, res) {
   var counter = await articlesService.getArticleCounter(currentCategoryIds, perPage, isShow);
   var pager = pagination(req, page, counter, perPage);
 
-  var data = {
-    category,
-    categories: allCategories,
-    articles,
-    pagination: pager
-  };
+  data.category = category;
+  data.categories =  allCategories;
+  data.articles = articles;
+  data.pagination =  pager;
 
   // const optionDao = new Dao('tb_option');
   // result = await optionDao.findOne({where:{'option_name':'category_template_'+category.id}});
@@ -58,9 +59,6 @@ async function show(req, res) {
   //   res.render("home/categories-images.html", data);
   //   return;
   // }
-
-  let loginUserId = req.app.locals.loginUserId ? req.app.locals.loginUserId : 0;
-  data.site = await siteService.getSite(loginUserId);
   
   res.render("home/categories.html", data);
 }

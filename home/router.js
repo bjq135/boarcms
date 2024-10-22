@@ -17,7 +17,6 @@ router.use(home);
 
 router.get(`/`, indexController.index);
 router.get(`/search`, indexController.search);
-router.get(`/test`, indexController.test);
 
 router.get(`/categories/:id`, categoriesController.show);
 

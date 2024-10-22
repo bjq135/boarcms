@@ -15,7 +15,5 @@ module.exports = async function (req, res, next) {
   req.app.locals.htmlUtil = htmlUtil;
   req.app.locals.req = req;
 
-  req.app.locals.siteOption = config.siteOption;
-
   next();
 }

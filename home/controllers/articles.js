@@ -12,9 +12,10 @@ const TagsService = require('../services/tags.js');
 const siteService = require('../services/site.js');
 
 async function show(req, res) {
-  let id = req.params.id ? parseInt(req.params.id) : 0;
+  const data = {};
+  data.site = await siteService.getSite(req.app.locals.loginUserId);
 
-  var data = {};
+  let id = req.params.id ? parseInt(req.params.id) : 0;
 
   var articlesService = new ArticlesService();
   var categoriesService = new CategoriesService();
@@ -24,14 +25,14 @@ async function show(req, res) {
 
   if (article == null) {
     res.status(404);
-    res.render("home/404.html");
+    res.render("home/404.html", data);
     return;
   }
   
   // 未登录用户看不到隐藏文章
   if (req.session.userId == undefined && article.is_show == 0) {
     res.status(404);
-    res.render("home/404.html");
+    res.render("home/404.html", data);
     return;
   }
   

@@ -1,10 +1,10 @@
 export default {
   lang: 'zn-CN',
-  title: '野猪API 文档', 
-  titleTemplate: 'BoarAPI',
-  description: '一个使用 Node.js 和 MySQL 的 Web 开发框架',
+  title: 'BoarCMS 文档', 
+  titleTemplate: 'BoarCMS',
+  description: 'BoarCMS（野猪内容管理系统） 是一个基于 Node.js、Express 和 MySQL 开发的 CMS。',
   // base: '/boar', // base URL
-  outDir: '../public/docs/boarapi',
+  outDir: '../public/docs/boarcms',
   themeConfig: {
     // logo: '/logo.svg',
     // 顶部导航栏内容

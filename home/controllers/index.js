@@ -13,6 +13,9 @@ const siteService = require('../services/site.js');
  * 首页
  */
 async function index(req, res) {
+  const data = {};
+  data.site = await siteService.getSite(req.app.locals.loginUserId);
+
   let page = req.query.page ? parseInt(req.query.page) : 1; // 页码
   let perPage = 20; // 每页条数
 
@@ -28,7 +31,7 @@ async function index(req, res) {
   var articles = await articlesService.getArticles(currentCategoryIds, page, perPage, isShow, '', '50');
   if (!articles.length) {
     res.status(404);
-    res.render('home/404.html');
+    res.render('home/404.html', data);
     return;
   }
 
@@ -40,21 +43,13 @@ async function index(req, res) {
   var counter = await articlesService.getArticleCounter(currentCategoryIds, perPage, isShow, '', '50');
   var pager = pagination(req, page, counter, perPage);
 
-  var data = {
-    categories: allCategories,
-    articles,
-    pagination: pager
-  };
-  
-  //我的教程
-  data.docs = { list:[] };
+  data.categories = allCategories;
+  data.articles = articles;
+  data.pagination = pager;
 
   let sql = `SELECT * FROM tb_doc ORDER BY id ASC`;
   let [rows] = await dbUtil.execute(sql);
-  data.docs.list = rows;
-
-  let loginUserId = req.app.locals.loginUserId ? req.app.locals.loginUserId : 0;
-  data.site = await siteService.getSite(loginUserId);
+  data.docs = { list:rows };
 
   res.render("home/index.html", data);
 }
@@ -64,6 +59,9 @@ async function index(req, res) {
  * 搜索页
  */
 async function search(req, res) {
+  const data = {};
+  data.site = await siteService.getSite(req.app.locals.loginUserId);
+
   let keyword = req.query.keyword;
   if (!keyword || keyword.trim().length == 0) {
     res.status(400);
@@ -92,32 +90,13 @@ async function search(req, res) {
   var counter = await articlesService.getArticleCounter(currentCategoryIds, perPage, isShow, keyword);
   var pager = pagination(req, page, counter, perPage);
 
-  var data = {
-    keyword,
-    categories: allCategories,
-    articles,
-    pagination: pager
-  };
-
-  let loginUserId = req.app.locals.loginUserId ? req.app.locals.loginUserId : 0;
-  data.site = await siteService.getSite(loginUserId);
+  data.keyword = keyword;
+  data.categories = allCategories;
+  data.articles = articles;
+  data.pagination = pager;
 
   res.render("home/search.html", data);
 }
 
 
-async function test(req, res) {
-  let sql, rows;
-  sql = `SELECT * FROM tb_menu WHERE menu_group='home' AND is_show=1 ORDER BY id ASC`;
-  [rows] = await dbUtil.execute(sql);
-
-  let list = rows;
-  let htmlStr = htmlUtil.getMenu(0, list, 'my-nav-a');
-
-  res.send(htmlStr);
-}
-
-
-module.exports = { index, search, test };
-
-
+module.exports = { index, search };
