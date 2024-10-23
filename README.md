@@ -49,6 +49,6 @@ BoarCMS（野猪内容管理系统） 是一个基于 Node.js、Express、MySQL 
 
 ## 接口文档
 
-- [演示地址](https://javascript.net.cn/docs/boarcms)
-- [在线文档](https://javascript.net.cn)
+- [演示地址](https://javascript.net.cn)
+- [在线文档](https://javascript.net.cn/docs/boarcms)
 - [接口文档](docs/index.md)
