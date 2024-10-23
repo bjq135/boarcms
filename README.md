@@ -24,6 +24,10 @@ BoarCMS（野猪内容管理系统） 是一个基于 Node.js、Express、MySQL 
 |    ├── controllers          # 控制器
 |    ├── services             # 服务
 |    └── router.js            # 路由文件
+├── home                      # 一个演示模块，可以删除
+|    ├── controllers          # 控制器
+|    ├── services             # 服务
+|    └── router.js            # 路由文件
 ├── docs                      # 文档目录
 ├── logs                      # 日志目录
 ├── middlewares               # 中间件
@@ -45,4 +49,6 @@ BoarCMS（野猪内容管理系统） 是一个基于 Node.js、Express、MySQL 
 
 ## 接口文档
 
+- [演示地址](https://javascript.net.cn/docs/boarcms)
+- [在线文档](https://javascript.net.cn)
 - [接口文档](docs/index.md)

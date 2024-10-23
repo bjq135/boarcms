@@ -1,3 +1,6 @@
+/**
+ * CSRF 双重 Cookie 验证
+ */
 
 async function csrf( req, res, next){
   if(!req.cookies._csrf){
