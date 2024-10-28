@@ -3,11 +3,30 @@ const jwt = require('jsonwebtoken');
 const config = require('../config.js');
 
 
-/* 从 session 或者 jwt 中获取用户 id */
+/**
+ * 从 session 或者 jwt 中获取用户 id
+ */
 async function authInit( req, res, next){
   if (req.session && req.session.userId) {
     req.userId = req.session.userId;
-    // console.log('middlewares/auth.js session req.userId ', req.userId);
+
+    if(!req.cookies._csrf){
+      res.cookie('_csrf', Math.round(Math.random()*999999) );
+    }
+
+    if(req.method == 'GET'){
+      next();
+      return;
+    }
+
+    if(req.query._csrf == undefined || req.query._csrf !== req.cookies._csrf){
+      res.status(400);
+      res.send({error:'miss _csrf token'});
+      return;
+    }
+
+    next();
+    return;
   }
   
   let authorization =  req.get('authorization') ? req.get('authorization') : null;
@@ -29,7 +48,10 @@ async function authInit( req, res, next){
   next();
 }
 
-/* 如果请求中没有用户ID，禁止访问 */
+
+/**
+ * 如果请求中没有用户ID，禁止访问
+ */
 async function check( req, res, next){
   if(!req.userId){
     res.status(401).json({error: i18n.__('401')});
@@ -38,5 +60,6 @@ async function check( req, res, next){
     next();
   }
 }
+
 
 module.exports = { authInit, check };
