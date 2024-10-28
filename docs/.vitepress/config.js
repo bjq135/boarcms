@@ -13,18 +13,32 @@ export default {
     ],
     // 侧边栏导航内容
     sidebar: [
-      { text: '首页', link: '/index.md' },
-      { text: '权限接口', link: '/api/auth' },
-      { text: '文章接口', link: '/api/articles' },
-      { text: '分类接口', link: '/api/categories' },
-      { text: '页面接口', link: '/api/pages' },
-      { text: '通用接口', link: '/api/common' },
-      { text: '上传接口', link: '/api/upload' },
-      { text: '图片接口', link: '/api/images' },
-      { text: '用户接口', link: '/api/user' },
-      // { text: 'AI 生成', link: '/api/ai.md' },
-    ]
+      { text: '介绍', link: '/index.md' },
+      // { text: '安装', link: '/install.md' },
+      // { text: '路由', link: '/router.md' },
+      // { text: '控制器', link: '/controller.md' },
+      // { text: '数据库', link: '/database.md' },
+      // { text: '多语言', link: '/i18n.md' },
+      // { text: '前端', link: '/frontend.md' },
+      // { text: '文件上传', link: '/upload.md' },
+      // { text: '权限', link: '/auth.md' },
+      // { text: '函数', link: '/function.md' },
+      {
+        text: 'API 接口',
+        items: [
+          { text: '权限接口', link: '/api/auth' },
+          { text: '文章接口', link: '/api/articles' },
+          { text: '分类接口', link: '/api/categories' },
+          { text: '页面接口', link: '/api/pages' },
+          { text: '通用接口', link: '/api/common' },
+          { text: '上传接口', link: '/api/upload' },
+          { text: '图片接口', link: '/api/images' },
+          { text: '用户接口', link: '/api/user' },
+          // { text: 'AI 生成', link: '/api/ai.md' },
+        ]
+      }
+    ],
+
+
   }
-
-
 };

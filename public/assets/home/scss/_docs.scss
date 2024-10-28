@@ -30,8 +30,12 @@
   margin: 0 0 10px 0;
 }
 
-.menu-widget{ padding: 0 0 10px 0;}
-
+.menu-widget{ padding: 0 0 35px 0;}
+.menu-widget .doc-index {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 15px 0 5px 15px;
+}
 .menu-widget .article-list {
   counter-reset: num1 0;
   padding: 0px 0 0 15px;
@@ -76,15 +80,6 @@
   color: var(--vt-color-primary); 
   margin-right: 6px       
 }
-
-/* 目录按钮 */
-.doc-index-button{
-  display: block;
-  font-size: 14px;
-  margin: auto 0 0px 0px;
-}
-.menu-widget{ display: none; }
-.menu-widget.show{ display: block; }
 
 
 /* 文档卡片 */
