@@ -6,6 +6,9 @@ const router = express.Router();
 const cors = require('cors');
 router.use(cors());
 
+const {csrf} = require('../middlewares/csrf.js');
+router.use(csrf);
+
 const auth = require('../middlewares/auth.js');
 router.use(auth.authInit);
 

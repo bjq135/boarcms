@@ -127,7 +127,10 @@
 }
 
 @media only screen and (min-width: 900px) {
-  .docs-menu-widget { width: 820px; }
+  .docs-menu-widget {
+    width: 820px;
+    margin: 0 auto;
+  }
 }
 
 

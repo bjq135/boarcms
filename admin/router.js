@@ -12,9 +12,6 @@ router.use(auth.authInit);
 const admin = require('../middlewares/admin.js');
 router.use(admin);
 
-const {csrf} = require('../middlewares/csrf.js');
-router.use(csrf);
-
 router.get('/login', async (req, res)=>{ res.render('admin/login.html');});
 router.get('/login-out', async (req, res)=>{ req.session.userId = undefined; res.redirect('/');});
 
