@@ -13,7 +13,6 @@ router.get('/v1', function(req, res, next){
   res.json({ version:'1.0.1' });
 });
 
-const commonController = require('../api/controllers/common.js');
 const articlesController = require('../api/controllers/articles.js');
 const categoriesController = require('../api/controllers/categories.js');
 const authController = require('../api/controllers/auth.js');
@@ -21,9 +20,9 @@ const pagesController = require('../api/controllers/pages.js');
 const uploadController = require('../api/controllers/upload.js');
 const imagesController = require('../api/controllers/images.js');
 const tagsController = require('../api/controllers/tags.js');
+const siteController = require('../api/controllers/site.js');
 
-
-router.post('/v1/common/option', commonController.updateOption);
+router.post('/v1/site/option', siteController.updateOption);
 
 
 router.post('/v1/auth/login', authController.login);

@@ -13,19 +13,14 @@ async function index(req, res)  {
   }
 
   try {
-    data = JSON.parse(rows[0].option_value);
+    var site = JSON.parse(rows[0].option_value);
   } catch(e) {
-    data = {};
+    var site = {};
   }
+
+  data = {site};
 
   res.render('admin/site/index.html', data);
 }
 
-
-async function update(req, res)  {
-  console.log(req.body);
-  res.send(req.body);
-}
-
-
-module.exports = { index, update };
+module.exports = { index };

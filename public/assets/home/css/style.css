@@ -1654,7 +1654,7 @@ pre {
   width: auto;
   flex: 0 0 calc(50% - 10px);
   max-width: calc(50% - 10px);
-  margin: 0px 10px 10px 0px;
+  margin: 0px 10px 15px 0px;
 }
 
 .images-item a.item-image {
@@ -1672,11 +1672,10 @@ pre {
   height: 100%;
   left: 0;
   top: 0;
-  border-radius: 3px;
+  border-radius: 4px;
   object-fit: cover;
-  box-shadow: 0 0 2px var(--vt-shadow-color);
+  box-shadow: 0 0 1px var(--vt-shadow-color);
   box-sizing: border-box;
-  border: 1px solid var(--vt-border-color);
 }
 
 .images-item .item-info {
@@ -1685,15 +1684,16 @@ pre {
 
 .images-item .item-info a.title {
   display: block;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-top: 5px;
 }
 
 .images-item .item-info .description {
-  margin-top: 3px;
+  margin-top: 5px;
   font-size: var(--vt-font-size-sm);
   color: #666;
   max-height: 40px;
@@ -1747,8 +1747,9 @@ pre {
   }
   .category.images-list .images-item {
     width: auto;
-    max-width: calc(33.33% - 15px);
-    flex: 0 0 calc(33.33% - 15px);
+    max-width: calc(33.33% - 20px);
+    flex: 0 0 calc(33.33% - 20px);
+    margin: 0 20px 30px 0;
   }
 }
 /* 文章列表样式 */

@@ -494,6 +494,10 @@ body.dark-mode .logo {
   display: none;
 }
 
+.side-menu {
+  display: none;
+}
+
 form {
   overflow: hidden;
 }
@@ -505,12 +509,23 @@ form {
   display: flex;
 }
 
-.form-row label {
+.form-row > label {
+  display: inline-block;
   font-size: 14px;
   width: 130px;
   box-sizing: border-box;
   padding: 6px 10px 0 0;
   flex-shrink: 0;
+}
+
+.form-row .form-widget label {
+  display: inline-block;
+  margin: 5px 20px 0 0;
+}
+
+.form-row .form-widget label input[type=radio] {
+  position: relative;
+  top: 1px;
 }
 
 .form-row > .btn {
@@ -546,9 +561,11 @@ input:disabled {
 .form-search {
   margin: 15px 0px 15px 0;
 }
+
 .form-search .form-control {
   margin-bottom: 5px;
 }
+
 .form-search .btn {
   margin-right: 5px;
 }
@@ -564,6 +581,7 @@ input:disabled {
   border: 1px solid var(--vt-border-color);
   box-sizing: border-box;
 }
+
 .checkbox-container label {
   display: flex;
   align-items: center;
@@ -575,9 +593,11 @@ input:disabled {
   user-select: none;
   padding: 0px 10px;
 }
+
 .checkbox-container label:hover {
   background-color: rgb(170, 170, 170);
 }
+
 .checkbox-container label input[type=checkbox] {
   min-height: 16px;
   height: 16px;

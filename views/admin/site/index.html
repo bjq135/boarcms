@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%- title %></title>
     <link rel="stylesheet" href="/assets/admin/css/style.css">
-    <!-- <script src="nav.js"></script> -->
 </head>
 
 <body class="<%- darkMode ? 'dark-mode' : ''%>">
@@ -23,31 +22,42 @@
                 <div class="title">站点设置</div>
             </div>
 
-            <form class="ajax-form" action="/v1/common/option" method="post">
+            <form class="ajax-form" action="/v1/site/option" method="post">
                 <div class="form-row">
                     <label>站点 Logo</label>
-                    <input type="text" class="form-control" name="site_logo" 
-                        value="<%= typeof site_logo === 'undefined' ? '' : site_logo %>">
+                    <input type="text" class="form-control" name="site_logo" value="<%= site.site_logo %>">
                 </div>
                 <div class="form-row">
                     <label>站点标题</label>
-                    <input type="text" class="form-control" name="site_title" 
-                        value="<%= typeof site_title === 'undefined' ? '' : site_title %>">
+                    <input type="text" class="form-control" name="site_title" value="<%= site.site_title %>">
                 </div>
                 <div class="form-row">
                     <label>站点关键词</label>
-                    <input type="text" class="form-control" name="site_keyword" 
-                        value="<%= typeof site_keyword === 'undefined' ? '' : site_keyword %>">
+                    <input type="text" class="form-control" name="site_keyword" value="<%= site.site_keyword %>">
                 </div>
                 <div class="form-row">
                     <label>站点描述</label>
-                    <textarea class="form-control" name="site_description" rows="3"><%= typeof site_description === 'undefined' ? '' : site_description %></textarea>
+                    <textarea class="form-control" name="site_description" rows="3"><%= site.site_description %></textarea>
                 </div>
 
                 <div class="form-row">
                     <label>底部版权</label>
-                    <textarea class="form-control" name="copyright" rows="3"><%= typeof copyright === 'undefined' ? '' : copyright %></textarea>
+                    <textarea class="form-control" name="copyright" rows="8"><%= site.copyright %></textarea>
                 </div>
+
+                <% /* %>
+                <div class="form-row">
+                    <label>开放注册</label>
+                    <div class="form-widget">
+                        <label>
+                            <input type="radio" name="registration_is_open" value="1" <%= site.registration_is_open==1 ? 'checked="checked"' : ''%> > 开启
+                        </label>
+                        <label>
+                            <input type="radio" name="registration_is_open" value="0" <%= site.registration_is_open==0 ? 'checked="checked"' : ''%> > 关闭
+                        </label>
+                    </div>
+                </div>
+                <% */ %>
 
                 <div class="form-row">
                     <input type="hidden" name="_method" value="put">

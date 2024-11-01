@@ -1,4 +1,4 @@
-BoarCMS
+BoarCMS(beta版本)
 =======
 
 ## 简介

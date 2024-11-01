@@ -14,6 +14,7 @@ export default {
     // 侧边栏导航内容
     sidebar: [
       { text: '介绍', link: '/index.md' },
+      { text: '更新', link: '/changes.md' },
       // { text: '安装', link: '/install.md' },
       // { text: '路由', link: '/router.md' },
       // { text: '控制器', link: '/controller.md' },
@@ -30,7 +31,7 @@ export default {
           { text: '文章接口', link: '/api/articles' },
           { text: '分类接口', link: '/api/categories' },
           { text: '页面接口', link: '/api/pages' },
-          { text: '通用接口', link: '/api/common' },
+          { text: '站点接口', link: '/api/site' },
           { text: '上传接口', link: '/api/upload' },
           { text: '图片接口', link: '/api/images' },
           { text: '用户接口', link: '/api/user' },

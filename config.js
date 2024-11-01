@@ -3,7 +3,6 @@
  */
 require('dotenv').config();
 
-// 读取 .env 文件
 module.exports = {
   // 服务器配置
   service: {
@@ -23,9 +22,9 @@ module.exports = {
     logging: false // console.log
   },
   auth: {
-    allowLogin: process.env.ALLOW_LOGIN,
-    allowRegister: process.env.ALLOW_REGISTER,
-    allowSendCode: process.env.ALLOW_SEND_CODE
+    allowLogin: 1,
+    allowRegister: 1,
+    allowSendCode: 1
   },
   language: process.env.LANGUAGE,
   jwt: { secret: 'shared-secret' },
