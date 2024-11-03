@@ -123,7 +123,7 @@ async function sendCode(req, res, next){
 
 async function register(req, res, next) {
   // 检查是否允许注册
-  if (config.auth.prohibitRegister == true) {
+  if (config.auth.allowRegister == 0) {
     res.status(403).json({ error: i18n.__('prohibit_register') });
     return;
   }
