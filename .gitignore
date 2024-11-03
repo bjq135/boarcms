@@ -1,5 +1,4 @@
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -93,9 +92,12 @@ Temporary Items
 # Customize;
 bin/test.js
 
-public/uploads
-public/docs
 public/3d
+public/docs
+public/uploads/avatars/*
+!public/uploads/avatars/.gitkeep
+public/uploads/images/*
+!public/uploads/images/.gitkeep
 
 docs/.vitepress/dist
 docs/.vitepress/cache
