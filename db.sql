@@ -1,7 +1,6 @@
 CREATE TABLE `tb_article` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `categories` varchar(255) DEFAULT NULL COMMENT '分类ID，格式: 1,2,3',
   `title` varchar(255) NOT NULL COMMENT '标题',
   `thumbnail_id` bigint(11) DEFAULT NULL COMMENT '缩略图ID ',
   `content` text COMMENT '内容',
@@ -12,7 +11,6 @@ CREATE TABLE `tb_article` (
   `deleted_at` datetime DEFAULT NULL COMMENT '软删除时间',
   `status` bigint(11) DEFAULT '0' COMMENT '状态,0:未审核,1:已审核',
   `url` varchar(255) DEFAULT NULL COMMENT '链接',
-  `tags_old` varchar(255) DEFAULT NULL COMMENT '标签，多个标签使用英文‘,’分割 ',
   `hit_counter` bigint(11) DEFAULT NULL COMMENT '点击次数',
   `list_order` bigint(11) DEFAULT NULL COMMENT '排序',
   `is_show` bigint(1) DEFAULT NULL COMMENT '是否显示 1 显示 0隐藏',
@@ -42,7 +40,7 @@ CREATE TABLE `tb_article_to_tag` (
   `tag_id` int(11) NOT NULL,
   KEY `article_id` (`article_id`),
   KEY `tag_id` (`tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tb_asset` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -63,19 +61,16 @@ CREATE TABLE `tb_asset` (
 
 CREATE TABLE `tb_category` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `parent_id` bigint(20) NOT NULL DEFAULT '0',
+  `parent_id` bigint(20) NOT NULL,
   `user_id` bigint(20) DEFAULT NULL COMMENT '创建者ID',
   `title` varchar(50) NOT NULL,
   `description` text,
-  `thumbnail` varchar(255) DEFAULT '',
   `thumbnail_id` bigint(20) DEFAULT NULL COMMENT '缩略图ID',
-  `template` varchar(50) DEFAULT NULL COMMENT '模板',
-  `per_page` int(11) DEFAULT NULL COMMENT '每页显示条数',
   `list_order` bigint(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `is_show` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `tb_code` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -87,7 +82,7 @@ CREATE TABLE `tb_code` (
   `created_at` datetime DEFAULT NULL,
   `expired_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tb_comment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -106,6 +101,24 @@ CREATE TABLE `tb_comment` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `tb_doc` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `thumbnail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `path` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_doc_item` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `article_id` bigint(20) NOT NULL,
+  `parent_id` bigint(20) NOT NULL,
+  `doc_id` int(11) NOT NULL DEFAULT '0',
+  `list_order` int(11) NOT NULL DEFAULT '99',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE `tb_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户 ID',
@@ -114,6 +127,26 @@ CREATE TABLE `tb_log` (
   `count` bigint(20) NOT NULL COMMENT '当天的次数',
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `tb_menu` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `url` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `icon` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_show` int(1) NOT NULL DEFAULT '1',
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `list_order` int(11) NOT NULL DEFAULT '99',
+  `menu_group` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `tb_option` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `option_name` varchar(80) DEFAULT NULL,
+  `option_value` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `option_name` (`option_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `tb_page` (
@@ -134,6 +167,14 @@ CREATE TABLE `tb_page` (
   `list_order` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `route_url` (`route_url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `tb_star` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `object_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `created_at` bigint(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `tb_tag` (
@@ -168,7 +209,7 @@ CREATE TABLE `tb_user` (
   `status` int(1) NOT NULL DEFAULT '1' COMMENT '用户状态 1:正常、0:禁用',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `tb_user_meta` (
   `user_meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -178,13 +219,59 @@ CREATE TABLE `tb_user_meta` (
   PRIMARY KEY (`user_meta_id`),
   KEY `user_id` (`user_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `tb_option` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `option_name` varchar(80) DEFAULT NULL,
-  `option_value` text,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `option_name` (`option_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+
+LOCK TABLES `tb_article` WRITE;
+INSERT INTO `tb_article` (`id`, `user_id`, `title`, `thumbnail_id`, `content`, `description`, `more`, `created_at`, `updated_at`, `deleted_at`, `status`, `url`, `hit_counter`, `list_order`, `is_show`)
+VALUES
+  (1,1,'开会开会接口',NULL,'<p>h接口和健康</p>','','','2024-11-04 09:58:52','2024-11-04 10:12:03',NULL,0,'',4,99,1);
+UNLOCK TABLES;
+
+
+LOCK TABLES `tb_article_to_category` WRITE;
+INSERT INTO `tb_article_to_category` (`article_id`, `category_id`)
+VALUES
+  (1,1);
+UNLOCK TABLES;
+
+
+LOCK TABLES `tb_category` WRITE;
+INSERT INTO `tb_category` (`id`, `parent_id`, `user_id`, `title`, `description`, `thumbnail_id`, `list_order`, `created_at`, `is_show`)
+VALUES
+  (1,0,NULL,'默认分类',NULL,NULL,99,NULL,NULL);
+UNLOCK TABLES;
+
+LOCK TABLES `tb_menu` WRITE;
+INSERT INTO `tb_menu` (`id`, `title`, `url`, `icon`, `is_show`, `parent_id`, `list_order`, `menu_group`)
+VALUES
+  (1,'首页','/',NULL,1,0,99,'home'),
+  (2,'默认分类','/categories/1',NULL,1,0,99,'home'),
+  (3,'关于','/pages/1',NULL,1,0,99,'home');
+UNLOCK TABLES;
+
+LOCK TABLES `tb_option` WRITE;
+INSERT INTO `tb_option` (`id`, `option_name`, `option_value`)
+VALUES
+  (1,'site_option','{\"site_logo\":\"/assets/home/images/logo.png\",\"site_title\":\"JavaScript 编程网\",\"site_keyword\":\"JavaScript,JS,Node.js,前端开发,APP开发\",\"site_description\":\"JavaScript 是一种函数优先的高级编程语言，是互联网上最流行的脚本语言。使用 JavaScript 可以开发前端网站、APP、小程序和游戏，也可以开发服务端 API 或开发 ServerLess。甚至开发物联网嵌入式也不在话\",\"copyright\":\"&copy; 2024\\n<a href=\\\"https://javascript.net.cn\\\" target=\\\"_blank\\\">JavaScript 编程网</a>\\n<a href=\\\"https://beian.miit.gov.cn\\\" rel=\\\"nofollow\\\" target=\\\"_blank\\\">豫ICP备13014886号-9</a>\",\"registration_is_open\":\"1\",\"_method\":\"put\",\"content\":\"测试\"}');
+UNLOCK TABLES;
+
+
+LOCK TABLES `tb_page` WRITE;
+
+INSERT INTO `tb_page` (`id`, `user_id`, `title`, `thumbnail_id`, `content`, `description`, `more`, `template`, `route_url`, `created_at`, `updated_at`, `deleted_at`, `hit_counter`, `is_show`, `list_order`)
+VALUES
+  (1,1,'关于','','<p>关于页面</p>','',NULL,'','','2024-11-04 10:11:29',NULL,NULL,-9223372036854775808,1,NULL);
+
+UNLOCK TABLES;
+
+
+LOCK TABLES `tb_user` WRITE;
+
+INSERT INTO `tb_user` (`id`, `username`, `nickname`, `email`, `mobile`, `password`, `gender`, `birthday`, `score`, `coin`, `balance`, `avatar`, `signature`, `last_login_ip`, `more`, `address`, `type`, `created_at`, `logined_at`, `updated_at`, `status`)
+VALUES
+  (1,'admin','admin','admin@admin.com',NULL,'7fef6171469e80d32c0559f88b377245',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,NULL,NULL,NULL,1);
+
+UNLOCK TABLES;
 

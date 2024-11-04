@@ -30,12 +30,13 @@ async function getSite(loginUserId=0) {
     let sql, rows;
     sql = `SELECT
               id,nickname,avatar,signature,
-              (SELECT a.file_path FROM tb_asset AS a WHERE a.id=u.avatar) AS url
+              (SELECT a.file_path FROM tb_asset AS a WHERE a.id=u.avatar) AS path
             FROM tb_user AS u
             WHERE u.id=:id`;
     [rows] = await dbUtil.execute(sql, { id: loginUserId });
     site.loginUser = rows[0];
-    site.loginUser.avatarUrl = '/uploads/avatars/' + site.loginUser.url;
+    site.loginUser.avatarUrl = '/assets/home/images/avatar.jpg';
+    site.loginUser.avatarUrl = rows[0].path ? '/uploads/avatars/' + rows[0].path : site.loginUser.avatarUrl;
   }
 
   // 网站配置

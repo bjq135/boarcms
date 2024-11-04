@@ -1,4 +1,5 @@
 const htmlUtil = require('../../utils/html.js');
+const commonUtil = require('../../utils/common.js');
 const dbUtil = require('../../utils/db.js');
 const pagination = require('../../utils/page-number/index.js');
 
@@ -13,6 +14,7 @@ const siteService = require('../services/site.js');
  * 首页
  */
 async function index(req, res) {
+  console.log('commonUtil.md5(password)', commonUtil.md5('admin888'))
   const data = {};
   data.site = await siteService.getSite(req.app.locals.loginUserId);
 
@@ -29,11 +31,11 @@ async function index(req, res) {
   // 获取所有文章
   let isShow = req.userId ? 2 : 1;
   var articles = await articlesService.getArticles(currentCategoryIds, page, perPage, isShow, '', '50');
-  if (!articles.length) {
-    res.status(404);
-    res.render('home/404.html', data);
-    return;
-  }
+  // if (!articles.length) {
+  //   res.status(404);
+  //   res.render('home/404.html', data);
+  //   return;
+  // }
 
   for (let i = 0; i < articles.length; i++) {
     articles[i].categories = await categoriesService.getCategoriesByArticleId(articles[i].id);

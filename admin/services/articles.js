@@ -2,6 +2,7 @@ const i18n = require('i18n');
 
 const config = require('../../config.js');
 
+const htmlUtil = require('../../utils/html.js');
 const commonUtil = require('../../utils/common.js');
 const dbUtil = require('../../utils/db.js');
 const Dao = require('../../utils/dao.js');
@@ -249,7 +250,7 @@ class ArticlesService {
     var [articles] = await dbUtil.execute(sql, replacements);
     articles.forEach(function (a, index) {
       articles[index] = commonUtil.dataShow(a);
-      articles[index].user.avatar = commonUtil.getAvatarUrl(articles[index].user.avatar);
+      articles[index].user.avatar = htmlUtil.getAvatarUrl(articles[index].user.avatar);
       articles[index].thumbnail = commonUtil.getImageUrl(articles[index].thumbnail);
       // articles[index].more = a.more ? JSON.parse(a.more) : { images: [] };
       articles[index].content = commonUtil.delHtmlTag(a.content);
