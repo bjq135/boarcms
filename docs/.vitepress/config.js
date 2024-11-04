@@ -14,8 +14,7 @@ export default {
     // 侧边栏导航内容
     sidebar: [
       { text: '介绍', link: '/index.md' },
-      { text: '更新', link: '/changes.md' },
-      // { text: '安装', link: '/install.md' },
+      { text: '安装', link: '/install.md' },
       // { text: '路由', link: '/router.md' },
       // { text: '控制器', link: '/controller.md' },
       // { text: '数据库', link: '/database.md' },
@@ -24,6 +23,7 @@ export default {
       // { text: '文件上传', link: '/upload.md' },
       // { text: '权限', link: '/auth.md' },
       // { text: '函数', link: '/function.md' },
+      { text: '更新', link: '/changes.md' },
       {
         text: 'API 接口',
         items: [

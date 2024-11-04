@@ -14,7 +14,6 @@ const siteService = require('../services/site.js');
  * 首页
  */
 async function index(req, res) {
-  console.log('commonUtil.md5(password)', commonUtil.md5('admin888'))
   const data = {};
   data.site = await siteService.getSite(req.app.locals.loginUserId);
 
