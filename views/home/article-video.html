@@ -114,6 +114,11 @@
 
     </div>
 
+    <%
+    if(!article.thumbnail){
+      article.thumbnail = '/assets/home/images/no-thumbnail.png';
+    }
+    %>
     <input type="hidden" name="thumbnail" value="<%- article.thumbnail %>">
 
     <%- include('footer.html')%>

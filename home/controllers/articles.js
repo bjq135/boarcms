@@ -40,7 +40,8 @@ async function show(req, res) {
   article = commonUtil.dataShow(article);
   article.user.avatar = htmlUtil.getAvatarUrl(article.user.avatar);
 
-  article['thumbnail'] = commonUtil.getImageUrl(article['thumbnail']);
+  let img = await dbUtil.findOne('tb_asset', {where:{id:article['thumbnail_id']}});
+  article['thumbnail'] = img && commonUtil.getImageUrl(img.file_path);
   article['created_at'] = commonUtil.formatDate(Date.parse(article['created_at']));
   article['updated_at'] = article.updated_at ? commonUtil.formatDate(Date.parse(article.updated_at)) : '';
   data.article = article;
@@ -106,6 +107,8 @@ async function show(req, res) {
   data.site = await siteService.getSite(loginUserId);
 
   let template = "home/article.html";
+
+  console.log(article)
 
   let condition = { where:{ article_id:article.id, meta_key:'article_type'}};
   let one = await dbUtil.findOne('tb_article_meta', condition);

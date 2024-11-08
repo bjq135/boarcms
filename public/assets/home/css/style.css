@@ -1069,6 +1069,11 @@ pre {
 }
 #my-video {
   margin-bottom: 20px;
+  box-shadow: 0 0 2px 0 var(--vt-shadow-color);
+}
+
+.vjs-poster img {
+  object-fit: cover !important;
 }
 
 /*
