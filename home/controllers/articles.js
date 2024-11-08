@@ -2,6 +2,7 @@ const i18n = require('i18n');
 
 const commonUtil = require('../../utils/common.js');
 const dbUtil = require('../../utils/db.js');
+const Dao = require('../../utils/dao.js');
 const htmlUtil = require('../../utils/html.js');
 const pagination = require('../../utils/page-number/index.js');
 
@@ -104,7 +105,15 @@ async function show(req, res) {
   let loginUserId = req.app.locals.loginUserId ? req.app.locals.loginUserId : 0;
   data.site = await siteService.getSite(loginUserId);
 
-  res.render("home/article.html", data);
+  let template = "home/article.html";
+
+  let condition = { where:{ article_id:article.id, meta_key:'article_type'}};
+  let one = await dbUtil.findOne('tb_article_meta', condition);
+  if(one && one.meta_value=='video'){
+    template = "home/article-video.html";
+  }
+
+  res.render(template, data);
 }
 
 

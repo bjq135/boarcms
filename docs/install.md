@@ -19,7 +19,7 @@ git clone https://gitee.com/soushenji/boarcms.git
 ### 导入数据库文件
 
 ```
-\db.sql
+db.sql
 ```
 
 

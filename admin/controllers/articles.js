@@ -2,12 +2,13 @@ const i18n = require('i18n');
 
 const UsersService = require("../services/users.js");
 const ArticlesService = require("../services/articles.js");
-// const ArticlesMetaService = require("../services/articles-meta.js");
 const CategoriesService = require("../services/categories.js");
 const TagsService = require("../services/tags.js");
 const pagination = require("../../utils/page-number/index.js");
+
 const htmlUtil = require("../../utils/html.js");
 const commonUtil = require("../../utils/common.js");
+const Dao = require('../../utils/dao.js');
 
 const config = require("../../config.js");
 
@@ -104,15 +105,20 @@ async function edit(req, res) {
     });
   }
   
-  const meta = config.articleMeta;
-  if (Array.isArray(meta)) {
-    const articlesMetaService = new ArticlesMetaService();
-    for (let i = 0; i < meta.length; i++) {
-      let r = await articlesMetaService.getArticleMeta(id, meta[i].meta_key);
-      meta[i].meta_value = r?.meta_value;
+  const meta = {};
+  const metaArr = Array('article_type','price');
+  const articlesMetaDao = new Dao('tb_article_meta');
+  if (Array.isArray(metaArr)) {
+    for (let i = 0; i < metaArr.length; i++) {
+      let where = {'article_id':id, 'meta_key':metaArr[i]};
+      let rows = await articlesMetaDao.findAll({where});
+      if(rows){
+        // console.log(rows[0])
+        meta[rows[0].meta_key] = rows[0].meta_value;
+      }
     }
   }
-  
+
   let data = { article, categoriesHTML, tags, meta };
   res.render('admin/articles/edit.html', data);
   return;

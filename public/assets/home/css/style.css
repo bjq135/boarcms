@@ -1067,6 +1067,10 @@ pre {
     right: 0;
   }
 }
+#my-video {
+  margin-bottom: 20px;
+}
+
 /*
  * search
  */

@@ -162,6 +162,11 @@ function getAvatarUrl(url) {
 }
 
 
+function isChecked(type, currentType){
+  return type == currentType ? 'checked="checked"' : '';
+}
+
+
 module.exports = {
   getOptions,
   getManyCategory,
@@ -170,5 +175,6 @@ module.exports = {
   getMenuHtmlPc,
   getImageUrl,
   getAvatarUrl,
-  getMenu
+  getMenu,
+  isChecked
 }

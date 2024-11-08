@@ -103,17 +103,10 @@ docs/.vitepress/dist
 docs/.vitepress/cache
 docs/.vitepress/public
 
+test.js
 tests/*
 !tests/test.js
 
 !logs/.gitkeep
-
-# /home
-# /admin
-
-# /public/assets/home
-# /public/assets/admin
-
-# /views/home
 
 

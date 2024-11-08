@@ -77,8 +77,11 @@ class Dao {
       sql += ' LIMIT ' + obj.limit;
       sql += obj.offset ? (' OFFSET ' + obj.offset) : '';
     }
+
     try{
+      // console.log('sql ', sql, replacements)
       let [rows] = await this.conn.execute(sql, replacements);
+      // console.log(rows)
       return rows;
     }catch(e){
       //TODO handle the exception
@@ -155,7 +158,7 @@ class Dao {
   
 
   /**
-   * 保存一个对象到表中
+   * 更新一个对象到表中
    * @param {Object} obj 需要保存的对象
    *
    * ResultSetHeader {

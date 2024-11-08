@@ -17,7 +17,7 @@ export default {
       { text: '安装', link: '/install.md' },
       // { text: '路由', link: '/router.md' },
       // { text: '控制器', link: '/controller.md' },
-      // { text: '数据库', link: '/database.md' },
+      { text: '数据库', link: '/database.md' },
       // { text: '多语言', link: '/i18n.md' },
       // { text: '前端', link: '/frontend.md' },
       // { text: '文件上传', link: '/upload.md' },
