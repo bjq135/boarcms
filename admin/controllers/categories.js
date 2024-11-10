@@ -5,6 +5,7 @@ const Dao = require('../../utils/dao.js');
 
 const CategoriesService = require('../services/categories.js');
 
+
 async function index(req, res) {
   const categoriesService = new CategoriesService();
   var categories = await categoriesService.getAllCategories();
@@ -56,6 +57,7 @@ async function index(req, res) {
   res.render('admin/categories/index.html', { menus });
 }
 
+
 /**
  * 显示创建页面
  */
@@ -69,6 +71,7 @@ async function create(req, res) {
   res.render('admin/categories/create.html', { options, commonUtil });
 }
 
+
 /**
  * 创建   
  */
@@ -78,6 +81,7 @@ async function store(req, res) {
   // let categoriesServices = new CategoriesService();
 }
 
+
 /**
  * 编辑页面
  */
@@ -85,13 +89,16 @@ async function edit(req, res) {
   let categoryId = parseInt(req.params.id);
   
   const categoriesService = new CategoriesService();
-  // const imagesService = new ImagesService();
+
   let category = await categoriesService.getCategoryById(categoryId);
   if(category.thumbnail_id){
-    const imagesDao = new Dao('tb_asset');
-    const image = await imagesDao.findOne(category.thumbnail_id);
-    category.thumbnail = commonUtil.getImageUrl(image.file_path);
+    let image = await dbUtil.findOne('tb_asset', category.thumbnail_id);
+    category.thumbnail = image ? commonUtil.getImageUrl(image.file_path) : "";
   }
+
+  let where = {category_id:categoryId, meta_key:'template'};
+  let templateMeta = await dbUtil.findOne('tb_category_meta', {where});
+  category.template = templateMeta ? templateMeta.meta_value : 'articles';
 
   let categories = await categoriesService.getAllCategories();
   let options = htmlUtil.getOptions(0, categories, '&nbsp;', category.parent_id);

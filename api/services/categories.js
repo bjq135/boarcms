@@ -70,18 +70,29 @@ class CategoriesService {
    */
   async store(category) {
     delete category.id;
+
     category.created_at = commonUtil.formatDateTime();
 
-    const categoriesDao = new Dao('tb_category');
-
     if (category.parent_id) {
-      let parentCategory = await categoriesDao.findOne(category.parent_id);
+      let parentCategory = await dbUtil.findOne('tb_category',category.parent_id);
       if (!parentCategory) {
         throw new Error(i18n.__('parent category is not exist'));
       }
     }
 
-    const result = await categoriesDao.save(category);
+    const result = await dbUtil.save('tb_category', category);
+    let categoryId = result.insertId;
+
+    // 处理 meta
+    if(category.meta){
+      let meta = category.meta;
+      for (const key in meta) {
+        let data = {category_id:categoryId, meta_key:key, meta_value:meta[key]};
+        console.log(data)
+        await dbUtil.save('tb_category_meta', data);
+      }
+    }
+
     return result;
   }
 
@@ -89,10 +100,8 @@ class CategoriesService {
   async update(category) {
     if (!category.id) throw Error(i18n.__('category id is not valid'));
 
-    const categoriesDao = new Dao('tb_category');
-
     if (category.parent_id) {
-      let parentCategory = await categoriesDao.findOne(category.parent_id);
+      let parentCategory = await dbUtil.findOne('tb_category',category.parent_id);
       if (!parentCategory) {
         throw new Error(i18n.__('parent category is not exist'));
       }
@@ -111,9 +120,28 @@ class CategoriesService {
       throw new Error(i18n.__('parent category must not be subcategory'));
     }
 
-    console.log('category', category)
+    // 处理 meta
+    if(category.meta){
+      let meta = category.meta;
+      for (const key in meta) {
+        let where = { category_id:category.id, meta_key:key };
 
-    const result = await categoriesDao.update(category);
+        if(meta[key] == null){
+          await dbUtil.destroy('tb_category_meta', {where});
+          continue;
+        }
+
+        let data = {category_id:category.id, meta_key:key, meta_value:meta[key]};
+        let metaItem = await dbUtil.findOne('tb_category_meta', {where});
+        if(metaItem){
+          await dbUtil.update('tb_category_meta', data, {where});
+        } else {
+          await dbUtil.save('tb_category_meta', data);
+        }
+      }
+    }
+
+    let result = await dbUtil.update('tb_category', category, {where:{id:category.id}});
     return result;
   }
 

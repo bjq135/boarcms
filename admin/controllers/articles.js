@@ -8,6 +8,8 @@ const pagination = require("../../utils/page-number/index.js");
 
 const htmlUtil = require("../../utils/html.js");
 const commonUtil = require("../../utils/common.js");
+const dbUtil = require("../../utils/db.js");
+
 const Dao = require('../../utils/dao.js');
 
 const config = require("../../config.js");
@@ -65,7 +67,8 @@ async function create(req, res) {
   const tagsServices = new TagsService();
   let tags = await tagsServices.getTags();
 
-  let data = { categoriesHTML, tags };
+  let data = { categoriesHTML, tags};
+
   res.render('admin/articles/create.html', data);
   return;
 }
@@ -107,13 +110,11 @@ async function edit(req, res) {
   
   const meta = {};
   const metaArr = Array('article_type','price');
-  const articlesMetaDao = new Dao('tb_article_meta');
   if (Array.isArray(metaArr)) {
     for (let i = 0; i < metaArr.length; i++) {
       let where = {'article_id':id, 'meta_key':metaArr[i]};
-      let rows = await articlesMetaDao.findAll({where});
-      if(rows){
-        // console.log(rows[0])
+      let rows = await dbUtil.findAll('tb_article_meta', {where});
+      if(rows.length){
         meta[rows[0].meta_key] = rows[0].meta_value;
       }
     }

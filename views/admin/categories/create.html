@@ -60,14 +60,26 @@
                 </div>
 
                 <div class="form-row">
-                    <label for="input-name">状态</label>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show1" value="1" checked>
-                        <label for="is_show1">显示</label>
+                    <label for="input-name">模板</label>
+                    <div class="form-widget">
+                        <label>
+                            <input type="radio" name="template" value="articles" checked> 文章列表
+                        </label>
+                        <label>
+                            <input type="radio" name="template" value="images"> 图片列表
+                        </label>
                     </div>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show2" value="0">
-                        <label for="is_show2">隐藏</label>
+                </div>
+
+                <div class="form-row">
+                    <label>状态</label>
+                    <div class="form-widget">
+                        <label>
+                            <input type="radio" name="is_show" value="1" checked> 显示
+                        </label>
+                        <label>
+                            <input type="radio" name="is_show" value="0"> 隐藏
+                        </label>
                     </div>
                 </div>
 
@@ -96,11 +108,11 @@
             formData.set("categories", categories);
             let json = utils.formDataToJson(formData);
             json.thumbnail_id = json.thumbnail_id || 0;
-            console.log('json ', json);
+            json.meta = {template: document.querySelector('input[name="template"]:checked').value };
+            
             let payload = JSON.stringify(json);
             let jsonHeaders = new Headers({'Content-Type': 'application/json'});
             let url = form.action;
-            console.log('url ', url)
 
             let response = await fetchWrapper(url, {
                 method: 'POST',

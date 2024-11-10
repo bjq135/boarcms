@@ -87,10 +87,9 @@ function execute(sql, values) {
  */
 async function findOne(table, obj, conn){
   if(!table) throw new Error('table name is required');
-  // if(!obj) throw new Error('id is required');
+  if(!obj) throw new Error('obj is required');
   
   var connection = null;
-  
   if(typeof obj === 'number'){
     let id = obj;
     try{

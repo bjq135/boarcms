@@ -96,15 +96,30 @@
                     <input type="datetime-local" class="form-control" name="created_at" value="">
                 </div>
 
+                <%
+                let aType = 'article';
+                %>
                 <div class="form-row">
-                    <label for="input-name">状态</label>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show1" value="1">
-                        <label for="is_show1">显示</label>
+                    <label>文章类型</label>
+                    <div class="form-widget">
+                        <label>
+                            <input type="radio" name="article_type" value="article" <%- htmlUtil.isChecked('article', aType) %> > 文章
+                        </label>
+                        <label>
+                            <input type="radio" name="article_type" value="video" <%- htmlUtil.isChecked('video', aType) %> > 视频
+                        </label>
                     </div>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show2" value="0" checked="checked">
-                        <label for="is_show2">隐藏</label>
+                </div>
+            
+                <div class="form-row">
+                    <label>状态</label>
+                    <div class="form-widget">
+                        <label>
+                            <input type="radio" name="is_show" value="1"> 显示
+                        </label>
+                        <label>
+                            <input type="radio" name="is_show" value="0" checked="checked"> 隐藏
+                        </label>
                     </div>
                 </div>
 
@@ -139,6 +154,7 @@
             formData.set('content', tinyMCE.activeEditor.getContent());
             let json = utils.formDataToJson(formData);
             json.thumbnail_id = parseInt(json.thumbnail_id);
+            json.meta = {article_type: document.querySelector('input[name="article_type"]:checked').value };
 
             let payload = JSON.stringify(json);
             let jsonHeaders = new Headers({ 'Content-Type': 'application/json'});

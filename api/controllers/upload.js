@@ -55,7 +55,7 @@ async function upload(req, res) {
     if (req.query.original == "true") {
       fs.writeFileSync(destPath + '/' + filename + "." + extName, file.buffer);
     } else if (req.query.thumbnail == "true") {
-      img = await img.cover(300, 300, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
+      img = await img.cover(500, 500, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE);
       img = await img.quality(95);
       img = await img.writeAsync(destPath + '/' + filename + "." + extName);
     } else {

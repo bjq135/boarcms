@@ -48,7 +48,9 @@
                             <button type="button" class="upload-button btn btn-sm btn-primary">上传</button>
                             <button type="button" class="delete-button btn btn-sm btn-danger">删除</button>
                         </div>
-                        <div class="thumbnail-image"></div>
+                        <div class="thumbnail-image">
+                            <% if(category.thumbnail){ %> <img src="<%-category.thumbnail%>"> <%}%>
+                        </div>
                         <input type="hidden" name="thumbnail_id" value="<%- category.thumbnail_id %>">
                     </div>
                 </div>
@@ -59,35 +61,32 @@
                 </div>
 
                 <div class="form-row">
-                    <label for="input-name">模板</label> 
-                    <div class="form-check">
-                        <input type="radio" name="template" id="template1" value="list" 
-                            <% if(category.template=='list'){ %> checked <% } %> >
-                        <label for="template1">文章列表</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" name="template" id="template2" value="images"
-                            <% if(category.template=='images'){ %> checked <% } %> >
-                        <label for="template2">图片列表</label>
+                    <label for="input-name">模板</label>
+                    <div class="form-widget">
+                        <label>
+                            <input type="radio" name="template" value="articles" <%-htmlUtil.isChecked('articles', category.template)%> >
+                            文章列表
+                        </label>
+                        <label>
+                            <input type="radio" name="template" value="images" <%-htmlUtil.isChecked('images', category.template)%> >
+                            图片列表
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <label for="input-name">每页显示条数</label>
-                    <input type="text" class="form-control" name="per_page" value="<%- category.per_page %>" placeholder="默认显示10条">
-                </div>
-
-                <div class="form-row">
-                    <label for="input-name">状态</label>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show1" value="1" 
-                            <% if(category.is_show==1){ %> checked <% } %> >
-                        <label for="is_show1">显示</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show2" value="0"
-                            <% if(category.is_show==0){ %> checked <% } %> >
-                        <label for="is_show2">隐藏</label>
+                    <label>状态</label>
+                    <div class="form-widget">
+                        <label>
+                            <input type="radio" name="is_show" value="1"
+                                <% if(category.is_show==1){ %>checked="checked" <% } %>
+                                > 显示
+                        </label>
+                        <label>
+                            <input type="radio" name="is_show" value="0"
+                                <% if(category.is_show==0){ %>checked="checked" <% } %>
+                                > 隐藏
+                        </label>
                     </div>
                 </div>
 
@@ -116,7 +115,7 @@
             let formData = new FormData(form);
             let json = utils.formDataToJson(formData);
             json.thumbnail_id = parseInt(json.thumbnail_id);
-            console.log('json', json)
+            json.meta = {template: document.querySelector('input[name="template"]:checked').value };
 
             try {
                 let payload = JSON.stringify(json);

@@ -2,6 +2,7 @@ const i18n = require('i18n');
 
 const Dao = require('../../utils/dao.js');
 const htmlUtil = require('../../utils/html.js');
+const dbUtil = require('../../utils/db.js');
 const pagination = require('../../utils/page-number/index.js');
 const ArticlesService = require('../services/articles.js');
 const CategoriesService = require('../services/categories.js');
@@ -59,6 +60,15 @@ async function show(req, res) {
   //   res.render("home/categories-images.html", data);
   //   return;
   // }
+  
+  let result = await dbUtil.findOne('tb_category_meta', {
+    where:{ category_id:categoryId, meta_key:'template'}
+  });
+
+  if(result && result.meta_value=='images'){
+    res.render("home/categories-images.html", data);
+    return;
+  }
   
   res.render("home/categories.html", data);
 }

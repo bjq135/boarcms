@@ -3,20 +3,13 @@ const Validator = require('fov');
 
 const Dao = require('../../utils/dao.js');
 const commonUtil = require('../../utils/common.js');
+const dbUtil = require('../../utils/db.js');
 
 const CategoriesService = require('../services/categories.js');
 
 async function index(req, res) {
   const categoryService = new CategoriesService();
   let categories = await categoryService.getCategories();
-
-  // const imagesService = new ImagesService();
-  // for (var i = 0; i < categories.length; i++) {
-  //   if (categories[i].thumbnail_id) {
-  //     let image = await imagesService.getImage(categories[i].thumbnail_id);
-  //     categories[i].thumbnail = commonUtil.getImageUrl(image.file_path);
-  //   } 
-  // }
 
   res.json(categories);
 }
@@ -25,12 +18,6 @@ async function index(req, res) {
 async function show(req, res) {
   const categoryService = new CategoriesService();
   let category = await categoryService.getCategoryById(req.params.id);
-
-  // if (category.thumbnail_id) {
-  //   const imagesService = new ImagesService();
-  //   let image = await imagesService.getImage(category.thumbnail_id);
-  //   category.thumbnail = commonUtil.getImageUrl(image.file_path)
-  // }
 
   res.json(category);
 }
@@ -58,6 +45,13 @@ async function store(req, res) {
     const categoriesService = new CategoriesService();
     var result = await categoriesService.store(req.body);
     var category = await categoriesService.getCategoryById(result.insertId);
+
+    let metaArr = await dbUtil.findAll('tb_category_meta', {
+      where:{ category_id:category.id }
+    });
+    category.meta = {}
+    metaArr.forEach((item, index)=>{ category.meta[item.meta_key]=item.meta_value; });
+
     res.status(201);
     res.json(category);
   } catch (error) {
