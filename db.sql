@@ -40,7 +40,7 @@ CREATE TABLE `tb_article_to_tag` (
   `tag_id` int(11) NOT NULL,
   KEY `article_id` (`article_id`),
   KEY `tag_id` (`tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `tb_asset` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -72,6 +72,16 @@ CREATE TABLE `tb_category` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `tb_category_meta` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `category_id` bigint(20) NOT NULL,
+  `meta_key` varchar(100) NOT NULL,
+  `meta_value` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`),
+  KEY `meta_key` (`meta_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE `tb_code` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -82,7 +92,7 @@ CREATE TABLE `tb_code` (
   `created_at` datetime DEFAULT NULL,
   `expired_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `tb_comment` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -108,7 +118,7 @@ CREATE TABLE `tb_doc` (
   `thumbnail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `path` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `tb_doc_item` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -139,7 +149,7 @@ CREATE TABLE `tb_menu` (
   `list_order` int(11) NOT NULL DEFAULT '99',
   `menu_group` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `tb_option` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -209,7 +219,7 @@ CREATE TABLE `tb_user` (
   `status` int(1) NOT NULL DEFAULT '1' COMMENT '用户状态 1:正常、0:禁用',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `tb_user_meta` (
   `user_meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -219,7 +229,7 @@ CREATE TABLE `tb_user_meta` (
   PRIMARY KEY (`user_meta_id`),
   KEY `user_id` (`user_id`),
   KEY `meta_key` (`meta_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 
