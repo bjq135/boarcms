@@ -9,12 +9,14 @@
   justify-content: flex-end;
   z-index: 999;
 }
+
 .float-widget .tool-widget {
   width: 45px;
   height: 45px;
   margin-top: 15px;
   position: relative;
 }
+
 .float-widget .tool-widget a.tool-button {
   width: 100%;
   height: 100%;
@@ -29,6 +31,7 @@
   background-color: var(--vt-bg-color-card);
   cursor: pointer;
 }
+
 .float-widget .tool-widget a.tool-button i {
   z-index: 1;
   font-size: var(--vt-font-size-lg);
@@ -44,7 +47,3 @@
     display: block;
   }
 }
-
-
-
-

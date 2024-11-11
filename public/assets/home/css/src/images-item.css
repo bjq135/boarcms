@@ -1,17 +1,13 @@
-//-----------------------------------------------------------------------------
-// 图片列表
-//
 .images-section {
   width: 100%;
   box-sizing: border-box;
   margin: 20px auto;
   padding: 8px 15px 15px 15px;
-
-  &::after {
-      content: "";
-      display: block;
-      clear: both;
-  }
+}
+.images-section::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .images-list {
@@ -20,12 +16,11 @@
   display: flex;
   justify-content: normal;
   flex-wrap: wrap;
-
-  &::after {
-      content: "";
-      display: block;
-      clear: both;
-  }
+}
+.images-list::after {
+  content: "";
+  display: block;
+  clear: both;
 }
 
 .images-item {
@@ -60,7 +55,7 @@
   padding-top: 5px;
 }
 
-.images-item .item-info  a.title {
+.images-item .item-info a.title {
   display: block;
   font-size: 16px;
   font-weight: 500;
@@ -80,64 +75,54 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-  // white-space: nowrap;
-  // display: none;
 }
 
-.images-item .hidden-action{
+.images-item .hidden-action {
   color: var(--vt-color-warning);
 }
-.images-item .hidden-action i{
+
+.images-item .hidden-action i {
   position: relative;
-  top:2px;
-  font-size:19px;
+  top: 2px;
+  font-size: 19px;
 }
-
-
 
 @media only screen and (min-width: 900px) {
-    .images-section {
-        width: 100%;
-    }
-    
-    .images-section  .widget-header {
-        width: 1200px;
-        margin: 0px auto;
-    }
-
-    .images-list {
-        width: 1200px;
-        margin: 0px auto;
-    }
-    
-    .images-item {
-        width: auto;
-        max-width: calc(25% - 15px);
-        flex: 0 0 calc(25% - 15px);
-        margin: 0 15px 15px 0;
-    }
-    .images-item:nth-child(3n){
-      margin-right: 0;
-    }
+  .images-section {
+    width: 100%;
+  }
+  .images-section .widget-header {
+    width: 1200px;
+    margin: 0px auto;
+  }
+  .images-list {
+    width: 1200px;
+    margin: 0px auto;
+  }
+  .images-item {
+    width: auto;
+    max-width: calc(25% - 15px);
+    flex: 0 0 calc(25% - 15px);
+    margin: 0 15px 15px 0;
+  }
+  .images-item:nth-child(3n) {
+    margin-right: 0;
+  }
 }
-
-
-
-
 .category.images-list {
-    margin: 20px -10px 0px auto;
+  margin: 20px -10px 0px auto;
 }
 
 @media only screen and (min-width: 900px) {
   .category.images-list {
-      width: 835px;
-      margin: 20px 0px 0 0;
+    width: 835px;
+    margin: 20px 0px 0 0;
   }
-  
   .category.images-list .images-item {
-      width: auto;
-      max-width: calc(33.33% - 20px);
-      flex: 0 0 calc(33.33% - 20px);
-      margin: 0 20px 30px 0;
+    width: auto;
+    max-width: calc(33.33% - 20px);
+    flex: 0 0 calc(33.33% - 20px);
+    margin: 0 20px 30px 0;
   }
 }
+

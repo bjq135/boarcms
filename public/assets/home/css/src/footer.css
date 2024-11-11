@@ -1,3 +1,4 @@
+
 /*
  * footer
  */
@@ -12,10 +13,13 @@ footer .footer-container {
   width: calc(100vw - 50px);
   padding: 25px 0;
   margin: 0 auto;
-  color: #ffffff66;
+  color: rgba(255, 255, 255, 0.4);
   overflow: hidden;
 }
-footer .footer-container a { color: #ffffff66;}
+
+footer .footer-container a {
+  color: rgba(255, 255, 255, 0.4);
+}
 
 footer .footer-container .copyright {
   font-family: Arial, Helvetica, sans-serif;
@@ -24,21 +28,24 @@ footer .footer-container .copyright {
   font-size: 12px;
   margin: 0px 0px;
 }
-footer .footer-container .copyright a, 
-footer .footer-container .copyright span{
+
+footer .footer-container .copyright a,
+footer .footer-container .copyright span {
   font-size: 12px;
   margin: 0 3px;
 }
+
 footer .footer-container .powered-item {
   display: inline-block;
   font-size: 12px;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
+
 footer .footer-container .powered-item img {
   height: 23px;
-  position:relative;
-  top:5px;
+  position: relative;
+  top: 5px;
 }
 
 @media only screen and (min-width: 900px) {
@@ -50,6 +57,4 @@ footer .footer-container .powered-item img {
     width: 1200px;
     margin: 0 auto;
   }
-
-    
 }

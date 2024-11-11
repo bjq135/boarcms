@@ -108,8 +108,6 @@ async function show(req, res) {
 
   let template = "home/article.html";
 
-  console.log(article)
-
   let condition = { where:{ article_id:article.id, meta_key:'article_type'}};
   let one = await dbUtil.findOne('tb_article_meta', condition);
   if(one && one.meta_value=='video'){

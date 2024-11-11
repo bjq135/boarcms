@@ -2,7 +2,7 @@
   width: auto;
   max-width: 90%;
   margin: 0 auto;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, 0.7);
   color: #fff;
   font-size: 14px;
   padding: 10px 20px;
@@ -12,11 +12,17 @@
   border-radius: 5px;
   transform: translateX(-50%);
   user-select: none;
-  animation:.3s layui-m-anim-up ;
+  animation: 0.3s layui-m-anim-up;
   z-index: 99;
 }
 
-@keyframes layui-m-anim-up{
-  0%{opacity: 0; transform: translateY(200px) translateX(-50%);}
-  100%{opacity: 1; transform: translateY(0) translateX(-50%);}
+@keyframes layui-m-anim-up {
+  0% {
+    opacity: 0;
+    transform: translateY(200px) translateX(-50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateX(-50%);
+  }
 }

@@ -1,3 +1,4 @@
+
 /*
  * search
  */
@@ -6,22 +7,22 @@
   margin-top: 100px;
   font-size: 16px;
   color: var(--vt-text-color);
-  img{
-    width: 300px;
-  }
-  p {
-    margin-top: 50px;
-  }
+}
+.no-content img {
+  width: 300px;
+}
+.no-content p {
+  margin-top: 50px;
 }
 
 .search-title {
   margin-top: 0px;
-  color:var(--vt-text-color);
+  color: var(--vt-text-color);
   font-size: var(--vt-font-size-base);
 }
 
-.search-title i{
+.search-title i {
   font-size: 30px;
   position: relative;
-  top:5px
+  top: 5px;
 }
