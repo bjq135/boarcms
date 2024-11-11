@@ -19,7 +19,7 @@ async function index(req, res) {
 
   const pager = pagination(req, page, count, perPage);
   const data = { keyword, users, pager, status };
-  console.table( users)
+
   res.render('admin/users/index.html', data);
 }
 

@@ -58,10 +58,11 @@ class ArticlesService {
       }
 
       // 6.处理 meta
-      if (meta) {
-        const articlesMetaDao = new Dao('tb_article_meta', conn);
+      if(meta){
         for (const key in meta) {
-          await articlesMetaDao.save({ article_id:articleId, meta_key:key, meta_value:meta[key] });
+          if(meta[key]==null) continue;
+          let data = {article_id:articleId, meta_key:key, meta_value:meta[key]};
+          await dbUtil.save('tb_article_meta', data, conn);
         }
       }
     
@@ -126,17 +127,21 @@ class ArticlesService {
       }
 
       // 6.处理 meta
-      if (meta) {
-        const articlesMetaDao = new Dao('tb_article_meta', conn);
+      if(meta){
         for (const key in meta) {
+          let where = { article_id:data.id, meta_key:key };
+
           if(meta[key] == null){
-            await articlesMetaDao.delete({ where:{ article_id:data.id, meta_key:key }});
+            await dbUtil.destroy('tb_article_meta', {where}, conn);
             continue;
           }
-          let sql = `UPDATE tb_article_meta SET meta_value=? WHERE article_id=? AND meta_key=?`;
-          let [result] = await conn.execute(sql, [meta[key], data.id, key]);
-          if(result.affectedRows == 0){
-            await articlesMetaDao.save({ article_id:data.id, meta_key:key, meta_value:meta[key] });
+
+          let metaData = {article_id:data.id, meta_key:key, meta_value:meta[key]};
+          let metaItem = await dbUtil.findOne('tb_article_meta', {where});
+          if(metaItem){
+            await dbUtil.update('tb_article_meta', metaData, {where}, conn);
+          } else {
+            await dbUtil.save('tb_article_meta', metaData, conn);
           }
         }
       }

@@ -25,6 +25,7 @@ async function index(req, res) {
     images[i].created_at = commonUtil.formatDateTime(new Date(images[i].created_at).getTime());
     images[i].user = await usersService.getPublicUserInfo(images[i].user_id);
     let avatarItem = await assetDao.findOne(images[i].user.avatar);
+    console.log('avatarItem',avatarItem)
     images[i].user.avatar = htmlUtil.getAvatarUrl(avatarItem.file_path);
   }
 

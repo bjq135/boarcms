@@ -75,9 +75,15 @@
   "parent_id":0,
   "thumbnail_id":2,
   "list_order":999,
-  "is_show":1
+  "is_show":1,
+  "meta":{
+    "template":"article",
+    "cate...":"..."
+  }
 }
 ```
+
+可以添加多个meta属性，设置属性的值为null可以删除属性
 
 ### Success Response
 
@@ -95,7 +101,11 @@
   "thumbnail_id": 111,
   "list_order": 59,
   "created_at": "2024-04-12T03:33:11.000Z",
-  "is_show": 100
+  "is_show": 100,
+  "meta":{
+    "template":"article",
+    "cate...":"..."
+  }
 }
 ```
 
@@ -116,9 +126,15 @@
   "parent_id":65,
   "thumbnail_id":2,
   "list_order":999,
-  "is_show":1
+  "is_show":1,
+  "meta":{
+    "template":"article",
+    "cate...":null
+  }
 }
 ```
+
+可以添加多个meta属性，设置属性的值为null可以删除属性
 
 ### Success Response
 

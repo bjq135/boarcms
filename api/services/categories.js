@@ -66,7 +66,7 @@ class CategoriesService {
 
 
   /**
-   * 添加标签
+   * 添加分类
    */
   async store(category) {
     delete category.id;
@@ -87,8 +87,8 @@ class CategoriesService {
     if(category.meta){
       let meta = category.meta;
       for (const key in meta) {
+        if(meta[key]==null) continue;
         let data = {category_id:categoryId, meta_key:key, meta_value:meta[key]};
-        console.log(data)
         await dbUtil.save('tb_category_meta', data);
       }
     }

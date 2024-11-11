@@ -95,6 +95,9 @@
   }
 }
 ```
+
+可以添加多个meta属性，设置属性的值为null可以删除属性
+
 ### Success Response
 
 **Code** : `201 Created`
@@ -161,6 +164,9 @@
   }
 }
 ```
+
+可以添加多个meta属性，设置属性的值为null可以删除属性
+
 ### Success Response
 
 **Code** : `200 Ok`
