@@ -137,7 +137,7 @@
 
     <script type="module">
     import utils from '/assets/admin/js/src/utils.js';
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 
     var button = document.querySelector('.ajax-submit');
@@ -167,17 +167,17 @@
                 });
                 if(response.status == 201){
                     let article = await response.json();
-                    new LightTip('添加成功', 2000,'success');
+                    lightTip.success('添加成功');
                     setTimeout(()=>{
                         location.href = '/admin/articles/' + article.id + '/edit';
-                    }, 2000);                    
+                    }, 1000);                    
                 } else {
                     let responseJson = await response.json();
                     let message = responseJson.error ? responseJson.error : '添加失败';
-                    new LightTip(responseJson.error, 2000, 'error');
+                    lightTip.error(responseJson.error);
                 }
             }catch(e){
-                new LightTip(e.message, 'error');
+                lightTip.error(e.message);
             }
         });
     }

@@ -1,7 +1,6 @@
 const { readFile } = require('node:fs/promises');
 const { resolve } = require('node:path');
 
-const Dao = require('../../utils/dao.js');
 const dbUtil = require('../../utils/db.js');
 const commonUtil = require('../../utils/common.js');
 

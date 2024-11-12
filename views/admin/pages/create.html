@@ -19,7 +19,7 @@
 
         <div class="content-widget">
             <div class="app-header">
-                <div class="title">新建页面</div>
+                <div class="title">添加页面</div>
             </div>
             
             <form class="ajax-form" action="/v1/pages" method="post">
@@ -64,14 +64,14 @@
                 </div>
 
                 <div class="form-row">
-                    <label for="input-name">状态</label>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show1" value="1">
-                        <label for="is_show1">显示</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show2" value="0" checked="checked">
-                        <label for="is_show2">隐藏</label>
+                    <label>状态</label>
+                    <div class="form-widget">
+                        <label>
+                            <input type="radio" name="is_show" value="1"> 显示
+                        </label>
+                        <label>
+                            <input type="radio" name="is_show" value="0" checked="checked"> 隐藏
+                        </label>
                     </div>
                 </div>
 
@@ -92,7 +92,7 @@
 
     <script type="module">
     import utils from '/assets/admin/js/src/utils.js';
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 
     var button = document.querySelector('.btn-create');
@@ -102,13 +102,12 @@
 
             let form = document.querySelector(".ajax-form");
             let formData = new FormData(form);
-            let categories = formData.getAll('categories').toString();
-            formData.set("categories", categories);
+            formData.set('content', tinyMCE.activeEditor.getContent());
             let json = utils.formDataToJson(formData);
-            let payload = JSON.stringify(json);
 
             let url = form.action;
             let jsonHeaders = new Headers({'Content-Type': 'application/json'});
+            let payload = JSON.stringify(json);
 
             let response = await fetchWrapper(url, {
                 method: 'POST',
@@ -117,11 +116,14 @@
             });
             if(response.status == 201){
                 let page = await response.json();
-                location.href = '/admin/pages/' + page.id + '/edit';
+                lightTip.success('添加成功');
+                setTimeout(()=>{
+                    location.href = '/admin/pages/' + page.id + '/edit';
+                }, 600);
             } else {
                 let responseJson = await response.json();
                 let message = responseJson.error ? responseJson.error : '添加失败';
-                toast.open({title: message});
+                lightTip.error(message);
             }
         });
     }

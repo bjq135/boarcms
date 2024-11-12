@@ -34,7 +34,7 @@
     </div>
 
     <script type="module">
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 
     window.addEventListener('load', function(){
@@ -78,7 +78,7 @@
                 console.log('json1: ',  responseJson);
                 location.href = '/admin/index'
             }else{
-                new LightTip(responseJson.error, 'error');
+                lightTip.error(responseJson.error);
             }
             // console.log(response);
         });

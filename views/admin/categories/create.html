@@ -19,7 +19,7 @@
 
         <div class="content-widget">
             <div class="app-header">
-                <div class="title">新建分类</div>
+                <div class="title">添加分类</div>
             </div>
 
             <form class="ajax-form" action="/v1/categories" method="POST">
@@ -93,7 +93,7 @@
 
     <script type="module">
     import utils from '/assets/admin/js/src/utils.js';
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
     
 
@@ -120,11 +120,14 @@
                 body: payload
             });
             if(response.status == 201){
+                lightTip.success('添加成功！');
                 let result = await response.json();
-                location.href = '/admin/categories/' + result.id + '/edit';
+                setTimeout(()=>{
+                    location.href = '/admin/categories/' + result.id + '/edit';
+                }, 1000);
             } else {
                 let responseJson = await response.json();
-                new LightTip(responseJson.error, 2000, 'error');
+                lightTip.error(responseJson.error);
             }
         });
     }

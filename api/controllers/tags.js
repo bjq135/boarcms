@@ -1,6 +1,5 @@
 const dbUtil = require('../../utils/db.js');
 const commonUtil = require('../../utils/common.js');
-const Dao = require('../../utils/dao.js');
 
 const TagsService = require('../services/tags.js');
 
@@ -9,15 +8,14 @@ async function index(req, res) {
   let perPage = req.query.per_page > 0 ? parseInt(req.query.per_page) : 10;
   let start = perPage * (page - 1);
   
-  const tagsDao = new Dao('tb_tag');
   const obj = {
     limit:perPage,
     offset:start,
     order:{id:'desc'}
   };
   
-  const tags = await tagsDao.findAll(obj);
-  let total = await tagsDao.findAllCounter(obj);
+  const tags = await dbUtil.findAll('tb_tag', obj);
+  let total = await dbUtil.findCounter('tb_tag', obj);
   res.append('X-Total', total);
   res.append('X-TotalPages', Math.ceil(total/perPage));
   res.json(tags);

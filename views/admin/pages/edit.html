@@ -27,15 +27,15 @@
                 <div class="title">编辑页面</div>
             </div>
             
-            <form class="ajax-form" action="/v1/pages/<%- id %>" method="post">
+            <form class="ajax-form" action="/v1/pages/<%- page.id %>" method="post">
                 <div class="form-row">
                     <label for="input-name">标题</label>
-                    <input type="text" class="form-control" name="title" value="<%- title %>">
+                    <input type="text" class="form-control" name="title" value="<%- page.title %>">
                 </div>
 
                 <div class="form-row">
                     <label for="input-description">简介</label>
-                    <textarea class="form-control" name="description" rows="3"><%- description %></textarea>
+                    <textarea class="form-control" name="description" rows="3"><%- page.description %></textarea>
                 </div>
 
                 <div class="form-row">
@@ -45,8 +45,10 @@
                             <button type="button" class="upload-button btn btn-sm btn-primary">上传</button>
                             <button type="button" class="delete-button btn btn-sm btn-danger">删除</button>
                         </div>
-                        <div class="thumbnail-image"></div>
-                        <input type="hidden" name="thumbnail_id" value="<%- thumbnail_id %>">
+                        <div class="thumbnail-image">
+                            <% if(page.thumbnail){ %> <img src="<%-page.thumbnail%>"> <%}%>
+                        </div>
+                        <input type="hidden" name="thumbnail_id" value="<%- page.thumbnail_id %>">
                     </div>
                 </div>
 
@@ -55,46 +57,43 @@
                 <div class="form-row">
                     <label for="input-description">内容</label>
                     <div class="editor-container">
-                        <!-- <textarea name="content" style="display:none;"></textarea>
-                        <div id="editor"><%- content %></div> -->
-
-                        <textarea name="content" id="editor"><%- content %></textarea>
+                        <textarea name="content" id="editor"><%- page.content %></textarea>
                     </div>
                 </div>
 
 
                 <div class="form-row">
                     <label for="template">模板</label>
-                    <input type="text" class="form-control" name="template" value="<%- template %>">
+                    <input type="text" class="form-control" name="template" value="<%- page.template %>">
                 </div>
 
                 <div class="form-row">
                     <label for="route_url">别名</label>
-                    <input type="text" class="form-control" name="route_url" value="<%- route_url %>">
+                    <input type="text" class="form-control" name="route_url" value="<%- page.route_url %>">
                 </div>
 
                 <div class="form-row">
-                    <label for="input-name">状态</label>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show1" value="1"
-                            <% if(is_show==1){ %>checked="checked" <% } %>
-                            >
-                        <label for="is_show1">显示</label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" name="is_show" id="is_show2" value="0"
-                            <% if(is_show==0){ %>checked="checked" <% } %>
-                            >
-                        <label for="is_show2">隐藏</label>
+                    <label>状态</label>
+                    <div class="form-widget">
+                        <label>
+                            <input type="radio" name="is_show" value="1"
+                                <% if(page.is_show==1){ %>checked="checked" <% } %>
+                                > 显示
+                        </label>
+                        <label>
+                            <input type="radio" name="is_show" value="0"
+                                <% if(page.is_show==0){ %>checked="checked" <% } %>
+                                > 隐藏
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <input type="hidden" name="id" value="<%- id %>">
+                    <input type="hidden" name="id" value="<%- page.id %>">
                     <!-- <input type="hidden" name="_method" value="put"> -->
                     <button type="button"class="btn btn-primary btn-create">提交</button>
                     <button type="button" class="btn btn-danger btn-delete">删除</button>
-                    <a class="btn btn-default" target="_blank" href="/pages/<%- id %>">查看</a>
+                    <a class="btn btn-default" target="_blank" href="/pages/<%- page.id %>">查看</a>
                 </div>
             </form>
         </div>
@@ -104,7 +103,7 @@
 
     <script type="module">
     import utils from '/assets/admin/js/src/utils.js';
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 
     var button = document.querySelector('.btn-create');
@@ -128,14 +127,13 @@
                 });
 
                 if(response.status == 200){
-                    new LightTip('修改成功','success');
-                    // toast.open({title:'修改成功'});
+                    lightTip.success('修改成功');
                 } else {
                     let responseJson = await response.json();
-                    new LightTip(responseJson.error, 'error');
+                    lightTip.error(responseJson.error);
                 }
             } catch(e) {
-                new LightTip(e.message, 'error');
+                lightTip.error(e.message, 'error');
             }
         });
     }
@@ -143,9 +141,7 @@
 
     document.querySelector(".btn-delete").addEventListener('click', async function(e){
         let msg = "确定要删除吗？";
-        if(confirm(msg) == false){
-            return;
-        }
+        if(confirm(msg) == false){ return; }
 
         let pageId = document.querySelector('input[name="id"]').value;
         let url = "/v1/pages/" + pageId;
@@ -157,13 +153,13 @@
         });
 
         if(response.status == 204){
-            new LightTip('删除成功', 1000,'success');
+            lightTip.success('删除成功');
             setTimeout(()=>{
                 location.href = '/admin/pages';
             }, 1000);
         }else{
             let responseJson = await response.json();
-            new LightTip(responseJson.error, 'error');
+            lightTip.error(responseJson.error);
         }
     });
     </script>

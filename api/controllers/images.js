@@ -1,13 +1,11 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const url = require("node:url");
-// const { access, constants } = ('node:fs/promises');
 
 const i18n = require('i18n');
 
 const dbUtil = require("../../utils/db.js");
 const commonUtil = require("../../utils/common.js");
-const Dao = require('../../utils/dao.js');
 const logger = require('../../utils/logger.js');
 
 
@@ -21,19 +19,18 @@ async function index(req, res) {
     return;
   }
   
-  const assetsDao = new Dao('tb_asset');
   const obj = {
     limit:perPage,
     offset:start,
     order:{id:'desc'}
   };
 
-  const articles = await assetsDao.findAll(obj);
+  const articles = await dbUtil.findAll('tb_asset', obj);
   articles.forEach((item, index)=>{
     articles[index].url = commonUtil.getImageUrl(item.file_path);
   });
   
-  let total = await assetsDao.findAllCounter(obj);
+  let total = await dbUtil.findCounter('tb_asset', obj);
   res.append('X-Total', total);
   res.append('X-TotalPages', Math.ceil(total/perPage));
   res.json(articles);
@@ -47,8 +44,7 @@ async function destroy(req, res) {
   try {
     await conn.query(`START TRANSACTION`);
     
-    const imagesDao = new Dao('tb_asset', conn);
-    const image = await imagesDao.findOne(imageId);
+    const image = await dbUtil.findOne('tb_asset', imageId, conn);
     if (!image) {
       res.status(204).json({});
       return;
@@ -61,7 +57,7 @@ async function destroy(req, res) {
       await fs.unlink(filePath);
     }
     
-    await imagesDao.delete({where:{id:imageId}});
+    await dbUtil.destroy('tb_asset', {where:{id:imageId}}, conn);
     await conn.query(`COMMIT`);
     
     res.status(204);
@@ -70,7 +66,6 @@ async function destroy(req, res) {
     await conn.query(`ROLLBACK`);
     logger.error(error.message);
     res.status(500).json({ error: error.message });
-    
   } finally {
     await conn.release();
   }

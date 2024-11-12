@@ -295,49 +295,6 @@ let result = await dbUtil.destroy('tb_page', obj);
 ```
 
 
-## DAO(即将废弃)
-
-在系统的 `./utils/dao.js` 中，有一组常用的方法。
-
-```javascript
-const Dao = require("./utils/dao.js");
-
-try {
-  const pageDao = new Dao();
-  pageDao.setTable('tb_page'); // 设置Dao关联的表
-
-  let page, data, where, result, counter;
-
-  // 获取一条记录，记录的id是12
-  page = await pageDao.findOne(12);
-
-  // 获取多条记录
-  where = {is_show:1};
-  // 相当于执行`SELECT * FROM tb_page WHERE is_show=1`
-  result = await pageDao.findAll({where:where});
-
-  // 获取符合条件的记录数量
-  counter = await pageDao.findAllCounter({where:where});
-
-  // 保存一个对象到表中
-  data = { title:"这是标题", content:"这是内容"};
-  result = await pageDao.save(data);
-
-  // 更新一个对象到表中
-  data = { title:"这是标题", content:"这是内容", id:12};
-  result = await pageDao.update(data);
-
-  // 删除一条记录
-  where = {id:12, is_show:1};
-  result = await pageDao.delete({where:where});
-
-  // 其他操作
-} catch(error) {
-  // 其他操作
-}
-
-```
-
 
 ## 参考
 - mysql2：https://javascript.net.cn/articles/1124

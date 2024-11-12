@@ -1,6 +1,5 @@
 const i18n = require('i18n');
 
-const Dao = require('../../utils/dao.js');
 const commonUtil = require('../../utils/common.js');
 const dbUtil = require('../../utils/db.js');
 
@@ -11,8 +10,7 @@ class CategoriesService {
    * @returns {object} 分类
    */
   async getCategoryById(id) {
-    const categoriesDao = new Dao('tb_category');
-    const category = categoriesDao.findOne(id);
+    const category = await dbUtil.findOne('tb_category', id);
     return category;
   }
 
@@ -22,15 +20,12 @@ class CategoriesService {
    * @returns [] 分类数组
    */
   async getCategories() {
-    const categoriesDao = new Dao();
-    categoriesDao.setTable('tb_category');
-
     const obj = {
       where:{ is_show:1 },
       order: {id:'asc'}
     };
 
-    const categories = await categoriesDao.findAll(obj);
+    const categories = await dbUtil.findAll('tb_category', obj);
     return categories;
   }
   

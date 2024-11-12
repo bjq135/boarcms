@@ -149,7 +149,7 @@
 
     <script type="module">
     import utils from '/assets/admin/js/src/utils.js';
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 
     var button = document.querySelector('.ajax-submit');
@@ -180,19 +180,19 @@
                 });
                 let responseJson = await res.json();
                 if(res.status == 200){
-                    new LightTip('修改成功', 'success');
+                    lightTip.success('修改成功');
                 } else {
-                    new LightTip(responseJson.error, 'error');
+                    lightTip.error(responseJson.error);
                 }
             }catch(e){
-                new LightTip(e.message, 'error');
+                lightTip.error(e.message);
             }
         });
     }
     </script>
     
     <script type="module">
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 
     document.querySelector('.delete-article-button')?.addEventListener('click', async (e) => {
@@ -212,11 +212,11 @@
         });
 
         if(res.status == 204){
-            new LightTip('删除成功', 'success');
+            lightTip.success('删除成功');
             setTimeout(()=>{ location.href = '/admin/articles' }, 1000);
         }else{
             var responseJson = await res.json();
-            new LightTip(responseJson.error, 'error');
+            lightTip.error(responseJson.error);
         }
     });
     </script>

@@ -2,8 +2,6 @@ const i18n = require('i18n');
 
 const commonUtil = require('../../utils/common.js');
 const dbUtil = require('../../utils/db.js');
-const Dao = require('../../utils/dao.js');
-
 
 class ArticlesService {
   allCategories = [];
@@ -21,8 +19,7 @@ class ArticlesService {
       await conn.query(`START TRANSACTION`);
       
       // 1.插入文章表
-      const articlesDao = new Dao('tb_article', conn);
-      let results = await articlesDao.save(data);
+      let results = await dbUtil.save('tb_article', data, conn);
       if (results.affectedRows == 0) {
         throw new Error(i18n.__('create failed'));
       }
@@ -90,8 +87,7 @@ class ArticlesService {
       await conn.query(`START TRANSACTION`);
 
       // 1.更新文章表
-      const articlesDao = new Dao('tb_article', conn);
-      let results = await articlesDao.update(data);
+      let results = await dbUtil.update('tb_article', data, {where:{id:data.id}}, conn);
       if (results.affectedRows == 0) {
         throw new Error(i18n.__('article is not exist'));
       }
@@ -152,6 +148,7 @@ class ArticlesService {
       const article = await this.getArticleById(data.id);
       return article;
     } catch (error) {
+      console.log(error)
       await conn.query(`ROLLBACK`);
       throw error;
     } finally {
@@ -181,8 +178,7 @@ class ArticlesService {
     var article = rows[0];
     article = commonUtil.dataShow(article);
 
-    const articlesMetaDao = new Dao('tb_article_meta');
-    const meta = await articlesMetaDao.findAll({ where:{article_id:id } });
+    const meta = await dbUtil.findAll('tb_article_meta', { where:{article_id:id } });
     if(meta && meta.length){
       article.meta = {};
       meta.forEach((item,index)=>{

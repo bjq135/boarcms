@@ -2,7 +2,6 @@ const i18n = require('i18n');
 
 const commonUtil = require('../../utils/common.js');
 const dbUtil = require('../../utils/db.js');
-const Dao = require('../../utils/dao.js');
 const htmlUtil = require('../../utils/html.js');
 const pagination = require('../../utils/page-number/index.js');
 

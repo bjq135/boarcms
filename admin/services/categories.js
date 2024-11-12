@@ -1,6 +1,5 @@
 const i18n = require('i18n');
 
-const Dao = require('../../utils/dao.js');
 const commonUtil = require('../../utils/common.js');
 const dbUtil = require('../../utils/db.js');
 
@@ -80,22 +79,20 @@ module.exports = class CategoriesService {
 
 
   /**
-   * 添加标签
+   * 添加分类
    */
   async store(category) {
     delete category.id;
     category.created_at = commonUtil.formatDateTime();
 
-    const categoriesDao = new Dao('tb_category');
-
     if (category.parent_id) {
-      let parentCategory = await categoriesDao.findOne(category.parent_id);
+      let parentCategory = await dbUtil.findOne('tb_category', category.parent_id);
       if (!parentCategory) {
         throw new Error(i18n.__('parent category is not exist'));
       }
     }
 
-    const result = await categoriesDao.save(category);
+    const result = await dbUtil.save('tb_category', category);
     return result;
   }
 
@@ -103,10 +100,8 @@ module.exports = class CategoriesService {
   async update(category) {
     if (!category.id) throw Error(i18n.__('category id is not valid'));
 
-    const categoriesDao = new Dao('tb_category');
-
     if (category.parent_id) {
-      let parentCategory = await categoriesDao.findOne(category.parent_id);
+      let parentCategory = await dbUtil.findOne('tb_category', category.parent_id);
       if (!parentCategory) {
         throw new Error(i18n.__('parent category is not exist'));
       }
@@ -125,7 +120,7 @@ module.exports = class CategoriesService {
       throw new Error(i18n.__('parent category must not be subcategory'));
     }
 
-    const result = await categoriesDao.update(category);
+    const result = await dbUtil.update('tb_category', category);
     return result;
   }
 

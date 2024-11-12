@@ -88,9 +88,11 @@ function execute(sql, values) {
 async function findOne(table, obj, conn){
   if(!table) throw new Error('table name is required');
   if(!obj) throw new Error('obj is required');
-  
+
   var connection = null;
-  if(typeof obj === 'number'){
+  
+  let id = Number(obj);
+  if( Number.isNaN(id) === false ){
     let id = obj;
     try{
       let sql = 'SELECT * FROM ' + table + ' WHERE id=?';

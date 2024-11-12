@@ -7,7 +7,6 @@ const Jimp = require('jimp');
 
 const commonUtil = require('../../utils/common.js');
 const dbUtil = require('../../utils/db.js');
-const Dao = require('../../utils/dao.js');
 const logger = require('../../utils/logger.js');
 
 async function upload(req, res) {
@@ -75,8 +74,7 @@ async function upload(req, res) {
     data.file_size = fs.statSync(destPath + '/' + filename + "." + extName).size;
     data.more = '';
 
-    const assetsDao = new Dao('tb_asset');
-    const result = await assetsDao.save(data);
+    const result = await dbUtil.save('tb_asset', data);
     if (!result) {
       throw new Error(i18n.__('500'));
     }

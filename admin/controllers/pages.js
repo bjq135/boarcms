@@ -1,4 +1,5 @@
 const dbUtil = require('../../utils/db.js');
+const htmlUtil = require('../../utils/common.js');
 const pagination = require("../../utils/page-number/index.js");
 
 
@@ -34,9 +35,17 @@ async function edit(req, res) {
   let sql = 'SELECT * FROM tb_page WHERE id=?';
   let [rows] = await dbUtil.query(sql, [id]);
 
-  // console.log('rows[0] ', rows[0])
+  const page = rows[0];
 
-  res.render('admin/pages/edit.html', rows[0]);
+  if(page.thumbnail_id){
+    let image = await dbUtil.findOne('tb_asset', page.thumbnail_id);
+    console.log(image)
+    if(image){
+      page.thumbnail = htmlUtil.getImageUrl(image.file_path);
+    }
+  }
+
+  res.render('admin/pages/edit.html', {page});
 }
 
 module.exports = {index, create, edit};

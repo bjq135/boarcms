@@ -9,9 +9,6 @@ const pagination = require("../../utils/page-number/index.js");
 const htmlUtil = require("../../utils/html.js");
 const commonUtil = require("../../utils/common.js");
 const dbUtil = require("../../utils/db.js");
-
-const Dao = require('../../utils/dao.js');
-
 const config = require("../../config.js");
 
 

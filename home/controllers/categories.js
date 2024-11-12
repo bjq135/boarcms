@@ -1,6 +1,5 @@
 const i18n = require('i18n');
 
-const Dao = require('../../utils/dao.js');
 const htmlUtil = require('../../utils/html.js');
 const dbUtil = require('../../utils/db.js');
 const pagination = require('../../utils/page-number/index.js');
@@ -53,13 +52,6 @@ async function show(req, res) {
   data.categories =  allCategories;
   data.articles = articles;
   data.pagination =  pager;
-
-  // const optionDao = new Dao('tb_option');
-  // result = await optionDao.findOne({where:{'option_name':'category_template_'+category.id}});
-  // if (result && result['option_value'] == 'images') {
-  //   res.render("home/categories-images.html", data);
-  //   return;
-  // }
   
   let result = await dbUtil.findOne('tb_category_meta', {
     where:{ category_id:categoryId, meta_key:'template'}

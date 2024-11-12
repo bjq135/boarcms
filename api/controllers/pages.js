@@ -3,7 +3,6 @@ const Validator = require('fov');
 
 const dbUtil = require("../../utils/db.js");
 const commonUtil = require("../../utils/common.js");
-const Dao = require("../../utils/dao.js");
 
 
 async function store(req, res) {
@@ -22,10 +21,8 @@ async function store(req, res) {
   req.body.created_at = commonUtil.formatDateTime();
 
   try {
-    const pageDao = new Dao();
-    pageDao.setTable('tb_page');
-    const result = await pageDao.save(req.body);
-    const page = await pageDao.findOne(result.insertId);
+    const result = await dbUtil.save('tb_page', req.body);
+    const page = await dbUtil.findOne('tb_page', result.insertId);
 
     res.status(201).json(page);
   } catch(error) {
@@ -51,9 +48,9 @@ async function update(req, res) {
   req.body.created_at = commonUtil.formatDateTime();
   
   try {
-    const pageDao = new Dao('tb_page');
-    const result = await pageDao.update(req.body);
-    const page = await pageDao.findOne(req.body.id);
+    const result = await dbUtil.update('tb_page', req.body, {where:{id:req.params.id}});
+    const page = await dbUtil.findOne('tb_page', req.params.id);
+
     if(!page){
       res.status(404).json({error:i18n.__('404')});
       return;
@@ -70,9 +67,9 @@ async function update(req, res) {
 async function destroy(req, res) {
   try {
     let id = req.params.id;
-    const pageDao = new Dao('tb_page');
+
     const condation = { where:{id:id}};
-    const result = await pageDao.delete(condation);
+    const result = await dbUtil.destroy('tb_page', condation);
     res.status(204).send('');
   } catch(e) {
     res.status(500);

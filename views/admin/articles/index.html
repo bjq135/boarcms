@@ -117,7 +117,7 @@
 
     <script type="module">
     /* 删除操作 */
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 
     var deleteButtons = document.querySelectorAll('.delete-current-article');
@@ -133,16 +133,18 @@
                         method:'DELETE',
                         headers:new Headers({ 'Content-Type':'application/json' })
                     });
-                    
+                    console.log('response', response)
                     if(response.status == 204){
-                        new LightTip('删除成功', 2000, 'success');
-                        setTimeout(()=>{ location.href = location.href }, 1000);
+                        lightTip.success('删除成功');
+                        e.target.parentNode.parentNode.style.opacity=0.1;
+                        setTimeout(()=>{ e.target.parentNode.parentNode.remove(); }, 600);
+                        // setTimeout(()=>{ location.href = location.href }, 1000);
                     }else{
                         var responseJson = await response.json();
-                        new LightTip(responseJson.error, 2000, 'error');
+                        lightTip.error(responseJson.error);
                     }
                 }catch(error){
-                    new LightTip(error.message, 2000, 'error');
+                    lightTip.error(error.message);
                 }
                 
             });
@@ -153,7 +155,7 @@
 
     <script type="module">
     /* 批量操作 */
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 
     var bulkActionButton = document.querySelector('.bulk_action_button');
@@ -179,7 +181,7 @@
         }
         
         if(ids.length == 0 ){
-            new LightTip('请选中文章！', 2000, 'error');
+            lightTip.error('请选中文章！');
             return;
         }
         
@@ -193,12 +195,12 @@
         })
         .then(response => response.json())
         .then(data => {
-          new LightTip('批量修改成功！', 1000, 'error');
+          lightTip.success('批量修改成功！');
           setTimeout(() => location.href = location.href, 1000);
         })
         .catch((error) => {
           console.error('Error:', error);
-          alert(error);
+          lightTip.error(error.message);
         });
     });
     </script>

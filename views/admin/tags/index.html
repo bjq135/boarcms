@@ -67,7 +67,7 @@
     
     <script type="module">
     import utils from '/assets/admin/js/src/utils.js';
-    import LightTip from '/assets/admin/lib/ui/light-tip.js';
+    import lightTip from '/assets/admin/lib/ui/light-tip.js';
     import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
     
     var deleteButtons = document.querySelectorAll('.delete-button');
@@ -84,11 +84,12 @@
                 });
     
                 if(response.status == 204){
-                    new LightTip('删除成功', 'success');
-                    setTimeout(()=>{ location.href = location.href }, 1000);
+                    lightTip.success('删除成功');
+                    e.target.parentNode.parentNode.style.opacity=0.1;
+                    setTimeout(()=>{ e.target.parentNode.parentNode.remove(); }, 600);
                 }else{
                     var responseJson = await response.json();
-                    new LightTip(responseJson.error, 'error');
+                    lightTip.error(responseJson.error);
                 }
             });
         });

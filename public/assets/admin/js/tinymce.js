@@ -1,4 +1,4 @@
-import toast from '/assets/admin/js/src/toast.js';
+import lightTip from '/assets/admin/lib/ui/light-tip.js';
 import { getCookie } from '/assets/admin/js/src/cookie.js';
 import fetchWrapper from '/assets/admin/js/src/fetch-wrapper.js';
 // console.log('cookie ', getCookie)
@@ -61,6 +61,7 @@ tinymce.init({
     menubar:false,
     automatic_uploads: true,
     file_picker_types: 'image',
+    file_picker_callback: file_picker_callback,
     images_upload_url: '/v1/upload',
     image_dimensions: false,
     branding: false,
@@ -92,3 +93,8 @@ tinymce.init({
     // remove_linebreaks : false,
     // convert_newlines_to_brs : false
 });
+
+
+function file_picker_callback(cb, value, meta) {
+  // body...
+}

@@ -3,7 +3,6 @@ const Validator = require('fov');
 
 const dbUtil = require("../../utils/db.js");
 const commonUtil = require("../../utils/common.js");
-const Dao = require('../../utils/dao.js');
 const logger = require('../../utils/logger.js');
 
 const ArticlesService = require("../services/articles.js");

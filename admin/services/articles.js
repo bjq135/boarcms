@@ -1,11 +1,9 @@
 const i18n = require('i18n');
 
-const config = require('../../config.js');
-
 const htmlUtil = require('../../utils/html.js');
 const commonUtil = require('../../utils/common.js');
 const dbUtil = require('../../utils/db.js');
-const Dao = require('../../utils/dao.js');
+const config = require('../../config.js');
 
 
 class ArticlesService {
@@ -24,8 +22,7 @@ class ArticlesService {
       await conn.query(`START TRANSACTION`);
     
       // 1.插入文章表
-      const articlesDao = new Dao('tb_article', conn);
-      let results = await articlesDao.save(data);
+      let results = await dbUtil.save('tb_article', data, conn);
       if (results.affectedRows == 0) {
         throw new Error(i18n.__('create failed'));
       }
@@ -62,9 +59,9 @@ class ArticlesService {
 
       // 6.处理 meta
       if (meta) {
-        const articlesMetaDao = new Dao('tb_article_meta', conn);
         for (const key in meta) {
-          await articlesMetaDao.save({ article_id:articleId, meta_key:key, meta_value:meta[key] });
+          let data = { article_id:articleId, meta_key:key, meta_value:meta[key] };
+          await dbUtil.save('tb_article_meta', data, conn);
         }
       }
     
@@ -92,8 +89,7 @@ class ArticlesService {
       await conn.query(`START TRANSACTION`);
 
       // 1.更新文章表
-      const articlesDao = new Dao('tb_article', conn);
-      let results = await articlesDao.update(data);
+      let results = await dbUtil.update('tb_article', data, conn);
       if (results.affectedRows == 0) {
         throw new Error(i18n.__('article is not exist'));
       }
@@ -132,16 +128,16 @@ class ArticlesService {
 
       // 6.处理 meta
       if (meta) {
-        const articlesMetaDao = new Dao('tb_article_meta', conn);
         for (const key in meta) {
           if(meta[key] == null){
-            await articlesMetaDao.delete({ where:{ article_id:data.id, meta_key:key }});
+            await dbUtil.destroy('tb_article_meta',{ where:{ article_id:data.id, meta_key:key }}, conn);
             continue;
           }
           let sql = `UPDATE tb_article_meta SET meta_value=? WHERE article_id=? AND meta_key=?`;
           let [result] = await conn.execute(sql, [meta[key], data.id, key]);
           if(result.affectedRows == 0){
-            await articlesMetaDao.save({ article_id:data.id, meta_key:key, meta_value:meta[key] });
+            let data = { article_id:data.id, meta_key:key, meta_value:meta[key] };
+            await dbUtil.save('tb_article_meta', data, conn);
           }
         }
       }
@@ -186,12 +182,9 @@ class ArticlesService {
       sql = `SELECT file_path FROM tb_asset WHERE id=:id`;
       let res = await dbUtil.findOne('tb_asset', {where:{id:article.thumbnail_id}});
       article.thumbnail_image = res ? config.imagePath + "/uploads/images/" + res.file_path : '';
-      // [rows] = await dbUtil.execute(sql, {id:article.thumbnail_id});
-      // article.thumbnail_image = config.imagePath + "/uploads/images/" + rows[0].file_path;
     }
 
-    const articlesMetaDao = new Dao('tb_article_meta');
-    const meta = await articlesMetaDao.findAll({ where:{article_id:id } });
+    const meta = await dbUtil.findAll('tb_article_meta', { where:{article_id:id } });
     if(meta && meta.length){
       article.meta = {};
       meta.forEach((item,index)=>{
