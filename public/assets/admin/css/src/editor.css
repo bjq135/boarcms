@@ -1,6 +1,5 @@
-//
+@charset "UTF-8";
 /* 编辑器里 pre 标签 */
-
 /*
 .ql-syntax{
   font-size: 12px!important;
@@ -40,22 +39,6 @@ div[data-mode="link"]{
 }
 
 */
-
-
-// #editor_ifr{
-//   background-color: green;
-// }
-
-
-#editor_ifr:focus-visible{
+#editor_ifr:focus-visible {
   outline: none;
 }
-
-
-
-
-
-
-
-
-

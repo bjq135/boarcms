@@ -1,0 +1,64 @@
+/* Tables */
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  color: var(--vt-text-color);
+  background-color: var(--vt-bg-color-card);
+}
+.table td,
+.table th {
+  position: static;
+  display: table-cell;
+  text-align: left;
+  float: none;
+}
+.table > thead > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > th,
+.table > tbody > tr > td,
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 24px;
+  vertical-align: top;
+  border: 1px solid var(--vt-border-color);
+  margin-top: -1px solid;
+}
+.table > thead > tr:hover,
+.table > tbody > tr:hover,
+.table > tfoot > tr:hover {
+  background-color: var(--vt-bg-color-hover);
+}
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-top: 1px solid var(--vt-border-color) !important;
+  border-bottom: 2px solid var(--vt-border-color);
+}
+.table > thead:first-child > tr:first-child > th,
+.table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+
+td img,
+td .avatar {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+  border-radius: 10%;
+  margin-bottom: -8px;
+  margin-right: 3px;
+  transition: all linear 0.1s;
+  border: 1px solid var(--vt-border-color);
+}
+
+td img:hover {
+  transform: scale(1.1);
+}
+
+td .preview-image {
+  max-width: 25px;
+  max-height: 25px;
+  object-fit: cover;
+}

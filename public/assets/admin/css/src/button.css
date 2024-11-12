@@ -1,10 +1,3 @@
-//
-// Buttons
-// --------------------------------------------------
-
-// Base styles
-// --------------------------------------------------
-
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -19,12 +12,7 @@
   border: 1px solid #d9d9d9;
   border-radius: var(--vt-border-radius);
   box-sizing: border-box;
-  // &:not(.btn-default):not(.btn-danger):focus{
-  //   color: var(--vt-color-primary);
-  //   border-color: var(--vt-color-primary);
-  // }
 }
-
 
 .btn:focus,
 .btn.focus,
@@ -37,62 +25,53 @@
   filter: brightness(1.1);
 }
 
-
-// 按钮颜色
-// --------------------------------------------------
 .btn-default {
   color: var(--vt-text-color);
   background-color: var(--vt-bg-color-card);
   border-color: var(--vt-border-color);
-  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
-  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
 .btn-primary {
   color: #fff;
   background-color: var(--vt-color-primary);
   border-color: var(--vt-color-primary);
-  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
-  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
 .btn-success {
   color: #fff;
   background-color: var(--vt-color-success);
   border-color: var(--vt-color-success);
-  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
-  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
 .btn-warning {
   color: #fff;
   background-color: var(--vt-color-warning);
   border-color: var(--vt-color-warning);
-  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
-  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
-.btn-danger{
+.btn-danger {
   color: #fff;
   background-color: var(--vt-color-error);
   border-color: var(--vt-color-error);
-  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
-  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
-// primary | ghost | dashed | link | text | default
-
-
-// 按钮大小
-// --------------------------------------------------
-.btn-sm{
+.btn-sm {
   height: 22px;
   line-height: 18px;
   font-size: 10px;
 }
-.btn-big{
+
+.btn-big {
   font-size: 14px;
   padding: 8px 25px;
 }
-
-

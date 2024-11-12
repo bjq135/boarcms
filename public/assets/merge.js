@@ -1,7 +1,19 @@
+/**
+ * 自动合并CSS文件
+ */
+
+
 const fs = require('node:fs');
 const path = require('node:path');
 
 
+/**
+ * 合并文件的方法
+ * @param  {arr} arrUrls 待合并的文件列表
+ * @param  {str} strUrl  合并的文件路径，需要手动创建空文件
+ * @param  {fun} filter  过滤器
+ * @return 
+ */
 function merge(arrUrls, strUrl, filter) {
   var content = '';
   if (fs.existsSync(strUrl) == false) {
@@ -21,6 +33,7 @@ function merge(arrUrls, strUrl, filter) {
       } else if (st.isDirectory()) {
         // 作为文件夹
         fs.readdirSync(url).forEach(function(filename) {
+          if(filename.substring(0,1)=='.') return;
           let dir = path.join(url, filename);
           if (fs.statSync(dir).isFile()) {
             content += fs.readFileSync(dir);
@@ -40,8 +53,10 @@ function merge(arrUrls, strUrl, filter) {
 };
 
 
+/**
+ * 合并 Home 模块的 css 文件
+ */
 var cssTimer = null;
-
 const cssFileArr = [
   './public/assets/home/css/src/variables.css',
   './public/assets/home/css/src/style.css',
@@ -62,6 +77,7 @@ const cssFileArr = [
   './public/assets/home/css/src/toast.css',
   './public/assets/home/css/src/docs.css',
   './public/assets/home/css/src/home.css',
+  './public/assets/home/css/src/login.css',
   './public/assets/home/css/src/slider.css'
 ];
 
@@ -75,6 +91,22 @@ fs.watch('./public/assets/home/css/src', {
         merge(cssFileArr,'./public/assets/home/css/style.css');
     }, 100);
 });
+
+
+/**
+ * 合并 admin 模块的 css 文件
+ */
+var adminCssTimer = null;
+fs.watch('./public/assets/admin/css/src', {
+    recursive: true
+}, (eventType, filename) => {
+    clearTimeout(adminCssTimer);
+    console.log(filename + ' 发生了 ' + eventType);
+    adminCssTimer = setTimeout(() => {
+        merge(['./public/assets/admin/css/src'],'./public/assets/admin/css/style.css');
+    }, 100);
+});
+
 
 
 

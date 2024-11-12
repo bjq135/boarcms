@@ -1,5 +1,5 @@
+@charset "UTF-8";
 /* 图片预览插件 */
-
 .img-preview {
   cursor: pointer;
 }
@@ -25,7 +25,7 @@
 .image-preview-image {
   position: absolute;
   object-fit: contain;
-  opacity: 1.0;
+  opacity: 1;
 }
 
 table .img-preview {
