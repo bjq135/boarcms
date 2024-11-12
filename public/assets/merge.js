@@ -97,19 +97,36 @@ fs.watch('./public/assets/home/css/src', {
  * 合并 admin 模块的 css 文件
  */
 var adminCssTimer = null;
+const adminCssFileArr = [
+  './public/assets/admin/css/src/normalize.css',
+  './public/assets/admin/css/src/variables.css',
+  './public/assets/admin/css/src/button.css',
+  './public/assets/admin/css/src/dashboard.css',
+  './public/assets/admin/css/src/editor.css',
+  './public/assets/admin/css/src/form.css',
+  './public/assets/admin/css/src/header.css',
+  './public/assets/admin/css/src/home.css',
+  './public/assets/admin/css/src/iconfont.css',
+  './public/assets/admin/css/src/login.css',
+  './public/assets/admin/css/src/pagination.css',
+  './public/assets/admin/css/src/preview.css',
+  './public/assets/admin/css/src/side-menu.css',
+  './public/assets/admin/css/src/style.css',
+  './public/assets/admin/css/src/tab.css',
+  './public/assets/admin/css/src/table.css',
+  './public/assets/admin/css/src/text.css',
+  './public/assets/admin/css/src/toast.css',
+  './public/assets/admin/css/src/upload.css',
+  './public/assets/admin/lib/ui/light-tip.css',
+];
 fs.watch('./public/assets/admin/css/src', {
     recursive: true
 }, (eventType, filename) => {
     clearTimeout(adminCssTimer);
     console.log(filename + ' 发生了 ' + eventType);
     adminCssTimer = setTimeout(() => {
-        merge(['./public/assets/admin/css/src'],'./public/assets/admin/css/style.css');
+        merge(adminCssFileArr,'./public/assets/admin/css/style.css');
     }, 100);
 });
-
-
-
-
-
 
 

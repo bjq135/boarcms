@@ -1,3 +1,270 @@
+/* normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+html {
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden],
+template {
+  display: none;
+}
+
+a {
+  background-color: transparent;
+}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+dfn {
+  font-style: italic;
+}
+
+h1 {
+  margin: 0.67em 0;
+  font-size: 2em;
+}
+
+mark {
+  color: #000;
+  background: #ff0;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+img {
+  border: 0;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  height: 0;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+pre {
+  overflow: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  overflow: visible;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+html input[type=button],
+input[type=reset],
+input[type=submit] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+input {
+  line-height: normal;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+input[type=search] {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-appearance: textfield;
+}
+
+input[type=search]::-webkit-search-cancel-button,
+input[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+fieldset {
+  padding: 0.35em 0.625em 0.75em;
+  margin: 0 2px;
+  border: 1px solid #c0c0c0;
+}
+
+legend {
+  padding: 0;
+  border: 0;
+}
+
+textarea {
+  overflow: auto;
+}
+
+optgroup {
+  font-weight: bold;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 0;
+}
+:root {
+  --vt-color-primary: #409eff;
+  --vt-color-success: #4cd964;
+  --vt-color-warning: #f0ad4e;
+  --vt-color-error: #dd524d;
+  --vt-font-size-sm: 13px;
+  --vt-font-size-base: 16px;
+  --vt-font-size-lg: 26px;
+  --vt-text-color: #333;
+  --vt-text-color-inverse: #fff;
+  --vt-text-color-grey: #999;
+  --vt-text-color-placeholder: #8c8c8c;
+  --vt-text-color-disable: #c0c0c0;
+  --vt-bg-color: #ecf0ef;
+  --vt-bg-color-grey: #f1f1f1;
+  --vt-bg-color-hover: #f1f1f1;
+  --vt-bg-color-mask: rgba(34, 34, 34, 0.95);
+  --vt-bg-color-card: #ffffff;
+  --vt-border-radius: 4px;
+  --vt-border-color: #dddddd;
+  --vt-shadow-color: rgba(184, 184, 184, 0.5);
+}
+
+body.dark-mode {
+  --vt-text-color: #b9b9b9;
+  --vt-text-color-inverse: #333;
+  --vt-text-color-grey: #999;
+  --vt-text-color-placeholder: #808080;
+  --vt-text-color-disable: #c0c0c0;
+  --vt-bg-color: #2c2c2c;
+  --vt-bg-color-grey: #5a5a5a;
+  --vt-bg-color-hover: #424242;
+  --vt-bg-color-mask: rgba(34, 34, 34, 0.95);
+  --vt-bg-color-card: #272727;
+  --vt-border-color: #6b6b6b;
+  --vt-shadow-color: #181818;
+}
+
+body.dark-mode img {
+  filter: brightness(70%);
+}
+body.dark-mode .logo {
+  filter: brightness(200%);
+}
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -181,11 +448,6 @@ div[data-mode="link"]{
 #editor_ifr:focus-visible {
   outline: none;
 }
-@charset "UTF-8";
-.side-menu {
-  display: none;
-}
-
 form {
   overflow: hidden;
 }
@@ -329,6 +591,7 @@ input:disabled {
     margin-right: 10px;
   }
 }
+
 header {
   display: block;
   width: 100%;
@@ -588,229 +851,6 @@ header {
 .auth-widget .field-links .iconfont {
   display: inline-block;
   transform: rotate(-90deg);
-}
-/* normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-html {
-  font-family: sans-serif;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
-}
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-menu,
-nav,
-section,
-summary {
-  display: block;
-}
-
-audio,
-canvas,
-progress,
-video {
-  display: inline-block;
-  vertical-align: baseline;
-}
-
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-
-[hidden],
-template {
-  display: none;
-}
-
-a {
-  background-color: transparent;
-}
-
-a:active,
-a:hover {
-  outline: 0;
-}
-
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-
-b,
-strong {
-  font-weight: bold;
-}
-
-dfn {
-  font-style: italic;
-}
-
-h1 {
-  margin: 0.67em 0;
-  font-size: 2em;
-}
-
-mark {
-  color: #000;
-  background: #ff0;
-}
-
-small {
-  font-size: 80%;
-}
-
-sub,
-sup {
-  position: relative;
-  font-size: 75%;
-  line-height: 0;
-  vertical-align: baseline;
-}
-
-sup {
-  top: -0.5em;
-}
-
-sub {
-  bottom: -0.25em;
-}
-
-img {
-  border: 0;
-}
-
-svg:not(:root) {
-  overflow: hidden;
-}
-
-figure {
-  margin: 1em 40px;
-}
-
-hr {
-  height: 0;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-}
-
-pre {
-  overflow: auto;
-}
-
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  margin: 0;
-  font: inherit;
-  color: inherit;
-}
-
-button {
-  overflow: visible;
-}
-
-button,
-select {
-  text-transform: none;
-}
-
-button,
-html input[type=button],
-input[type=reset],
-input[type=submit] {
-  -webkit-appearance: button;
-  cursor: pointer;
-}
-
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-
-button::-moz-focus-inner,
-input::-moz-focus-inner {
-  padding: 0;
-  border: 0;
-}
-
-input {
-  line-height: normal;
-}
-
-input[type=checkbox],
-input[type=radio] {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-input[type=search] {
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  -webkit-appearance: textfield;
-}
-
-input[type=search]::-webkit-search-cancel-button,
-input[type=search]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-fieldset {
-  padding: 0.35em 0.625em 0.75em;
-  margin: 0 2px;
-  border: 1px solid #c0c0c0;
-}
-
-legend {
-  padding: 0;
-  border: 0;
-}
-
-textarea {
-  overflow: auto;
-}
-
-optgroup {
-  font-weight: bold;
-}
-
-table {
-  border-spacing: 0;
-  border-collapse: collapse;
-}
-
-td,
-th {
-  padding: 0;
 }
 .pagination {
   display: inline-block;
@@ -1198,47 +1238,121 @@ td .preview-image {
   display: block;
   margin-top: 3px;
 }
+/**
+ *
+ * @LightTip.css
+ * @author xinxuzhang
+ * @create 15-06-25
+ * @edit   17-06-19
+ * @edit   19-09-13 @ziven27 [去jQuery]
+ * @edit   20-05-19 @popeyesailorman [add custom element support]
+**/
+/*
+ * 结构如下：
+ * <ui-lighttip></ui-lighttip>
+ *
+*/
+/* lighttip基础变量 */
 :root {
-  --vt-color-primary: #409eff;
-  --vt-color-success: #4cd964;
-  --vt-color-warning: #f0ad4e;
-  --vt-color-error: #dd524d;
-  --vt-font-size-sm: 13px;
-  --vt-font-size-base: 16px;
-  --vt-font-size-lg: 26px;
-  --vt-text-color: #333;
-  --vt-text-color-inverse: #fff;
-  --vt-text-color-grey: #999;
-  --vt-text-color-placeholder: #8c8c8c;
-  --vt-text-color-disable: #c0c0c0;
-  --vt-bg-color: #ecf0ef;
-  --vt-bg-color-grey: #f1f1f1;
-  --vt-bg-color-hover: #f1f1f1;
-  --vt-bg-color-mask: rgba(34, 34, 34, 0.95);
-  --vt-bg-color-card: #ffffff;
-  --vt-border-radius: 4px;
-  --vt-border-color: #dddddd;
-  --vt-shadow-color: rgba(184, 184, 184, 0.5);
+    --ui-lighttip-width: 25em;
+    --ui-loading-lighttip: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M512 1024q-104 0-199-40-92-39-163-110T40 711Q0 616 0 512q0-15 10.5-25.5T36 476t25.5 10.5T72 512q0 90 35 171 33 79 94 140t140 95q81 34 171 34t171-35q79-33 140-94t95-140q34-81 34-171t-35-171q-33-79-94-140t-140-95q-81-34-171-34-15 0-25.5-10.5T476 36t10.5-25.5T512 0q104 0 199 40 92 39 163 110t110 163q40 95 40 199t-40 199q-39 92-110 163T711 984q-95 40-199 40z' fill='%232a80eb'/%3E%3C/svg%3E") no-repeat;
 }
 
-body.dark-mode {
-  --vt-text-color: #b9b9b9;
-  --vt-text-color-inverse: #333;
-  --vt-text-color-grey: #999;
-  --vt-text-color-placeholder: #808080;
-  --vt-text-color-disable: #c0c0c0;
-  --vt-bg-color: #2c2c2c;
-  --vt-bg-color-grey: #5a5a5a;
-  --vt-bg-color-hover: #424242;
-  --vt-bg-color-mask: rgba(34, 34, 34, 0.95);
-  --vt-bg-color-card: #272727;
-  --vt-border-color: #6b6b6b;
-  --vt-shadow-color: #181818;
+ui-lighttip {
+    display: flex;
+    justify-content: center;
+    width: var(--ui-lighttip-width, 25em);
+    font-size: var(--ui-font, 14px);
+    text-align: left;
+    line-height: 20px;
+    color: var(--ui-white, #ffffff);
+    background-color: var(--ui-dark, #4c5161);
+    border-radius: calc(var(--ui-radius, 4px) - 2px);
+    padding: 15px 10px;
+    position: fixed;
+    top: calc(var(--ui-sort-index, 0) * 60px + 10px);
+    left: 50%;
+    -webkit-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+    z-index: 19;
+    outline: none;
+    cursor: default;
+    transition: top var(--ui-animate-time, .2s);
+    animation: fadeIn .25s both;
+}
+ui-lighttip:not([open]) {
+    display: none;
 }
 
-body.dark-mode img {
-  filter: brightness(70%);
+ui-lighttip[type="success"] {
+    background-color: var(--ui-green, #1cad70);
 }
-body.dark-mode .logo {
-  filter: brightness(200%);
+ui-lighttip[type="error"] {
+    background-color: var(--ui-red, #eb4646);
+}
+ui-lighttip[type="warning"] {
+    background-color: var(--ui-orange, #f59b00);
+}
+ui-lighttip[type="success"]::before,
+ui-lighttip[type="error"]::before,
+ui-lighttip[type="warning"]::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%23FFF' d='M163.038 57.226c-5.217-4.162-5.713-4.289-11.674-7.244-2.683-1.344-6.633 2.113-8.569 4.67l-52.648 67.042-34.301-43.387c-1.94-2.558-5.516-3.499-8.2-2.293-6.11 3.095-5.496 2.992-10.715 7.029-2.386 1.883-2.535 5.245-.597 7.793 0 0 36.97 46.917 41.44 52.565 6.557 8.068 18.483 7.669 24.744 0 4.62-5.781 61.117-78.506 61.117-78.506 1.937-2.559 1.788-5.918-.597-7.669z'/%3E%3C/svg%3E") no-repeat;
+    background-size: contain;
+    transform: translate(-5px, 0);
+}
+ui-lighttip[type="error"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath fill='%23FFF' d='M116.153 99.999l36.484-36.486a7.369 7.369 0 0 0 0-10.423l-5.212-5.213a7.375 7.375 0 0 0-10.425 0l-36.484 36.485-36.485-36.485a7.374 7.374 0 0 0-10.424 0l-5.211 5.213a7.365 7.365 0 0 0 0 10.423L84.88 99.999l-36.483 36.485a7.369 7.369 0 0 0 0 10.426l5.211 5.213a7.38 7.38 0 0 0 10.424 0l36.485-36.486L137 152.122a7.38 7.38 0 0 0 10.425 0l5.212-5.213a7.372 7.372 0 0 0 0-10.426l-36.484-36.484z'/%3E%3C/svg%3E");
+}
+ui-lighttip[type="warning"]::before {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNDgiIGhlaWdodD0iNDgiPjxwYXRoIGQ9Ik00MTMgMTc4YzUuNSAwIDEwLjEgNC42IDEwLjEgMTAuMVY0MTNjMCA1LjUtNC42IDEwLjEtMTAuMSAxMC4xSDE4OC4xYy01LjUgMC0xMC4xLTQuNi0xMC4xLTEwLjFWMTg4LjFjMC01LjUgNC42LTEwLjEgMTAuMS0xMC4xSDQxM20wLTUwSDE4OC4xYy0zMy4xIDAtNjAuMSAyNy02MC4xIDYwLjFWNDEzYzAgMzMuMSAyNyA2MC4xIDYwLjEgNjAuMUg0MTNjMzMuMSAwIDYwLjEtMjcgNjAuMS02MC4xVjE4OC4xYzAtMzMuMS0yNy02MC4xLTYwLjEtNjAuMXptNDIzLjEgMzQ1LjFINjExLjJjLTMzLjEgMC02MC4xLTI3LTYwLjEtNjAuMVYxODguMWMwLTMzLjEgMjctNjAuMSA2MC4xLTYwLjFoMjI0LjljMzMuMSAwIDYwLjEgMjcgNjAuMSA2MC4xVjQxM2MwIDMzLTI3LjEgNjAuMS02MC4xIDYwLjF6TTQxMyA2MDEuM2M1LjUgMCAxMC4xIDQuNiAxMC4xIDEwLjF2MjI0LjljMCA1LjUtNC42IDEwLjEtMTAuMSAxMC4xSDE4OC4xYy01LjUgMC0xMC4xLTQuNi0xMC4xLTEwLjFWNjExLjRjMC01LjUgNC42LTEwLjEgMTAuMS0xMC4xSDQxM20wLTUwSDE4OC4xYy0zMy4xIDAtNjAuMSAyNy02MC4xIDYwLjF2MjI0LjljMCAzMy4xIDI3IDYwLjEgNjAuMSA2MC4xSDQxM2MzMy4xIDAgNjAuMS0yNyA2MC4xLTYwLjFWNjExLjRjMC0zMy0yNy02MC4xLTYwLjEtNjAuMXptNDIzLjEgNTBjNS41IDAgMTAuMSA0LjYgMTAuMSAxMC4xdjIyNC45YzAgNS41LTQuNiAxMC4xLTEwLjEgMTAuMUg2MTEuMmMtNS41IDAtMTAuMS00LjYtMTAuMS0xMC4xVjYxMS40YzAtNS41IDQuNi0xMC4xIDEwLjEtMTAuMWgyMjQuOW0wLTUwSDYxMS4yYy0zMy4xIDAtNjAuMSAyNy02MC4xIDYwLjF2MjI0LjljMCAzMy4xIDI3IDYwLjEgNjAuMSA2MC4xaDIyNC45YzMzLjEgMCA2MC4xLTI3IDYwLjEtNjAuMVY2MTEuNGMwLTMzLTI3LjEtNjAuMS02MC4xLTYwLjF6IiBmaWxsPSIjZmZmIi8+PC9zdmc+");
+}
+
+/* 移动端居中呈现  */
+@media (max-width: 640px) {
+    ui-lighttip {
+        width: auto;
+        padding-left: 1rem; padding-right: 1rem;
+        max-width: calc(100% - 2rem - 2em);
+    }
+}
+
+/* 全局loading */
+ui-lighttip[type="loading"] {
+    top: 50%;
+    left: 50%;
+    width: auto;
+    padding-right: calc(10px + .5em);
+    max-width: calc(100% - 2rem - 2em);
+    transform: translate(-50%, -50%);
+    border-radius: var(--ui-radius, 4px);
+    background-color: rgba(25, 28, 34, 0.88);
+    visibility: hidden;
+    opacity: 0;
+}
+ui-lighttip[type="loading"][open]::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 .5em;
+    background: var(--ui-loading-lighttip) no-repeat center / 100%;
+    animation: spin 1s linear infinite;
+    filter: brightness(100);
+}
+ui-lighttip[type="loading"][open]{
+    visibility: visible;
+    opacity: 1;
+}
+ui-lighttip[type="loading"]::before{
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ui-lighttip {
+        animation: none;
+    }
 }

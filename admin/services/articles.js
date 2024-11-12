@@ -184,8 +184,10 @@ class ArticlesService {
     article.thumbnail_image = '';
     if(article.thumbnail_id){
       sql = `SELECT file_path FROM tb_asset WHERE id=:id`;
-      [rows] = await dbUtil.execute(sql, {id:article.thumbnail_id});
-      article.thumbnail_image = config.imagePath + "/uploads/images/" + rows[0].file_path;
+      let res = await dbUtil.findOne('tb_asset', {where:{id:article.thumbnail_id}});
+      article.thumbnail_image = res ? config.imagePath + "/uploads/images/" + res.file_path : '';
+      // [rows] = await dbUtil.execute(sql, {id:article.thumbnail_id});
+      // article.thumbnail_image = config.imagePath + "/uploads/images/" + rows[0].file_path;
     }
 
     const articlesMetaDao = new Dao('tb_article_meta');
