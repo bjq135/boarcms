@@ -38,10 +38,10 @@ tinymce.init({
         { title: 'Header 5', format: 'h5' },
         // { title: 'Preformatted', format: 'pre' }
         {
-          title: 'pre pre', 
+          title: '代码', 
           block: 'pre',
           classes: [ 'language-javascript' ],
-          attributes:{contenteditable:"false", "data-mce-highlighted":"true"}
+          attributes:{contenteditable:"true", "data-mce-highlighted":"true"}
         }
     ],
 

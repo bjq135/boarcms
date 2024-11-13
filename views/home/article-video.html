@@ -123,16 +123,6 @@
 
     <%- include('footer.html')%>
 
-    <link rel="stylesheet" href="<%=siteUrl%>/assets/home/highlight/styles/stackoverflow-light.min.css">
-    <script src="<%=siteUrl%>/assets/home/highlight/highlight.min.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        document.querySelectorAll('pre').forEach((el) => {
-            hljs.highlightElement(el);
-        });
-    });
-    </script>
-
     <link rel="stylesheet" href="<%=siteUrl%>/assets/home/lib/videojs/videojs.css">
     <script src="/assets/home/lib/videojs/videojs.min.js"></script>
     <script type="text/javascript">

@@ -827,15 +827,6 @@ body.dark-mode .user-card {
   max-width: 100%;
   margin: 5px 0px;
 }
-.article-content pre {
-  line-height: 18px;
-  font-size: 13px !important;
-  background-color: #f0f0f0;
-  border-color: #f0f0f0;
-  padding: 12px;
-  margin: 5px 0;
-  border-radius: var(--vt-border-radius);
-}
 .article-content p {
   margin-top: 20px;
   overflow: hidden;
@@ -984,23 +975,43 @@ body.dark-mode .user-card {
 }
 
 pre {
-  line-height: 18px;
+  /* line-height: 18px; */
   border-radius: 3px;
-  padding: 9.5px !important;
-  margin-top: 3px;
+  /* padding: 9.5px !important; */
+  /* margin-top: 3px; */
   font-size: 13px !important;
-  background-color: #f0f0f0 !important;
-  background-image: url(../images/pixels.png) !important;
-  background-repeat: no-repeat !important;
-  background-position: top right !important;
-  border-color: #f0f0f0 !important;
-  text-wrap: wrap;
+  /* background-color: #f0f0f0 !important; */
+  /* background-image: url(../images/pixels.png) !important; */
+  /* background-repeat: no-repeat !important; */
+  /* background-position: top right !important; */
+  /* border-color: #f0f0f0 !important; */
+  /* text-wrap: wrap; */
+  /* text-shadow: 0 0 #fff !important; */
 }
 
+/* .article-content pre {
+  line-height: 18px;
+  font-size: 13px !important;
+  background-color: #f0f0f0;
+  border-color: #f0f0f0;
+  padding: 12px;
+  margin: 5px 0;
+  border-radius: var(--vt-border-radius);
+}
+ */
 .dark-mode pre {
   color: #b9b9b9;
   background-color: #333 !important;
 }
+code[class*=language-], 
+pre[class*=language-]{
+  text-shadow: none !important;
+  color: var(--vt-text-color) !important;
+  background-color: var(--vt-bg-color-grey) !important;
+}
+
+
+
 
 /**
  * 文章上一篇和下一篇导航

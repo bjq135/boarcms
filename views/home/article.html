@@ -54,7 +54,7 @@
                 </div>
                 
 
-                <div class="article-content">
+                <div class="article-content line-numbers">
                     <% if(doc){ %>
                         <a class="doc-widget" href="/docs/<%- doc.path %>" target="_blank">
                             <img src="<%- doc.thumbnail %>">
@@ -115,24 +115,8 @@
 
     <%- include('footer.html')%>
 
-    <link rel="stylesheet" href="<%=siteUrl%>/assets/home/highlight/styles/stackoverflow-light.min.css">
-    <script src="<%=siteUrl%>/assets/home/highlight/highlight.min.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        document.querySelectorAll('pre').forEach((el) => {
-            hljs.highlightElement(el);
-        });
-    });
-    </script>
-    
-    <script>
-    var btn = document.querySelector('.doc-index-button');
-    if(btn){
-        btn.addEventListener('click', function(e){
-            document.querySelector('.menu-widget').classList.toggle('show');
-        });
-    }
-    </script>
+    <link rel="stylesheet" type="text/css" href="<%=siteUrl%>/assets/home/lib/prism/prism.css">
+    <script type="text/javascript" src="<%=siteUrl%>/assets/home/lib/prism/prism.js"></script>
 
 </body>
 
