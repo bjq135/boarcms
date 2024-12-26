@@ -14,7 +14,7 @@ async function show(req, res) {
 
   let categoryId = req.params.id ? parseInt(req.params.id) : 0;
   let page = req.query.page ? parseInt(req.query.page) : 1; // 页码
-  let perPage = 18; // 每页条数
+  let perPage = 20; // 每页条数
 
   const articlesService = new ArticlesService();
   const categoriesService = new CategoriesService();

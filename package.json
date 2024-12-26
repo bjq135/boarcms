@@ -1,18 +1,18 @@
 {
   "name": "boarcms",
-  "version": "2.4.1",
+  "version": "2.6.0",
   "description": "README",
   "main": "main",
   "scripts": {
     "serve": "pm2 start --env-file .env main.js",
     "dev": "node --watch --env-file .env --watch-path=./ main.js",
-    "merge":"node --watch ./public/assets/merge.js",
+    "merge": "node --watch ./public/assets/merge.js",
     "rollup": "rollup ./public/assets/home/js/src/index.js --file ./public/assets/home/js/index.js --format iife --watch",
     "rollup:admin": "rollup ./public/assets/admin/js/src/index.js --file ./public/assets/admin/js/index.js --format iife --watch",
     "docs": "vitepress dev docs --port 5000",
     "docs:build": "vitepress build docs --base /docs/boarcms/"
   },
-  "author": "",
+  "author": "bjq135",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -23,7 +23,7 @@
     "ejs": "^3.1.9",
     "express": "^5.0.0",
     "express-winston": "^4.2.0",
-    "fov": "^1.1.1",
+    "hot-validator": "^1.1.1",
     "i18n": "^0.15.1",
     "jimp": "^0.22.12",
     "jsonwebtoken": "^9.0.2",

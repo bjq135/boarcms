@@ -1714,7 +1714,7 @@ pre[class*=language-]{
 
 .images-item .item-info a.title {
   display: block;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 20px;
   overflow: hidden;
@@ -1728,7 +1728,7 @@ pre[class*=language-]{
   color: #666;
   max-height: 40px;
   line-height: 20px;
-  display: -webkit-box;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
@@ -1777,8 +1777,8 @@ pre[class*=language-]{
   }
   .category.images-list .images-item {
     width: auto;
-    max-width: calc(33.33% - 20px);
-    flex: 0 0 calc(33.33% - 20px);
+    max-width: calc(25% - 20px);
+    flex: 0 0 calc(25% - 20px);
     margin: 0 20px 30px 0;
   }
 }

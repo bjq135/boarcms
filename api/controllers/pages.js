@@ -1,5 +1,5 @@
 const i18n = require('i18n');
-const Validator = require('fov');
+const Validator = require('hot-validator');
 
 const dbUtil = require("../../utils/db.js");
 const commonUtil = require("../../utils/common.js");
