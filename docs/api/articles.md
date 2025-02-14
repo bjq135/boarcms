@@ -247,3 +247,52 @@ action 是 `is_show=true` 时，批量显示 ID 在 ids 的所有文章，`is_sh
   "message": "修改成功"
 }
 ```
+
+
+## 查看一篇文章
+
+**Method** : `GET`
+
+**URL** : `/v1/articles/:id`
+
+**Auth required** : `false`
+
+### Success Response
+
+**Code** : `200 Ok`
+
+**Content example** :
+
+```json
+{
+  "id": 1095,
+  "user_id": 1,
+  "title": "JavaScript history对象",
+  "thumbnail_id": null,
+  "content": "JavaScript的history对象是window对象的一部分...",
+  "description": "",
+  "more": null,
+  "created_at": "2024-05-27T02:06:52.000Z",
+  "updated_at": null,
+  "deleted_at": null,
+  "status": 0,
+  "url": "",
+  "hit_counter": 204,
+  "list_order": 99,
+  "is_show": 1,
+  "user": {
+    "id": 1,
+    "nickname": "野猪佩奇",
+    "avatar": "251"
+  },
+  "categories":"12,15",
+  "all_categories":[
+    {"id":12,"title":"分类12"},
+    {"id":15,"title":"分类15"},
+    {"id":17,"title":"分类17"}
+  ]
+}
+```
+
+
+

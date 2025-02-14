@@ -157,11 +157,21 @@ async function destroy(req, res) {
 
 
 async function show(req, res){
+  let sql = '';
   let articleID = req.params.id;
 
   const articlesService = new ArticlesService();
   const article = await articlesService.getArticleById(articleID);
   if(!article) res.status(404).json();
+
+  sql = "SELECT id,title FROM tb_category";
+  const [allCategories] = await dbUtil.execute(sql);
+  article.all_categories = allCategories;
+
+  sql = "SELECT category_id FROM tb_article_to_category WHERE article_id = :id";
+  const [rows] = await dbUtil.execute(sql, {'id':articleID});
+  let categories = rows.map(row => row.category_id);
+  article.categories = categories;
 
   res.json(article);
 }

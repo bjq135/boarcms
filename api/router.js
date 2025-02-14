@@ -3,8 +3,8 @@ const multer = require('multer');
 const express = require("express");
 const router = express.Router();
 
-const cors = require('cors');
-router.use(cors());
+const cors = require('../middlewares/cors.js');
+router.use(cors);
 
 const auth = require('../middlewares/auth.js');
 router.use(auth.authInit);
