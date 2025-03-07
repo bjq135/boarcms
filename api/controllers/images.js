@@ -37,6 +37,19 @@ async function index(req, res) {
 }
 
 
+async function show(req, res){
+  var imageId = req.params.id; 
+  const image = await dbUtil.findOne('tb_asset', imageId);
+  if (!image) {
+    res.status(404).json({});
+    return;
+  }
+
+  image.url = commonUtil.getImageUrl(image.file_path);
+  res.json(image);
+}
+
+
 async function destroy(req, res) {
   var imageId = req.params.id;
   
@@ -74,5 +87,6 @@ async function destroy(req, res) {
 
 module.exports = {
   index,
+  show,
   destroy
 };

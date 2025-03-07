@@ -31,12 +31,15 @@ app.use(bodyParser.json());
 const responseTime = require('response-time');
 app.use(responseTime());
 
+const cors = require('./middlewares/cors.js');
+app.use(cors);
+
 // 静态目录
 app.use(express.static('public'));
 
 // 模板引擎
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, './views') );
+app.set('views', path.join(__dirname, './home/views') );
 app.engine('.html', require('ejs').__express);
 
 // i18n 国际化
@@ -46,8 +49,6 @@ i18n(app);
 // 路由
 const homeRouter = require('./home/router');
 app.use(homeRouter);
-const adminRouter = require('./admin/router');
-app.use(adminRouter);
 const router = require('./api/router');
 app.use(router);
 

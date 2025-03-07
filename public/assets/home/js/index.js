@@ -79,7 +79,7 @@
   function setCookie(c_name, value, expiredays) {
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + expiredays);
-    var cookieStr = c_name + "=" + escape(value) + ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString());
+    var cookieStr = c_name + "=" + escape(value) + ("" );
     cookieStr += "; path=/";
     document.cookie = cookieStr;
   }

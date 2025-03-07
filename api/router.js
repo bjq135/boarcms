@@ -3,8 +3,8 @@ const multer = require('multer');
 const express = require("express");
 const router = express.Router();
 
-const cors = require('../middlewares/cors.js');
-router.use(cors);
+// const cors = require('../middlewares/cors.js');
+// router.use(cors);
 
 const auth = require('../middlewares/auth.js');
 router.use(auth.authInit);
@@ -61,6 +61,7 @@ router.post(`/v1/upload`, auth.check, multer().single('file'), uploadController.
 
 
 router.get(`/v1/images`, auth.check, imagesController.index);
+router.get(`/v1/images/:id`, auth.check, imagesController.show);
 router.delete(`/v1/images/:id`, auth.check, imagesController.destroy);
 
 // router.all('/api/(.*)', function (req, res){
